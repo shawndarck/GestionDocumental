@@ -10,6 +10,9 @@ urlpatterns = [
     # path('', views.login, name='login'),
     path('register/', views.register, name='register'),
     path('planear/', views.planear, name="planear"),
+    path('hacer/', views.hacer, name="hacer"),
+    path('verificar/', views.verificar, name="verificar"),
+    path('actuar/', views.actuar, name="actuar"),
     path('', auth_view.LoginView.as_view(template_name='usuarios/login.html'), name="login"),
     path('logout/', auth_view.LogoutView.as_view(template_name='usuarios/logout.html'), name="logout"),
 ]

@@ -8,8 +8,22 @@ from django.contrib.auth.decorators import login_required
 def login(request):
     return render(request, 'usuarios/login.html')
 
+
 def planear(request):
     return render(request, 'usuarios/planear.html')
+
+
+def hacer(request):
+    return render(request, 'usuarios/hacer.html')
+
+
+def verificar(request):
+    return render(request, 'usuarios/verificar.html')
+
+
+def actuar(request):
+    return render(request, 'usuarios/actuar.html')
+
 
 def register(request):
     if request.method == "POST":
