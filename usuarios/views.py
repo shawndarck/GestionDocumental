@@ -3,14 +3,28 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import UserRegisterForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.views import generic
+from ciclo_phva.models import ItemEstandar
 
 
 def login(request):
     return render(request, 'usuarios/login.html')
 
 
-def planear(request):
-    return render(request, 'usuarios/planear.html')
+class Planear(generic.ListView):
+    item = ItemEstandar
+    context_object_name = 'item_estandar'
+    template_name = 'usuarios/planear.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        context = super(Planear, self).get_context_data(**kwargs)
+        context['item_estandar1'] = ItemEstandar.objects.filter(fk_sub_estandar = 1)
+        # Add any other variables to the context here
+        context['item_estandar2'] = ItemEstandar.objects.filter(fk_sub_estandar = 2)
+        return context
 
 
 def hacer(request):

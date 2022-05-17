@@ -19,6 +19,7 @@
 
 <body>
     {% load static %}
+    {% block content %}
     <div class="d-flex" id="wrapper">
         <div class="bg-dark" id="sidebar-wrapper">
             <div class="list-group list-group-flush">
@@ -100,17 +101,18 @@
                                 </tr>
                               </thead>
                               <tbody>
+                                
+                                {% for item in item_estandar1 %}
                                 <tr>
                                     <th scope="row">
-                                      <p>Recursos financieros</p>
+                                      <p>{{ item.descripcion }}</p>
                                     </th>
                                     <td>
-                                      <a class="btn btn-warning text-dark" >Cargar evidencias</a>
+                                      <a class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#subirArchivo" >Cargar evidencias</a>
                                     </td>
                                     <td>
-                                      <a class="btn btn-primary" >Ver evidencias</a>
+                                      <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ver">Ver evidencias</a>
                                     </td>
-                                    <form>
                                     <td>
                                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                                     </td>
@@ -120,28 +122,9 @@
                                     <td>
                                       <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
                                     </td>
-                                    </form>
                                   </tr>
-                                  <tr>
-                                    <th scope="row">
-                                      <p>Responsable del sistema</p>
-                                    </th>
-                                    <td>
-                                      <a class="btn btn-warning text-dark" >Cargar evidencias</a>
-                                    </td>
-                                    <td>
-                                      <a class="btn btn-primary" >Ver evidencias</a>
-                                    </td>
-                                    <td>
-                                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    </td>
-                                    <td>
-                                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    </td>
-                                    <td>
-                                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                    </td>
-                                  </tr>
+                                {% endfor %}
+                                  
                               </tbody>
                               <thead class="thead-dark">
                                 <tr>
@@ -155,46 +138,28 @@
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr>
-                                  <th scope="row">
-                                    <p>Política SST</p>
-                                  </th>
-                                  <td>
-                                    <a class="btn btn-warning text-dark" >Cargar evidencias</a>
-                                  </td>
-                                  <td>
-                                    <a class="btn btn-primary" >Ver evidencias</a>
-                                  </td>
-                                  <td>
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                  </td>
-                                  <td>
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                  </td>
-                                  <td>
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                  </td>
-                                </tr>
+                                {% for item in item_estandar2 %}
                                 <tr>
                                     <th scope="row">
-                                      <p>Política del Seguridad</p>
+                                      <p>{{ item.descripcion }}</p>
                                     </th>
                                     <td>
-                                      <a class="btn btn-warning text-dark" >Cargar evidencias</a>
+                                      <a class="btn btn-warning text-dark" data-bs-toggle="modal" data-bs-target="#subirArchivo" >Cargar evidencias</a>
                                     </td>
                                     <td>
-                                      <a class="btn btn-primary" >Ver evidencias</a>
+                                      <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ver" >Ver evidencias</a>
                                     </td>
                                     <td>
-                                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                                     </td>
                                     <td>
-                                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
                                     </td>
                                     <td>
-                                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                      <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
                                     </td>
                                   </tr>
+                                {% endfor %}
                               </tbody>
                           </table>
                           
@@ -219,13 +184,96 @@
         </div>
 
 
+<!-- Modal -->
+<div class="modal fade" id="subirArchivo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Subir archivo</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+
+        <div class="card">
+          <div class="card-header">
+            Previsualización de archivos subidos
+          </div>
+          <div class="card-body">
+
+            <div class="container">
+              <div class="row">
+                  <div class="col text-center">
+                    <p class="card-title">archivejemplo1.pdf <b class="text-danger">Eliminar</b></p>
+                    <p class="card-title">archivoejemplo2.pdf <b class="text-danger">Eliminar</b></p>
+                    <p class="card-title">archivoejemplo3.pdf <b class="text-danger">Eliminar</b></p>
+                  </div>
+                </div>
+              </div>
+            <br/>
+            <div class="d-grid gap-2 col-6 mx-auto">
+              <button class="btn btn-warning" type="button">Subir archivo</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary">Confirmar subida de archivos</button>
+      </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
-        crossorigin="anonymous"></script>
+  </div>
+</div>
+
+
+<div class="modal fade" id="ver" tabindex="-1" aria-labelledby="ver" aria-hidden="true">
+  <div class="modal-dialog" style="max-width: 60rem;">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Consultar evidencias</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+              </button>
+          </div>
+              <div class="modal-body" >
+                  <div class="row">                                
+                          <div class="col-lg-6">
+                              <div class="card text-dark m-2 shadow-lg">
+                                  <div class="card-header border-0">
+                                      
+                                  </div>
+                                  <div class="card-header border-0">
+                                      <h5 class="card-title">Nombre del recurso</h5>
+                                      <button class="btn btn-primary">Descargar evidencias</button>
+                                      <button class="btn btn-warning">Editar evidencias</button>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-lg-6">
+                            <div class="card text-dark m-2 shadow-lg">
+                                <div class="card-header border-0">
+                                </div>
+                                <div class="card-header border-0">
+                                  <h5 class="card-title">Nombre del recurso</h5>
+                                  <button class="btn btn-primary">Descargar evidencias</button>
+                                  <button class="btn btn-warning">Editar evidencias</button>
+                              </div>
+                            </div>
+                        </div>
+                  </div>
+              </div>
+          </h:form>
+      </div>
+  </div>
+
+
+</div>
+
+
+
+    </div>
+    {% endblock %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
 
 
