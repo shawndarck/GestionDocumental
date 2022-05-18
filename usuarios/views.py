@@ -1,14 +1,48 @@
+from django.forms import ValidationError
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from .forms import UserRegisterForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.views import generic
-from ciclo_phva.models import ItemEstandar
+from ciclo_phva.models import ItemEstandar, Evidencia
+from django.conf import settings
 
 
-def login(request):
-    return render(request, 'usuarios/login.html')
+CONTENT_TYPES = ['pdf','png']
+# 2.5MB - 2621440
+# 5MB - 5242880
+# 10MB - 10485760
+# 20MB - 20971520
+# 50MB - 5242880
+# 100MB 104857600
+# 250MB - 214958080
+# 500MB - 429916160
+MAX_UPLOAD_SIZE = "2621440"
+
+def index(request):
+    if request.method == "POST":
+        # Obtención de los datos del formulario
+        fileTitle = request.POST["fileTitle"]
+        uploadedFile = request.FILES["uploadedFile"]
+
+        content_type = uploadedFile.content_type.split('/')[1]
+        if content_type in CONTENT_TYPES:
+            if uploadedFile.size > int(MAX_UPLOAD_SIZE):
+                raise ValidationError('El archivo supera los dos 2,5 MB Intenta nuevamente')
+        else:
+            raise ValidationError('Formato de archivo no válido')
+        
+        # Guarda la información en la base de datos
+        document = Evidencia(
+            nombre_evidencia = fileTitle,
+            nombre_formato = fileTitle,
+            formato = uploadedFile
+        )
+        document.save()
+
+    documents = Evidencia.objects.all()
+    return render(request, "usuarios/index.html", context = {"files": documents})
 
 
 class Planear(generic.ListView):

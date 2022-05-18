@@ -1,9 +1,12 @@
 from django.db import models
 from usuarios.models import Usuario
+from django.core.validators import FileExtensionValidator
 
 
 class Evidencia(models.Model):
     nombre_evidencia = models.CharField(max_length=45)
+    nombre_formato = models.CharField(max_length=200, null=True)
+    formato = models.FileField(upload_to = "pdf/", validators=[FileExtensionValidator(['pdf'])])
     permisos_usuarios = models.ManyToManyField(Usuario)
 
     class Meta:
@@ -66,8 +69,9 @@ class Estandar(models.Model):
 
 class ItemEstandar(models.Model):
     descripcion = models.CharField(max_length=45)
-    estado = models.SmallIntegerField(max_length=4, null=True)
-    formato = models.CharField(max_length=200, null=True)
+    estado = models.SmallIntegerField(null=True)
+    nombre_formato = models.CharField(max_length=200, null=True)
+    formato = models.FileField(upload_to = "pdf/")
     fk_sub_estandar = models.ForeignKey(Estandar, null=True, on_delete=models.CASCADE)
     evidencias = models.ManyToManyField(Evidencia)
     permisos_usuarios = models.ManyToManyField(Usuario)
