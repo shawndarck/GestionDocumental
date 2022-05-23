@@ -52,6 +52,26 @@ class Estandar(models.Model):
         return self.descripcion
 
 
+class SubEstandar(models.Model):
+    descripcion = models.CharField(max_length=200)
+    porcentaje_maximo = models.FloatField(max_length=45)
+    porcentaje_obtenido = models.FloatField(max_length=45)
+    calificacion_maxima = models.FloatField(max_length=45)
+    calificacion_obtenida = models.FloatField(max_length=45)
+    fk_estandar = models.ForeignKey(Estandar, null=True, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return self.descripcion
+
+    class Meta:
+        verbose_name='SubEstandar'
+        verbose_name_plural='SubEstandars'
+        db_table='sub_estandar'
+
+    def __str__(self) -> str:
+        return self.descripcion
+
+
 class ItemEstandar(models.Model):
     descripcion = models.CharField(max_length=200)
     estado = models.SmallIntegerField(null=True)
