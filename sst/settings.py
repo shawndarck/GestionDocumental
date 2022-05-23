@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'usuarios',
     'ciclo_phva',
     'crispy_forms',
+    'bootstrap_modal_forms',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
@@ -60,7 +62,7 @@ ROOT_URLCONF = 'sst.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [os.path.join(BASE_DIR, "templates")],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -128,7 +130,7 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 #Me muestra los archivos estaticos en el template raíz
-STATICFILES_DIRS = (BASE_DIR,'static')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 #Ruta de guardado de archivos
 MEDIA_URL='/media/'

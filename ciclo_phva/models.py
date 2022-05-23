@@ -3,23 +3,8 @@ from usuarios.models import Usuario
 from django.core.validators import FileExtensionValidator
 
 
-class Evidencia(models.Model):
-    nombre_evidencia = models.CharField(max_length=45)
-    nombre_formato = models.CharField(max_length=200, null=True)
-    formato = models.FileField(upload_to = "pdf/", validators=[FileExtensionValidator(['pdf'])])
-    permisos_usuarios = models.ManyToManyField(Usuario)
-
-    class Meta:
-        verbose_name='Evidencia'
-        verbose_name_plural='Evidencias'
-        db_table='evidencia'
-
-    def __str__(self) -> str:
-        return self.nombre_evidencia
-
-
 class RegistroAnual(models.Model):
-    descripcion = models.CharField(max_length=45)
+    descripcion = models.CharField(max_length=65)
 
     class Meta:
         verbose_name='RegistroAnual'
@@ -31,7 +16,7 @@ class RegistroAnual(models.Model):
 
 
 class Ciclo(models.Model):
-    descripcion = models.CharField(max_length=45)
+    descripcion = models.CharField(max_length=100)
     porcentaje_maximo = models.FloatField(max_length=45)
     porcentaje_obtenido = models.FloatField(max_length=45)
     calificacion_maxima = models.FloatField(max_length=45)
@@ -48,7 +33,7 @@ class Ciclo(models.Model):
 
 
 class Estandar(models.Model):
-    descripcion = models.CharField(max_length=45)
+    descripcion = models.CharField(max_length=200)
     porcentaje_maximo = models.FloatField(max_length=45)
     porcentaje_obtenido = models.FloatField(max_length=45)
     calificacion_maxima = models.FloatField(max_length=45)
@@ -68,12 +53,11 @@ class Estandar(models.Model):
 
 
 class ItemEstandar(models.Model):
-    descripcion = models.CharField(max_length=45)
+    descripcion = models.CharField(max_length=200)
     estado = models.SmallIntegerField(null=True)
     nombre_formato = models.CharField(max_length=200, null=True)
     formato = models.FileField(upload_to = "pdf/")
     fk_sub_estandar = models.ForeignKey(Estandar, null=True, on_delete=models.CASCADE)
-    evidencias = models.ManyToManyField(Evidencia)
     permisos_usuarios = models.ManyToManyField(Usuario)
 
     class Meta:
@@ -83,3 +67,18 @@ class ItemEstandar(models.Model):
 
     def __str__(self) -> str:
         return self.descripcion
+
+
+class Evidencia(models.Model):
+    nombre_evidencia = models.CharField(max_length=200)
+    formato = models.FileField(upload_to = "pdf/", validators=[FileExtensionValidator(['png', 'pdf'])])
+    fk_item_estandar = models.ForeignKey(ItemEstandar, null=True, on_delete=models.CASCADE)
+    permisos_usuarios = models.ManyToManyField(Usuario)
+
+    class Meta:
+        verbose_name='Evidencia'
+        verbose_name_plural='Evidencias'
+        db_table='evidencia'
+
+    def __str__(self) -> str:
+        return self.nombre_evidencia
