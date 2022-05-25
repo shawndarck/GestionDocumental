@@ -3,6 +3,19 @@ from usuarios.models import Usuario
 from django.core.validators import FileExtensionValidator
 
 
+class Formato(models.Model):
+    descripcion = models.CharField(max_length=300)
+    formato_nombre = models.FileField(upload_to = "formatos/", validators=[FileExtensionValidator(['png', 'pdf'])])
+
+    class Meta:
+        verbose_name='Formato'
+        verbose_name_plural='Formatos'
+        db_table='formato'
+
+    def __str__(self) -> str:
+        return self.descripcion
+
+
 class RegistroAnual(models.Model):
     descripcion = models.CharField(max_length=65)
 
