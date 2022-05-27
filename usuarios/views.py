@@ -1,24 +1,28 @@
 from ast import For
+from decimal import Subnormal
 from django.forms import ValidationError
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.forms import UserCreationForm
-from .forms import UserRegisterForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login as dj_login
 from django.urls import reverse_lazy
 from django.views import generic
+from django.views.generic.edit import DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.conf import settings
 from ciclo_phva.models import (
     ItemEstandar,
     Evidencia,
-    Formato
+    Formato,
+    SubEstandar,
+    Estandar,
+    Ciclo
 )
-from django.conf import settings
+from .forms import UserRegisterForm
 from bootstrap_modal_forms.generic import BSModalCreateView
-from django.views.generic.edit import DeleteView
-from django.contrib.auth.mixins import LoginRequiredMixin
 from bootstrap_modal_forms.generic import (
     BSModalLoginView,
     BSModalFormView,
@@ -30,7 +34,8 @@ from bootstrap_modal_forms.generic import (
 
 from .forms import (
     EvidenciaModelForm,
-    FormatoModelForm
+    FormatoModelForm,
+    EstadoItemForm
 )
 
 CONTENT_TYPES = ['pdf','png']
@@ -85,6 +90,34 @@ class Planear(generic.ListView, LoginRequiredMixin):
 
     def get_context_data(self, **kwargs):
         context = super(Planear, self).get_context_data(**kwargs)
+        lista_items = ItemEstandar.objects.filter(fk_sub_estandar=1)
+        sub_estandar = SubEstandar.objects.get(id=1)
+        lista_sub_estandar = SubEstandar.objects.filter(fk_estandar_id=1)
+        estandar = Estandar.objects.get(id=1)
+        lista_estandares = Estandar.objects.filter(fk_ciclo_id=1)
+        ciclo = Ciclo.objects.get(id=1)
+        acumulador:(int) = 0 
+        #Terminar el otro sub estandar (lista y for)
+        for i in lista_items:
+            acumulador += i.puntaje_obtenido
+        sub_estandar.calificacion_obtenida = acumulador
+        sub_estandar.save(update_fields=['calificacion_obtenida'])
+        acumulador = 0
+
+        for i in lista_sub_estandar:
+            acumulador += i.calificacion_obtenida
+        estandar.calificacion_obtenida = acumulador
+        estandar.save(update_fields=['calificacion_obtenida'])
+        acumulador = 0
+
+        for i in lista_estandares:
+            acumulador += i.calificacion_obtenida
+        ciclo.calificacion_obtenida = acumulador
+        ciclo.save(update_fields=['calificacion_obtenida'])
+        acumulador = 0
+        context['ciclo'] = Ciclo.objects.get(id = 1)
+        context['estandar'] = Estandar.objects.get(id = 1)
+        context['sub_estandar'] = SubEstandar.objects.get(id = 1)
         context['item_estandar1'] = ItemEstandar.objects.filter(fk_sub_estandar = 1)
         # Add any other variables to the context here
         context['item_estandar2'] = ItemEstandar.objects.filter(fk_sub_estandar = 2)
@@ -148,6 +181,29 @@ class FormatoDeleteView(BSModalDeleteView):
     success_url = "/formatos_admin/"
 
 
+class ItemEstadoUpdateView(BSModalUpdateView):
+    model = ItemEstandar
+    template_name = 'usuarios/cambiar_estado_item.html'
+    form_class = EstadoItemForm
+    success_message = 'Success: Book was updated.'
+    success_url = "/planear/"
+
+    def form_valid(self, form, **kwargs):
+        self.object = self.get_object()
+        item = ItemEstandar.objects.get(id=self.object.pk) # Obtener pk de la url con self.object.pk y self.get_object()
+        puntaje_maximo = item.puntaje_maximo
+        # Acceder al id de la fk con .id
+        estado = item.fk_estado.id
+        if form.instance.fk_estado.id == 1:
+            item.puntaje_obtenido = puntaje_maximo
+            item.save(update_fields=['puntaje_obtenido'])
+        elif form.instance.fk_estado.id == 2 or form.instance.fk_estado.id == 3:
+            item.puntaje_obtenido = 0
+            item.save(update_fields=['puntaje_obtenido'])
+        item.fk_estado = form.instance.fk_estado
+        item.save(update_fields=['fk_estado_id'])
+        return HttpResponseRedirect(self.get_success_url())
+
 def hacer(request):
     return render(request, 'usuarios/hacer.html')
 
@@ -204,7 +260,7 @@ def login(request):
 def calificar_planear(request):
     item_estandar = request.GET.get('cumple', None)
     response = {
-        'respuesta': ItemEstandar.objects.filter(estado=item_estandar).exists()
+        'respuesta': ItemEstandar.objects.filter(puntaje=item_estandar).exists()
     }
     return JsonResponse(response)
 

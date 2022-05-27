@@ -82,9 +82,9 @@
                     <div class="col">
                       <div class="card bg-default shadow">
                         <div class="card-header bg-transparent border-0">
-                          <h3 class="text-white mb-1 ms-4">Planear (75%)</h3>
+                          <h3 class="text-white mb-1 ms-4">Planear ({{ciclo.calificacion_obtenida}}%)</h3>
                           <div class="progress ms-4 me-4">
-                            <div class="progress-bar bg-primary" placeholder="hola mundo" role="progressbar" style="width: 75%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-primary" placeholder="hola mundo" role="progressbar" style="width: {{ciclo.calificacion_obtenida}}%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
                           </div>
                         </div>
                         <div class="table-responsive">
@@ -92,9 +92,8 @@
 
                               <thead class="">
                                 <tr class="cabezera-estandar">
-                                  <th scope="col"><h6> 1. Recursos (10%) </h6>
+                                  <th scope="col"><h6> 1. Recursos ({{estandar.calificacion_obtenida}}%) </h6>
                                   </th>
-                                  <th scope="col"></th>
                                   <th scope="col"></th>
                                   <th scope="col"></th>
                                   <th scope="col"></th>
@@ -105,13 +104,11 @@
                               <thead class="">
                                 <tr class="cabezera-sub-estandar">
                                   <th scope="col text-dark">Recursos financieros, técnicos humanos y de otra índole requeridos para coordinar y desarrollar el Sistema de Gestion de la Seguridad y Salud en el Trabajo (SG-SST) (4 %)
-                                  </th>
-                                  
+                                  </th>                                  
+                                  <th scope="col">({{ sub_estandar.calificacion_obtenida }})%</th>
                                   <th scope="col"></th>
+                                  <th scope="col">Estado</th>
                                   <th scope="col"></th>
-                                  <th scope="col">Cumple</th>
-                                  <th scope="col">No cumple</th>
-                                  <th scope="col">No aplica</th>
                                 </tr>
                               </thead>
                               
@@ -119,113 +116,9 @@
                                 
                                 {% for item in item_estandar1 %}
                                 <tr>
-                                    <th scope="row">
+                                    <td scope="row">
                                       {{ item.descripcion }}
-                                    </th>
-                                    
-                                    <td>
-                                      <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia' item.pk %}" >Cargar evidencias</a>
                                     </td>
-                                    <td>
-                                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias' item.pk %}" >Ver evidencias</a>
-                                    </td>
-                                    <form action="POST">
-                                    <td>
-                                      
-                                        <label><input type="radio" id='op1' name="op"></label>
-                                      
-                                    </td>
-                                    <td>
-                                      
-                                        <label><input type="radio" id='op2' name="op"></label>
-                                      
-                                    </td>
-                                    <td>
-                                      
-                                        <label><input type="radio" id='op3' name="op"></label>
-                                      
-                                    </td>
-                                    </form>
-                                  </tr>
-                                {% endfor %}
-                                  
-                              </tbody>
-
-                              <thead class="">
-                                <tr class="cabezera-sub-estandar">
-                                  <th scope="col">Capacitación en el Sistema de Gestión de Seguridad y Salud en el Trabajo (6 %)
-                                  </th>
-                                  <th scope="col"></th>
-                                  <th scope="col"></th>
-                                  <th scope="col">Cumple</th>
-                                  <th scope="col">No cumple</th>
-                                  <th scope="col">No aplica</th>
-                                </tr>
-                              </thead>
-                              
-                              <tbody>
-                                {% for item in item_estandar2 %}
-                                <tr>
-                                    <th scope="row">
-                                      <p>{{ item.descripcion }}</p>
-                                    </th>
-                                    <td>
-                                      <a id="evidencia" class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia' item.pk %}" >Cargar evidencia</a>
-                                    </td>
-                                    <td>
-                                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias' item.pk %}" >Ver evidencias</a>
-                                    </td>
-                                    <td>
-                                      <div class="radio">
-                                        <label><input type="radio" id='express' name="optradio"></label>
-                                      </div>
-                                    </td>
-                                    <td>
-                                      <div class="radio">
-                                        <label><input type="radio" id='express' name="optradio"></label>
-                                      </div>
-                                    </td>
-                                    <td>
-                                      <div class="radio">
-                                        <label><input type="radio" id='express' name="optradio"></label>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                {% endfor %}
-                              </tbody>
-
-                              <thead class="">
-                                <tr class="cabezera-estandar">
-                                  <th scope="col">1. Recursos (10%)
-                                  </th>
-                                  <th scope="col"></th>
-                                  <th scope="col"></th>
-                                  <th scope="col"></th>
-                                  <th scope="col"></th>
-                                  <th scope="col"></th>
-                                </tr>
-                              </thead>
-
-                              <thead class="">
-                                <tr class="cabezera-sub-estandar">
-                                  <th scope="col text-dark">Recursos financieros, técnicos humanos y de otra índole requeridos para coordinar y desarrollar el Sistema de Gestion de la Seguridad y Salud en el Trabajo (SG-SST) (4 %)
-                                  </th>
-                                  
-                                  <th scope="col"></th>
-                                  <th scope="col"></th>
-                                  <th scope="col">Cumple</th>
-                                  <th scope="col">No cumple</th>
-                                  <th scope="col">No aplica</th>
-                                </tr>
-                              </thead>
-                              
-                              <tbody>
-                                
-                                {% for item in item_estandar1 %}
-                                <tr>
-                                    <th scope="row">
-                                      <p>{{ item.descripcion }}</p>
-                                    </th>
                                     
                                     <td>
                                       <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia' item.pk %}" >Cargar evidencias</a>
@@ -234,68 +127,16 @@
                                       <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias' item.pk %}" >Ver evidencias</a>
                                     </td>
                                     <td>
-                                      <div class="radio">
-                                        <label><input type="radio" id='express' name="optradio"></label>
-                                      </div>
+                                      <a>{{ item.fk_estado }}</a>
                                     </td>
-                                    <td>
-                                      <div class="radio">
-                                        <label><input type="radio" id='express' name="optradio"></label>
-                                      </div>
-                                    </td>
-                                    <td>
-                                      <div class="radio">
-                                        <label><input type="radio" id='express' name="optradio"></label>
-                                      </div>
+                                    <td>                                      
+                                      <button type="button" class="estado btn btn-sm btn-primary" data-form-url="{% url 'estado_item' item.pk %}">
+                                        Calificar
+                                      </button>                                      
                                     </td>
                                   </tr>
                                 {% endfor %}
                                   
-                              </tbody>
-
-
-                              <thead class="">
-                                <tr class="cabezera-sub-estandar">
-                                  <th scope="col">Capacitación en el Sistema de Gestión de Seguridad y Salud en el Trabajo (6 %)
-                                  </th>
-                                  <th scope="col"></th>
-                                  <th scope="col"></th>
-                                  <th scope="col">Cumple</th>
-                                  <th scope="col">No cumple</th>
-                                  <th scope="col">No aplica</th>
-                                </tr>
-                              </thead>
-
-                              
-                              <tbody>
-                                {% for item in item_estandar2 %}
-                                <tr>
-                                    <th scope="row">
-                                      <p>{{ item.descripcion }}</p>
-                                    </th>
-                                    <td>
-                                      <a id="evidencia" class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia' item.pk %}" >Cargar evidencia</a>
-                                    </td>
-                                    <td>
-                                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias' item.pk %}" >Ver evidencias</a>
-                                    </td>
-                                    <td>
-                                      <div class="radio">
-                                        <label><input type="radio" id='express' name="optradio" ></label>
-                                      </div>
-                                    </td>
-                                    <td>
-                                      <div class="radio">
-                                        <label><input type="radio" id='express' name="optradio"></label>
-                                      </div>
-                                    </td>
-                                    <td>
-                                      <div class="radio">
-                                        <label><input type="radio" id='express' name="optradio"></label>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                {% endfor %}
                               </tbody>
                           </table>
                           
@@ -502,6 +343,14 @@
       }
       leerEvidenciasModalForm();
 
+      // Leer 
+      function estadoModalForm() {
+        $(".estado").each(function () {
+            $(this).modalForm({formURL: $(this).data("form-url")});
+        });
+      }
+      estadoModalForm();
+
       // ajax
       $(document).ready(function () {
         // catch the form's submit event
@@ -513,7 +362,6 @@
                 // on success
                 success: function (response) {
                   console.log('resuelto')
-                  console.log('{{ item.descripcion }}')
                   $("#op2").prop("checked" , false)
                   $("#op3").prop("checked" , false)
                   $("#op1").prop("checked" , true) 

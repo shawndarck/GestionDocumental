@@ -1,17 +1,34 @@
-from django.forms import ValidationError
-from dataclasses import field
+from django.forms import TextInput, ValidationError
+from dataclasses import field, fields
 import django
 
 
 from django.contrib.auth.models import User
+
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+
 from ciclo_phva.models import (
     Evidencia,
-    Formato
+    Formato,
+    EstadoItemEstandar,
+    ItemEstandar
 )
 from bootstrap_modal_forms.forms import BSModalModelForm
+from django.forms import ModelChoiceField
 
+
+
+class EstadoItemForm(BSModalModelForm):
+
+    class Meta:
+        model = ItemEstandar
+        fields = ['fk_estado']
+
+    def clean_fk_estado(self, **kwards):
+        data = self.cleaned_data
+        fk_estado = data['fk_estado']
+        return fk_estado
 
 class EvidenciaModelForm(BSModalModelForm):
 
