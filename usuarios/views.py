@@ -90,18 +90,26 @@ class Planear(generic.ListView, LoginRequiredMixin):
 
     def get_context_data(self, **kwargs):
         context = super(Planear, self).get_context_data(**kwargs)
-        lista_items = ItemEstandar.objects.filter(fk_sub_estandar=1)
-        sub_estandar = SubEstandar.objects.get(id=1)
-        lista_sub_estandar = SubEstandar.objects.filter(fk_estandar_id=1)
-        estandar = Estandar.objects.get(id=1)
-        lista_estandares = Estandar.objects.filter(fk_ciclo_id=1)
-        ciclo = Ciclo.objects.get(id=1)
+        lista_items:(ItemEstandar) = ItemEstandar.objects.filter(fk_sub_estandar=1)
+        lista_items2:(ItemEstandar) = ItemEstandar.objects.filter(fk_sub_estandar=2)
+        sub_estandar:(SubEstandar) = SubEstandar.objects.get(id=1)
+        sub_estandar2:(SubEstandar) = SubEstandar.objects.get(id=2)
+        lista_sub_estandar:(SubEstandar) = SubEstandar.objects.filter(fk_estandar_id=1)
+        estandar:(Estandar) = Estandar.objects.get(id=1)
+        lista_estandares:(Estandar) = Estandar.objects.filter(fk_ciclo_id=1)
+        ciclo:(Ciclo) = Ciclo.objects.get(id=1)
         acumulador:(int) = 0 
         #Terminar el otro sub estandar (lista y for)
         for i in lista_items:
             acumulador += i.puntaje_obtenido
         sub_estandar.calificacion_obtenida = acumulador
         sub_estandar.save(update_fields=['calificacion_obtenida'])
+        acumulador = 0
+
+        for i in lista_items2:
+            acumulador += i.puntaje_obtenido
+        sub_estandar2.calificacion_obtenida = acumulador
+        sub_estandar2.save(update_fields=['calificacion_obtenida'])
         acumulador = 0
 
         for i in lista_sub_estandar:

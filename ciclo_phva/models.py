@@ -118,7 +118,7 @@ class ItemEstandar(models.Model):
     puntaje_maximo = models.FloatField(null=True, max_length=5)
     nombre_formato = models.CharField(max_length=200, null=True)
     formato = models.FileField(upload_to = "pdf/")
-    fk_sub_estandar = models.ForeignKey(Estandar, null=True, on_delete=models.CASCADE)
+    fk_sub_estandar = models.ForeignKey(SubEstandar, null=True, on_delete=models.CASCADE)
     fk_estado = models.ForeignKey(EstadoItemEstandar, null=True, on_delete=models.CASCADE)
     permisos_usuarios = models.ManyToManyField(Usuario)
 
