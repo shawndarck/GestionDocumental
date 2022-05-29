@@ -379,6 +379,108 @@ class Hacer(generic.ListView, LoginRequiredMixin):
         return context
 
 
+class Verificar(generic.ListView, LoginRequiredMixin):
+    item = ItemEstandar
+    context_object_name = 'item_estandar'
+    template_name = 'usuarios/verificar.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        context = super(Verificar, self).get_context_data(**kwargs)
+        lista_items:(ItemEstandar) = ItemEstandar.objects.filter(fk_sub_estandar=20)
+
+        lista_calculo_estandar:(SubEstandar) = SubEstandar.objects.filter(fk_estandar_id=6)
+
+        lista_estandares:(Estandar) = Estandar.objects.filter(fk_ciclo_id=3)
+
+        #Campos para acceder a la bd (Actualizar)
+        sub_estandar:(SubEstandar) = SubEstandar.objects.get(id=20)
+        
+        estandar:(Estandar) = Estandar.objects.get(id=6)
+        
+        ciclo:(Ciclo) = Ciclo.objects.get(id=3)
+        acumulador:(int) = 0 
+        #Terminar el otro sub estandar (lista y for)
+        for i in lista_items:
+            acumulador += i.puntaje_obtenido
+        sub_estandar.calificacion_obtenida = acumulador
+        sub_estandar.save(update_fields=['calificacion_obtenida'])
+        acumulador = 0
+
+        for i in lista_calculo_estandar:
+            acumulador += i.calificacion_obtenida
+        estandar.calificacion_obtenida = acumulador
+        estandar.save(update_fields=['calificacion_obtenida'])
+        acumulador = 0
+
+        for i in lista_estandares:
+            acumulador += i.calificacion_obtenida
+        ciclo.calificacion_obtenida = acumulador
+        ciclo.save(update_fields=['calificacion_obtenida'])
+        acumulador = 0
+
+        # Contextos individuales (Objeto)
+        context['ciclo'] = Ciclo.objects.get(id = 3)
+        context['estandar'] = Estandar.objects.get(id = 6)
+        context['sub_estandar'] = SubEstandar.objects.get(id = 20)
+        # Items de estandar (Lista)
+        context['item_estandar1'] = ItemEstandar.objects.filter(fk_sub_estandar = 20)
+        return context
+
+
+class Actuar(generic.ListView, LoginRequiredMixin):
+    item = ItemEstandar
+    context_object_name = 'item_estandar'
+    template_name = 'usuarios/actuar.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        context = super(Actuar, self).get_context_data(**kwargs)
+        lista_items:(ItemEstandar) = ItemEstandar.objects.filter(fk_sub_estandar=21)
+
+        lista_calculo_estandar:(SubEstandar) = SubEstandar.objects.filter(fk_estandar_id=7)
+
+        lista_estandares:(Estandar) = Estandar.objects.filter(fk_ciclo_id=4)
+
+        #Campos para acceder a la bd (Actualizar)
+        sub_estandar:(SubEstandar) = SubEstandar.objects.get(id=21)
+        
+        estandar:(Estandar) = Estandar.objects.get(id=7)
+        
+        ciclo:(Ciclo) = Ciclo.objects.get(id=4)
+        acumulador:(int) = 0 
+        #Terminar el otro sub estandar (lista y for)
+        for i in lista_items:
+            acumulador += i.puntaje_obtenido
+        sub_estandar.calificacion_obtenida = acumulador
+        sub_estandar.save(update_fields=['calificacion_obtenida'])
+        acumulador = 0
+
+        for i in lista_calculo_estandar:
+            acumulador += i.calificacion_obtenida
+        estandar.calificacion_obtenida = acumulador
+        estandar.save(update_fields=['calificacion_obtenida'])
+        acumulador = 0
+
+        for i in lista_estandares:
+            acumulador += i.calificacion_obtenida
+        ciclo.calificacion_obtenida = acumulador
+        ciclo.save(update_fields=['calificacion_obtenida'])
+        acumulador = 0
+
+        # Contextos individuales (Objeto)
+        context['ciclo'] = Ciclo.objects.get(id = 4)
+        context['estandar'] = Estandar.objects.get(id = 7)
+        context['sub_estandar'] = SubEstandar.objects.get(id = 21)
+        # Items de estandar (Lista)
+        context['item_estandar1'] = ItemEstandar.objects.filter(fk_sub_estandar = 21)
+        return context
+
+
 
 class PlanearUsunormal(generic.ListView, LoginRequiredMixin):
     item = ItemEstandar
@@ -460,6 +562,7 @@ class ItemEstadoUpdateView(BSModalUpdateView):
         item.save(update_fields=['fk_estado_id'])
         return HttpResponseRedirect(self.get_success_url())
 
+
 class ItemEstadoHacerUpdateView(BSModalUpdateView):
     model = ItemEstandar
     template_name = 'usuarios/cambiar_estado_item.html'
@@ -482,6 +585,55 @@ class ItemEstadoHacerUpdateView(BSModalUpdateView):
         item.fk_estado = form.instance.fk_estado
         item.save(update_fields=['fk_estado_id'])
         return HttpResponseRedirect(self.get_success_url())
+
+
+class ItemEstadoVerificarUpdateView(BSModalUpdateView):
+    model = ItemEstandar
+    template_name = 'usuarios/cambiar_estado_item.html'
+    form_class = EstadoItemForm
+    success_message = 'Success: Book was updated.'
+    success_url = "/verificar/"
+
+    def form_valid(self, form, **kwargs):
+        self.object = self.get_object()
+        item = ItemEstandar.objects.get(id=self.object.pk) # Obtener pk de la url con self.object.pk y self.get_object()
+        puntaje_maximo = item.puntaje_maximo
+        # Acceder al id de la fk con .id
+        estado = item.fk_estado.id
+        if form.instance.fk_estado.id == 1:
+            item.puntaje_obtenido = puntaje_maximo
+            item.save(update_fields=['puntaje_obtenido'])
+        elif form.instance.fk_estado.id == 2 or form.instance.fk_estado.id == 3:
+            item.puntaje_obtenido = 0
+            item.save(update_fields=['puntaje_obtenido'])
+        item.fk_estado = form.instance.fk_estado
+        item.save(update_fields=['fk_estado_id'])
+        return HttpResponseRedirect(self.get_success_url())
+
+
+class ItemEstadoActuarUpdateView(BSModalUpdateView):
+    model = ItemEstandar
+    template_name = 'usuarios/cambiar_estado_item.html'
+    form_class = EstadoItemForm
+    success_message = 'Success: Book was updated.'
+    success_url = "/actuar/"
+
+    def form_valid(self, form, **kwargs):
+        self.object = self.get_object()
+        item = ItemEstandar.objects.get(id=self.object.pk) # Obtener pk de la url con self.object.pk y self.get_object()
+        puntaje_maximo = item.puntaje_maximo
+        # Acceder al id de la fk con .id
+        estado = item.fk_estado.id
+        if form.instance.fk_estado.id == 1:
+            item.puntaje_obtenido = puntaje_maximo
+            item.save(update_fields=['puntaje_obtenido'])
+        elif form.instance.fk_estado.id == 2 or form.instance.fk_estado.id == 3:
+            item.puntaje_obtenido = 0
+            item.save(update_fields=['puntaje_obtenido'])
+        item.fk_estado = form.instance.fk_estado
+        item.save(update_fields=['fk_estado_id'])
+        return HttpResponseRedirect(self.get_success_url())
+
 
 
 def verificar(request):
