@@ -92,11 +92,41 @@ class Planear(generic.ListView, LoginRequiredMixin):
         context = super(Planear, self).get_context_data(**kwargs)
         lista_items:(ItemEstandar) = ItemEstandar.objects.filter(fk_sub_estandar=1)
         lista_items2:(ItemEstandar) = ItemEstandar.objects.filter(fk_sub_estandar=2)
+        lista_items3:(ItemEstandar) = ItemEstandar.objects.filter(fk_sub_estandar=3)
+        lista_items4:(ItemEstandar) = ItemEstandar.objects.filter(fk_sub_estandar=4)
+        lista_items5:(ItemEstandar) = ItemEstandar.objects.filter(fk_sub_estandar=5)
+        lista_items6:(ItemEstandar) = ItemEstandar.objects.filter(fk_sub_estandar=6)
+        lista_items7:(ItemEstandar) = ItemEstandar.objects.filter(fk_sub_estandar=7)
+        lista_items8:(ItemEstandar) = ItemEstandar.objects.filter(fk_sub_estandar=8)
+        lista_items9:(ItemEstandar) = ItemEstandar.objects.filter(fk_sub_estandar=9)
+        lista_items10:(ItemEstandar) = ItemEstandar.objects.filter(fk_sub_estandar=10)
+        lista_items11:(ItemEstandar) = ItemEstandar.objects.filter(fk_sub_estandar=11)
+        lista_items12:(ItemEstandar) = ItemEstandar.objects.filter(fk_sub_estandar=12)
+        lista_items13:(ItemEstandar) = ItemEstandar.objects.filter(fk_sub_estandar=13)
+        
+        lista_calculo_estandar:(SubEstandar) = SubEstandar.objects.filter(fk_estandar_id=1)
+        lista_calculo_estandar2:(SubEstandar) = SubEstandar.objects.filter(fk_estandar_id=2)
+
+        lista_estandares:(Estandar) = Estandar.objects.filter(fk_ciclo_id=1)
+
+        #Campos para acceder a la bd (Actualizar)
         sub_estandar:(SubEstandar) = SubEstandar.objects.get(id=1)
         sub_estandar2:(SubEstandar) = SubEstandar.objects.get(id=2)
-        lista_sub_estandar:(SubEstandar) = SubEstandar.objects.filter(fk_estandar_id=1)
+        sub_estandar3:(SubEstandar) = SubEstandar.objects.get(id=3)
+        sub_estandar4:(SubEstandar) = SubEstandar.objects.get(id=4)
+        sub_estandar5:(SubEstandar) = SubEstandar.objects.get(id=5)
+        sub_estandar6:(SubEstandar) = SubEstandar.objects.get(id=6)
+        sub_estandar7:(SubEstandar) = SubEstandar.objects.get(id=7)
+        sub_estandar8:(SubEstandar) = SubEstandar.objects.get(id=8)
+        sub_estandar9:(SubEstandar) = SubEstandar.objects.get(id=9)
+        sub_estandar10:(SubEstandar) = SubEstandar.objects.get(id=10)
+        sub_estandar11:(SubEstandar) = SubEstandar.objects.get(id=11)
+        sub_estandar12:(SubEstandar) = SubEstandar.objects.get(id=12)
+        sub_estandar13:(SubEstandar) = SubEstandar.objects.get(id=13)
+        
         estandar:(Estandar) = Estandar.objects.get(id=1)
-        lista_estandares:(Estandar) = Estandar.objects.filter(fk_ciclo_id=1)
+        estandar2:(Estandar) = Estandar.objects.get(id=2)
+        
         ciclo:(Ciclo) = Ciclo.objects.get(id=1)
         acumulador:(int) = 0 
         #Terminar el otro sub estandar (lista y for)
@@ -112,10 +142,82 @@ class Planear(generic.ListView, LoginRequiredMixin):
         sub_estandar2.save(update_fields=['calificacion_obtenida'])
         acumulador = 0
 
-        for i in lista_sub_estandar:
+        for i in lista_items3:
+            acumulador += i.puntaje_obtenido
+        sub_estandar3.calificacion_obtenida = acumulador
+        sub_estandar3.save(update_fields=['calificacion_obtenida'])
+        acumulador = 0
+
+        for i in lista_items4:
+            acumulador += i.puntaje_obtenido
+        sub_estandar4.calificacion_obtenida = acumulador
+        sub_estandar4.save(update_fields=['calificacion_obtenida'])
+        acumulador = 0
+
+        for i in lista_items5:
+            acumulador += i.puntaje_obtenido
+        sub_estandar5.calificacion_obtenida = acumulador
+        sub_estandar5.save(update_fields=['calificacion_obtenida'])
+        acumulador = 0
+
+        for i in lista_items6:
+            acumulador += i.puntaje_obtenido
+        sub_estandar6.calificacion_obtenida = acumulador
+        sub_estandar6.save(update_fields=['calificacion_obtenida'])
+        acumulador = 0
+
+        for i in lista_items7:
+            acumulador += i.puntaje_obtenido
+        sub_estandar7.calificacion_obtenida = acumulador
+        sub_estandar7.save(update_fields=['calificacion_obtenida'])
+        acumulador = 0
+
+        for i in lista_items8:
+            acumulador += i.puntaje_obtenido
+        sub_estandar8.calificacion_obtenida = acumulador
+        sub_estandar8.save(update_fields=['calificacion_obtenida'])
+        acumulador = 0
+
+        for i in lista_items9:
+            acumulador += i.puntaje_obtenido
+        sub_estandar9.calificacion_obtenida = acumulador
+        sub_estandar9.save(update_fields=['calificacion_obtenida'])
+        acumulador = 0
+
+        for i in lista_items10:
+            acumulador += i.puntaje_obtenido
+        sub_estandar10.calificacion_obtenida = acumulador
+        sub_estandar10.save(update_fields=['calificacion_obtenida'])
+        acumulador = 0
+
+        for i in lista_items11:
+            acumulador += i.puntaje_obtenido
+        sub_estandar11.calificacion_obtenida = acumulador
+        sub_estandar11.save(update_fields=['calificacion_obtenida'])
+        acumulador = 0
+
+        for i in lista_items12:
+            acumulador += i.puntaje_obtenido
+        sub_estandar12.calificacion_obtenida = acumulador
+        sub_estandar12.save(update_fields=['calificacion_obtenida'])
+        acumulador = 0
+
+        for i in lista_items13:
+            acumulador += i.puntaje_obtenido
+        sub_estandar13.calificacion_obtenida = acumulador
+        sub_estandar13.save(update_fields=['calificacion_obtenida'])
+        acumulador = 0
+
+        for i in lista_calculo_estandar:
             acumulador += i.calificacion_obtenida
         estandar.calificacion_obtenida = acumulador
         estandar.save(update_fields=['calificacion_obtenida'])
+        acumulador = 0
+
+        for i in lista_calculo_estandar2:
+            acumulador += i.calificacion_obtenida
+        estandar2.calificacion_obtenida = acumulador
+        estandar2.save(update_fields=['calificacion_obtenida'])
         acumulador = 0
 
         for i in lista_estandares:
@@ -123,12 +225,38 @@ class Planear(generic.ListView, LoginRequiredMixin):
         ciclo.calificacion_obtenida = acumulador
         ciclo.save(update_fields=['calificacion_obtenida'])
         acumulador = 0
+
+        # Contextos individuales (Objeto)
         context['ciclo'] = Ciclo.objects.get(id = 1)
         context['estandar'] = Estandar.objects.get(id = 1)
+        context['estandar2'] = Estandar.objects.get(id = 2)
         context['sub_estandar'] = SubEstandar.objects.get(id = 1)
+        context['sub_estandar2'] = SubEstandar.objects.get(id = 2)
+        context['sub_estandar3'] = SubEstandar.objects.get(id = 3)
+        context['sub_estandar4'] = SubEstandar.objects.get(id = 4)
+        context['sub_estandar5'] = SubEstandar.objects.get(id = 5)
+        context['sub_estandar6'] = SubEstandar.objects.get(id = 6)
+        context['sub_estandar7'] = SubEstandar.objects.get(id = 7)
+        context['sub_estandar8'] = SubEstandar.objects.get(id = 8)
+        context['sub_estandar9'] = SubEstandar.objects.get(id = 9)
+        context['sub_estandar10'] = SubEstandar.objects.get(id = 10)
+        context['sub_estandar11'] = SubEstandar.objects.get(id = 11)
+        context['sub_estandar12'] = SubEstandar.objects.get(id = 12)
+        context['sub_estandar13'] = SubEstandar.objects.get(id = 13)
+        # Items de estandar (Lista)
         context['item_estandar1'] = ItemEstandar.objects.filter(fk_sub_estandar = 1)
-        # Add any other variables to the context here
         context['item_estandar2'] = ItemEstandar.objects.filter(fk_sub_estandar = 2)
+        context['item_estandar3'] = ItemEstandar.objects.filter(fk_sub_estandar = 3)
+        context['item_estandar4'] = ItemEstandar.objects.filter(fk_sub_estandar = 4)
+        context['item_estandar5'] = ItemEstandar.objects.filter(fk_sub_estandar = 5)
+        context['item_estandar6'] = ItemEstandar.objects.filter(fk_sub_estandar = 6)
+        context['item_estandar7'] = ItemEstandar.objects.filter(fk_sub_estandar = 7)
+        context['item_estandar8'] = ItemEstandar.objects.filter(fk_sub_estandar = 8)
+        context['item_estandar9'] = ItemEstandar.objects.filter(fk_sub_estandar = 9)
+        context['item_estandar10'] = ItemEstandar.objects.filter(fk_sub_estandar = 10)
+        context['item_estandar11'] = ItemEstandar.objects.filter(fk_sub_estandar = 11)
+        context['item_estandar12'] = ItemEstandar.objects.filter(fk_sub_estandar = 12)
+        context['item_estandar13'] = ItemEstandar.objects.filter(fk_sub_estandar = 13)
         return context
 
 
