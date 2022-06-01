@@ -15,6 +15,7 @@ urlpatterns = [
     path('formatos_admin/', views.FormatosAdmin.as_view(), name='formatos_admin'),
     path('formatos_usunormal/', views.FormatosUsunormal.as_view(), name='formatos_usunormal'),
     path('<int:pk>/eliminar_formato', views.FormatoDeleteView.as_view(), name='eliminar_formato'),
+    path('<int:pk>/eliminar_evidencia', views.EvidenciaPlanearDeleteView.as_view(), name='eliminar_evidencia'),
     # Evidencias
     path('registrar_evidencia/<int:pk>', login_required(views.EvidenciaCreateView.as_view()), name='registrar_evidencia'),
     path('leer_evidencias/<int:fk>', login_required(views.EvidenciaReadView.as_view()), name='leer_evidencias'),
@@ -26,9 +27,15 @@ urlpatterns = [
     path('estado_item_verificar/<int:pk>', login_required(views.ItemEstadoVerificarUpdateView.as_view()), name='estado_item_verificar'),
     path('estado_item_actuar/<int:pk>', login_required(views.ItemEstadoActuarUpdateView.as_view()), name='estado_item_actuar'),
     path('planear/', login_required(views.Planear.as_view()), name='planear'),
-    path('torta_administrador/', login_required(views.torta_administrador), name='torta_administrador'),
+    path('torta_administrador/', login_required(views.TortaAdministrador.as_view()), name='torta_administrador'),
     path('torta_gestor/', login_required(views.torta_gestor), name='torta_gestor'),
     path('torta_usunormal/', login_required(views.torta_usunormal), name='torta_usunormal'),
+    #Permisos
+    path('permisos_evidencias/', login_required(views.GestionPermisosEvidencias.as_view()), name='permisos_evidencias'),
+    path('accesos_planear/', login_required(views.AccesosPlanear.as_view()), name='accesos_planear'),
+    path('accesos_hacer/', login_required(views.AccesosHacer.as_view()), name='accesos_hacer'),
+    path('accesos_verificar/', login_required(views.AccesosVerificar.as_view()), name='accesos_verificar'),
+    path('accesos_actuar/', login_required(views.AccesosActuar.as_view()), name='accesos_actuar'),
 
     path('planear_usunormal/', login_required(views.PlanearUsunormal.as_view()), name='planear_usunormal'),
     path('hacer/', login_required(views.Hacer.as_view()), name="hacer"),

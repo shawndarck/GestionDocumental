@@ -31,7 +31,7 @@
                 <div class="container-svg">
                   
                     <div>
-                      <ion-icon size="large" src="{% static 'usuarios/img/home-outline.svg' %}"></ion-icon><span>Inicio</span>
+                      <ion-icon size="large" src="{% static 'usuarios/img/home-outline.svg' %}"></ion-icon><span></ion-icon><span><a href="{% url 'torta_administrador' %}">Inicio</a></span>
                     </div>
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgb(136, 137, 142);"><path d="m20 8-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM9 19H7v-9h2v9zm4 0h-2v-6h2v6zm4 0h-2v-3h2v3zM14 9h-1V4l5 5h-4z"></path></svg>
@@ -84,7 +84,7 @@
                         <div class="card-header bg-transparent border-0">
                           <h3 class="text-white mb-1 ms-4">{{ ciclo }} ({{ciclo.calificacion_obtenida}}%)</h3>
                           <div class="progress ms-4 me-4">
-                            <div class="progress-bar bg-primary" placeholder="hola mundo" role="progressbar" style="width: {{ciclo.calificacion_obtenida}}%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-primary" placeholder="hola mundo" role="progressbar" style="width: {{ciclo.porcentaje_obtenido}}%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
                           </div>
                         </div>
                         <div class="table-responsive">

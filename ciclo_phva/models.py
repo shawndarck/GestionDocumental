@@ -5,7 +5,7 @@ from django.core.validators import FileExtensionValidator
 
 class Formato(models.Model):
     descripcion = models.CharField(max_length=300)
-    formato_nombre = models.FileField(upload_to = "formatos/", validators=[FileExtensionValidator(['png', 'pdf'])])
+    formato_nombre = models.FileField(upload_to = "formatos/", validators=[FileExtensionValidator(['png', 'pdf', 'xlsx', 'xls', 'docx', 'doc'])])
 
     class Meta:
         verbose_name='Formato'

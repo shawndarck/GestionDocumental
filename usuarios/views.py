@@ -19,8 +19,10 @@ from ciclo_phva.models import (
     Formato,
     SubEstandar,
     Estandar,
-    Ciclo
+    Ciclo,
+    Phva,
 )
+from usuarios.models import Usuario 
 from .forms import UserRegisterForm
 from bootstrap_modal_forms.generic import BSModalCreateView
 from bootstrap_modal_forms.generic import (
@@ -52,6 +54,134 @@ MAX_UPLOAD_SIZE = "2621440"
 def index(request):
     documents = Evidencia.objects.all()
     return render(request, "usuarios/index.html", context = {"files": documents})
+
+
+class GestionPermisosEvidencias(generic.ListView, LoginRequiredMixin):
+    item = Usuario
+    context_object_name = 'item'
+    template_name = 'usuarios/evidencias_usuarios.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        context = super(GestionPermisosEvidencias, self).get_context_data(**kwargs)
+        context['usuarios'] = Usuario.objects.filter(es_usuario = True)
+        return context
+
+
+class AccesosPlanear(generic.ListView, LoginRequiredMixin):
+    item = ItemEstandar
+    context_object_name = 'item'
+    template_name = 'usuarios/accesos_planear.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        context = super(AccesosPlanear, self).get_context_data(**kwargs)
+        # Contextos individuales (Objeto)
+        context['ciclo'] = Ciclo.objects.get(id = 1)
+        context['estandar'] = Estandar.objects.get(id = 1)
+        context['estandar2'] = Estandar.objects.get(id = 2)
+        context['sub_estandar'] = SubEstandar.objects.get(id = 1)
+        context['sub_estandar2'] = SubEstandar.objects.get(id = 2)
+        context['sub_estandar3'] = SubEstandar.objects.get(id = 3)
+        context['sub_estandar4'] = SubEstandar.objects.get(id = 4)
+        context['sub_estandar5'] = SubEstandar.objects.get(id = 5)
+        context['sub_estandar6'] = SubEstandar.objects.get(id = 6)
+        context['sub_estandar7'] = SubEstandar.objects.get(id = 7)
+        context['sub_estandar8'] = SubEstandar.objects.get(id = 8)
+        context['sub_estandar9'] = SubEstandar.objects.get(id = 9)
+        context['sub_estandar10'] = SubEstandar.objects.get(id = 10)
+        context['sub_estandar11'] = SubEstandar.objects.get(id = 11)
+        context['sub_estandar12'] = SubEstandar.objects.get(id = 12)
+        context['sub_estandar13'] = SubEstandar.objects.get(id = 13)
+        # Items de estandar (Lista)
+        context['item_estandar1'] = ItemEstandar.objects.filter(fk_sub_estandar = 1)
+        context['item_estandar2'] = ItemEstandar.objects.filter(fk_sub_estandar = 2)
+        context['item_estandar3'] = ItemEstandar.objects.filter(fk_sub_estandar = 3)
+        context['item_estandar4'] = ItemEstandar.objects.filter(fk_sub_estandar = 4)
+        context['item_estandar5'] = ItemEstandar.objects.filter(fk_sub_estandar = 5)
+        context['item_estandar6'] = ItemEstandar.objects.filter(fk_sub_estandar = 6)
+        context['item_estandar7'] = ItemEstandar.objects.filter(fk_sub_estandar = 7)
+        context['item_estandar8'] = ItemEstandar.objects.filter(fk_sub_estandar = 8)
+        context['item_estandar9'] = ItemEstandar.objects.filter(fk_sub_estandar = 9)
+        context['item_estandar10'] = ItemEstandar.objects.filter(fk_sub_estandar = 10)
+        context['item_estandar11'] = ItemEstandar.objects.filter(fk_sub_estandar = 11)
+        context['item_estandar12'] = ItemEstandar.objects.filter(fk_sub_estandar = 12)
+        context['item_estandar13'] = ItemEstandar.objects.filter(fk_sub_estandar = 13)
+        return context
+
+
+class AccesosHacer(generic.ListView, LoginRequiredMixin):
+    item = ItemEstandar
+    context_object_name = 'item'
+    template_name = 'usuarios/accesos_hacer.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        context = super(AccesosHacer, self).get_context_data(**kwargs)
+        # Contextos individuales (Objeto)
+        context['ciclo'] = Ciclo.objects.get(id = 2)
+        context['estandar'] = Estandar.objects.get(id = 3)
+        context['estandar2'] = Estandar.objects.get(id = 4)
+        context['estandar3'] = Estandar.objects.get(id = 5)
+        context['sub_estandar'] = SubEstandar.objects.get(id = 14)
+        context['sub_estandar2'] = SubEstandar.objects.get(id = 15)
+        context['sub_estandar3'] = SubEstandar.objects.get(id = 16)
+        context['sub_estandar4'] = SubEstandar.objects.get(id = 17)
+        context['sub_estandar5'] = SubEstandar.objects.get(id = 18)
+        context['sub_estandar6'] = SubEstandar.objects.get(id = 19)
+        # Items de estandar (Lista)
+        context['item_estandar1'] = ItemEstandar.objects.filter(fk_sub_estandar = 14)
+        context['item_estandar2'] = ItemEstandar.objects.filter(fk_sub_estandar = 15)
+        context['item_estandar3'] = ItemEstandar.objects.filter(fk_sub_estandar = 16)
+        context['item_estandar4'] = ItemEstandar.objects.filter(fk_sub_estandar = 17)
+        context['item_estandar5'] = ItemEstandar.objects.filter(fk_sub_estandar = 18)
+        context['item_estandar6'] = ItemEstandar.objects.filter(fk_sub_estandar = 19)
+        return context
+
+
+class AccesosVerificar(generic.ListView, LoginRequiredMixin):
+    item = ItemEstandar
+    context_object_name = 'item'
+    template_name = 'usuarios/accesos_verificar.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        context = super(AccesosPlanear, self).get_context_data(**kwargs)
+        # Contextos individuales (Objeto)
+        context['ciclo'] = Ciclo.objects.get(id = 3)
+        context['estandar'] = Estandar.objects.get(id = 6)
+        context['sub_estandar'] = SubEstandar.objects.get(id = 20)
+        # Items de estandar (Lista)
+        context['item_estandar1'] = ItemEstandar.objects.filter(fk_sub_estandar = 20)
+        return context
+
+
+class AccesosActuar(generic.ListView, LoginRequiredMixin):
+    item = ItemEstandar
+    context_object_name = 'item'
+    template_name = 'usuarios/accesos_actuar.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        context = super(AccesosActuar, self).get_context_data(**kwargs)
+
+        # Contextos individuales (Objeto)
+        context['ciclo'] = Ciclo.objects.get(id = 4)
+        context['estandar'] = Estandar.objects.get(id = 7)
+        context['sub_estandar'] = SubEstandar.objects.get(id = 21)
+        # Items de estandar (Lista)
+        context['item_estandar1'] = ItemEstandar.objects.filter(fk_sub_estandar = 21)
+        return context
 
 
 class EvidenciaCreateView(BSModalCreateView):
@@ -128,103 +258,207 @@ class Planear(generic.ListView, LoginRequiredMixin):
         estandar2:(Estandar) = Estandar.objects.get(id=2)
         
         ciclo:(Ciclo) = Ciclo.objects.get(id=1)
-        acumulador:(int) = 0 
+        ciclos:(Ciclo) = Ciclo.objects.all()
+        phva:(Phva) = Phva.objects.get(id=1)
+        acumulador:(float) = 0
+        coefiente:(float) = 0
         #Terminar el otro sub estandar (lista y for)
         for i in lista_items:
             acumulador += i.puntaje_obtenido
         sub_estandar.calificacion_obtenida = acumulador
-        sub_estandar.save(update_fields=['calificacion_obtenida'])
+        if sub_estandar.calificacion_obtenida != 0:
+            coefiente = sub_estandar.calificacion_maxima / sub_estandar.calificacion_obtenida
+            sub_estandar.porcentaje_obtenido = 100 / coefiente
+        else:
+            sub_estandar.porcentaje_obtenido = 0
+        sub_estandar.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
+        coefiente = 0
 
         for i in lista_items2:
             acumulador += i.puntaje_obtenido
         sub_estandar2.calificacion_obtenida = acumulador
-        sub_estandar2.save(update_fields=['calificacion_obtenida'])
+        if sub_estandar2.calificacion_obtenida != 0:
+            coefiente = sub_estandar2.calificacion_maxima / sub_estandar2.calificacion_obtenida
+            sub_estandar2.porcentaje_obtenido = 100 / coefiente
+        else:
+            sub_estandar2.porcentaje_obtenido = 0
+        sub_estandar2.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
+        coefiente = 0
 
         for i in lista_items3:
             acumulador += i.puntaje_obtenido
         sub_estandar3.calificacion_obtenida = acumulador
-        sub_estandar3.save(update_fields=['calificacion_obtenida'])
+        if sub_estandar3.calificacion_obtenida != 0:
+            coefiente = sub_estandar3.calificacion_maxima / sub_estandar3.calificacion_obtenida
+            sub_estandar3.porcentaje_obtenido = 100 / coefiente
+        else:
+            sub_estandar3.porcentaje_obtenido = 0
+        sub_estandar3.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
+        coefiente = 0
 
         for i in lista_items4:
             acumulador += i.puntaje_obtenido
         sub_estandar4.calificacion_obtenida = acumulador
-        sub_estandar4.save(update_fields=['calificacion_obtenida'])
+        if sub_estandar4.calificacion_obtenida != 0:
+            coefiente = sub_estandar4.calificacion_maxima / sub_estandar4.calificacion_obtenida
+            sub_estandar4.porcentaje_obtenido = 100 / coefiente
+        else:
+            sub_estandar4.porcentaje_obtenido = 0
+        sub_estandar4.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
+        coefiente = 0
 
         for i in lista_items5:
             acumulador += i.puntaje_obtenido
         sub_estandar5.calificacion_obtenida = acumulador
-        sub_estandar5.save(update_fields=['calificacion_obtenida'])
+        if sub_estandar5.calificacion_obtenida != 0:
+            coefiente = sub_estandar5.calificacion_maxima / sub_estandar5.calificacion_obtenida
+            sub_estandar5.porcentaje_obtenido = 100 / coefiente
+        else:
+            sub_estandar5.porcentaje_obtenido = 0
+        sub_estandar5.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
+        coefiente = 0
 
         for i in lista_items6:
             acumulador += i.puntaje_obtenido
         sub_estandar6.calificacion_obtenida = acumulador
-        sub_estandar6.save(update_fields=['calificacion_obtenida'])
+        if sub_estandar6.calificacion_obtenida != 0:
+            coefiente = sub_estandar6.calificacion_maxima / sub_estandar6.calificacion_obtenida
+            sub_estandar6.porcentaje_obtenido = 100 / coefiente
+        else:
+            sub_estandar6.porcentaje_obtenido = 0
+        sub_estandar6.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
+        coefiente = 0
 
         for i in lista_items7:
             acumulador += i.puntaje_obtenido
         sub_estandar7.calificacion_obtenida = acumulador
-        sub_estandar7.save(update_fields=['calificacion_obtenida'])
+        if sub_estandar7.calificacion_obtenida != 0:
+            coefiente = sub_estandar7.calificacion_maxima / sub_estandar7.calificacion_obtenida
+            sub_estandar7.porcentaje_obtenido = 100 / coefiente
+        else:
+            sub_estandar7.porcentaje_obtenido = 0
+        sub_estandar7.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
+        coefiente = 0
 
         for i in lista_items8:
             acumulador += i.puntaje_obtenido
         sub_estandar8.calificacion_obtenida = acumulador
-        sub_estandar8.save(update_fields=['calificacion_obtenida'])
+        if sub_estandar8.calificacion_obtenida != 0:
+            coefiente = sub_estandar8.calificacion_maxima / sub_estandar8.calificacion_obtenida
+            sub_estandar8.porcentaje_obtenido = 100 / coefiente
+        else:
+            sub_estandar8.porcentaje_obtenido = 0
+        sub_estandar8.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
+        coefiente = 0
 
         for i in lista_items9:
             acumulador += i.puntaje_obtenido
         sub_estandar9.calificacion_obtenida = acumulador
-        sub_estandar9.save(update_fields=['calificacion_obtenida'])
+        if sub_estandar9.calificacion_obtenida != 0:
+            coefiente = sub_estandar9.calificacion_maxima / sub_estandar9.calificacion_obtenida
+            sub_estandar9.porcentaje_obtenido = 100 / coefiente
+        else:
+            sub_estandar9.porcentaje_obtenido = 0
+        sub_estandar9.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
+        coefiente = 0
 
         for i in lista_items10:
             acumulador += i.puntaje_obtenido
         sub_estandar10.calificacion_obtenida = acumulador
-        sub_estandar10.save(update_fields=['calificacion_obtenida'])
+        if sub_estandar10.calificacion_obtenida != 0:
+            coefiente = sub_estandar10.calificacion_maxima / sub_estandar10.calificacion_obtenida
+            sub_estandar10.porcentaje_obtenido = 100 / coefiente
+        else:
+            sub_estandar10.porcentaje_obtenido = 0
+        sub_estandar10.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
+        coefiente = 0
 
         for i in lista_items11:
             acumulador += i.puntaje_obtenido
         sub_estandar11.calificacion_obtenida = acumulador
-        sub_estandar11.save(update_fields=['calificacion_obtenida'])
+        if sub_estandar11.calificacion_obtenida != 0:
+            coefiente = sub_estandar11.calificacion_maxima / sub_estandar11.calificacion_obtenida
+            sub_estandar11.porcentaje_obtenido = 100 / coefiente
+        else:
+            sub_estandar11.porcentaje_obtenido = 0
+        sub_estandar11.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
+        coefiente = 0
 
         for i in lista_items12:
             acumulador += i.puntaje_obtenido
         sub_estandar12.calificacion_obtenida = acumulador
-        sub_estandar12.save(update_fields=['calificacion_obtenida'])
+        if sub_estandar12.calificacion_obtenida != 0:
+            coefiente = sub_estandar12.calificacion_maxima / sub_estandar12.calificacion_obtenida
+            sub_estandar12.porcentaje_obtenido = 100 / coefiente
+        else:
+            sub_estandar12.porcentaje_obtenido = 0
+        sub_estandar12.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
+        coefiente = 0
 
         for i in lista_items13:
             acumulador += i.puntaje_obtenido
         sub_estandar13.calificacion_obtenida = acumulador
-        sub_estandar13.save(update_fields=['calificacion_obtenida'])
+        if sub_estandar13.calificacion_obtenida != 0:
+            coefiente = sub_estandar13.calificacion_maxima / sub_estandar13.calificacion_obtenida
+            sub_estandar13.porcentaje_obtenido = 100 / coefiente
+        else:
+            sub_estandar13.porcentaje_obtenido = 0
+        sub_estandar13.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
+        coefiente = 0
 
         for i in lista_calculo_estandar:
             acumulador += i.calificacion_obtenida
         estandar.calificacion_obtenida = acumulador
-        estandar.save(update_fields=['calificacion_obtenida'])
+        if estandar.calificacion_obtenida != 0:
+            coefiente = estandar.calificacion_maxima / estandar.calificacion_obtenida
+            estandar.porcentaje_obtenido = 100 / coefiente
+        else:
+            estandar.porcentaje_obtenido = 0
+        estandar.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
+        coefiente = 0
 
         for i in lista_calculo_estandar2:
             acumulador += i.calificacion_obtenida
         estandar2.calificacion_obtenida = acumulador
-        estandar2.save(update_fields=['calificacion_obtenida'])
+        if estandar2.calificacion_obtenida != 0:
+            coefiente = estandar2.calificacion_maxima / estandar2.calificacion_obtenida
+            estandar2.porcentaje_obtenido = 100 / coefiente
+        else:
+            estandar2.porcentaje_obtenido = 0
+        estandar2.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
+        coefiente = 0
 
         for i in lista_estandares:
             acumulador += i.calificacion_obtenida
         ciclo.calificacion_obtenida = acumulador
-        ciclo.save(update_fields=['calificacion_obtenida'])
+        if ciclo.calificacion_obtenida != 0:
+            coefiente = ciclo.calificacion_maxima / ciclo.calificacion_obtenida
+            ciclo.porcentaje_obtenido = 100 / coefiente
+        else:
+            ciclo.porcentaje_obtenido = 0
+        ciclo.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
+        coefiente = 0
+
+        for i in ciclos:
+            acumulador += i.calificacion_obtenida
+        phva.calificacion_obtenida = acumulador
+        phva.save(update_fields=['calificacion_obtenida'])
 
         # Contextos individuales (Objeto)
         context['ciclo'] = Ciclo.objects.get(id = 1)
@@ -294,69 +528,129 @@ class Hacer(generic.ListView, LoginRequiredMixin):
         estandar:(Estandar) = Estandar.objects.get(id=3)
         estandar2:(Estandar) = Estandar.objects.get(id=4)
         estandar3:(Estandar) = Estandar.objects.get(id=5)
+
+        ciclos:(Ciclo) = Ciclo.objects.all()
+        phva:(Phva) = Phva.objects.get(id=1)
         
         ciclo:(Ciclo) = Ciclo.objects.get(id=2)
-        acumulador:(int) = 0 
+        acumulador:(int) = 0
+        coefiente:(float) = 0
         #Terminar el otro sub estandar (lista y for)
+
         for i in lista_items:
             acumulador += i.puntaje_obtenido
         sub_estandar.calificacion_obtenida = acumulador
-        sub_estandar.save(update_fields=['calificacion_obtenida'])
+        if sub_estandar.calificacion_obtenida != 0:
+            coefiente = sub_estandar.calificacion_maxima / sub_estandar.calificacion_obtenida
+            sub_estandar.porcentaje_obtenido = 100 / coefiente
+        else:
+            sub_estandar.porcentaje_obtenido = 0
+        sub_estandar.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
 
         for i in lista_items2:
             acumulador += i.puntaje_obtenido
         sub_estandar2.calificacion_obtenida = acumulador
-        sub_estandar2.save(update_fields=['calificacion_obtenida'])
+        if sub_estandar2.calificacion_obtenida != 0:
+            coefiente = sub_estandar2.calificacion_maxima / sub_estandar2.calificacion_obtenida
+            sub_estandar2.porcentaje_obtenido = 100 / coefiente
+        else:
+            sub_estandar2.porcentaje_obtenido = 0
+        sub_estandar2.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
 
         for i in lista_items3:
             acumulador += i.puntaje_obtenido
         sub_estandar3.calificacion_obtenida = acumulador
-        sub_estandar3.save(update_fields=['calificacion_obtenida'])
+        if sub_estandar3.calificacion_obtenida != 0:
+            coefiente = sub_estandar3.calificacion_maxima / sub_estandar3.calificacion_obtenida
+            sub_estandar3.porcentaje_obtenido = 100 / coefiente
+        else:
+            sub_estandar3.porcentaje_obtenido = 0
+        sub_estandar3.save(update_fields=[ 'calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
 
         for i in lista_items4:
             acumulador += i.puntaje_obtenido
         sub_estandar4.calificacion_obtenida = acumulador
-        sub_estandar4.save(update_fields=['calificacion_obtenida'])
+        if sub_estandar4.calificacion_obtenida != 0:
+            coefiente = sub_estandar4.calificacion_maxima / sub_estandar4.calificacion_obtenida
+            sub_estandar4.porcentaje_obtenido = 100 / coefiente
+        else:
+            sub_estandar4.porcentaje_obtenido = 0
+        sub_estandar4.save(update_fields=[ 'calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
 
         for i in lista_items5:
             acumulador += i.puntaje_obtenido
         sub_estandar5.calificacion_obtenida = acumulador
-        sub_estandar5.save(update_fields=['calificacion_obtenida'])
+        if sub_estandar5.calificacion_obtenida != 0:
+            coefiente = sub_estandar5.calificacion_maxima / sub_estandar5.calificacion_obtenida
+            sub_estandar5.porcentaje_obtenido = 100 / coefiente
+        else:
+            sub_estandar5.porcentaje_obtenido = 0
+        sub_estandar5.save(update_fields=[ 'calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
 
         for i in lista_items6:
             acumulador += i.puntaje_obtenido
         sub_estandar6.calificacion_obtenida = acumulador
-        sub_estandar6.save(update_fields=['calificacion_obtenida'])
+        if sub_estandar6.calificacion_obtenida != 0:
+            coefiente = sub_estandar6.calificacion_maxima / sub_estandar6.calificacion_obtenida
+            sub_estandar6.porcentaje_obtenido = 100 / coefiente
+        else:
+            sub_estandar6.porcentaje_obtenido = 0
+        sub_estandar6.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
 
         for i in lista_calculo_estandar:
             acumulador += i.calificacion_obtenida
         estandar.calificacion_obtenida = acumulador
-        estandar.save(update_fields=['calificacion_obtenida'])
+        if estandar.calificacion_obtenida != 0:
+            coefiente = estandar.calificacion_maxima / estandar.calificacion_obtenida
+            estandar.porcentaje_obtenido = 100 / coefiente
+        else:
+            estandar.porcentaje_obtenido = 0
+        estandar.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
 
         for i in lista_calculo_estandar2:
             acumulador += i.calificacion_obtenida
         estandar2.calificacion_obtenida = acumulador
-        estandar2.save(update_fields=['calificacion_obtenida'])
+        if estandar2.calificacion_obtenida != 0:
+            coefiente = estandar2.calificacion_maxima / estandar2.calificacion_obtenida
+            estandar2.porcentaje_obtenido = 100 / coefiente
+        else:
+            estandar2.porcentaje_obtenido = 0
+        estandar2.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
 
         for i in lista_calculo_estandar3:
             acumulador += i.calificacion_obtenida
         estandar3.calificacion_obtenida = acumulador
-        estandar3.save(update_fields=['calificacion_obtenida'])
+        if estandar3.calificacion_obtenida != 0:
+            coefiente = estandar3.calificacion_maxima / estandar3.calificacion_obtenida
+            estandar3.porcentaje_obtenido = 100 / coefiente
+        else:
+            estandar3.porcentaje_obtenido = 0
+        estandar3.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
 
         for i in lista_estandares:
             acumulador += i.calificacion_obtenida
         ciclo.calificacion_obtenida = acumulador
-        ciclo.save(update_fields=['calificacion_obtenida'])
+        if ciclo.calificacion_obtenida != 0:
+            coefiente = ciclo.calificacion_maxima / ciclo.calificacion_obtenida
+            ciclo.porcentaje_obtenido = 100 / coefiente
+        else:
+            ciclo.porcentaje_obtenido = 0
+        ciclo.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
+
+        for i in ciclos:
+            acumulador += i.calificacion_obtenida
+        phva.calificacion_obtenida = acumulador
+        phva.save(update_fields=['calificacion_obtenida'])
 
         # Contextos individuales (Objeto)
         context['ciclo'] = Ciclo.objects.get(id = 2)
@@ -399,27 +693,54 @@ class Verificar(generic.ListView, LoginRequiredMixin):
         sub_estandar:(SubEstandar) = SubEstandar.objects.get(id=20)
         
         estandar:(Estandar) = Estandar.objects.get(id=6)
+
+        ciclos:(Ciclo) = Ciclo.objects.all()
+        phva:(Phva) = Phva.objects.get(id=1)
         
         ciclo:(Ciclo) = Ciclo.objects.get(id=3)
-        acumulador:(int) = 0 
+        acumulador:(int) = 0
+        coefiente:(float) = 0
         #Terminar el otro sub estandar (lista y for)
         for i in lista_items:
             acumulador += i.puntaje_obtenido
         sub_estandar.calificacion_obtenida = acumulador
-        sub_estandar.save(update_fields=['calificacion_obtenida'])
+        if sub_estandar.calificacion_obtenida != 0:
+            coefiente = sub_estandar.calificacion_maxima / sub_estandar.calificacion_obtenida
+            sub_estandar.porcentaje_obtenido = 100 / coefiente
+        else:
+            sub_estandar.porcentaje_obtenido = 0
+        sub_estandar.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
+        coefiente = 0
 
         for i in lista_calculo_estandar:
             acumulador += i.calificacion_obtenida
         estandar.calificacion_obtenida = acumulador
-        estandar.save(update_fields=['calificacion_obtenida'])
+        if estandar.calificacion_obtenida != 0:
+            coefiente = estandar.calificacion_maxima / estandar.calificacion_obtenida
+            estandar.porcentaje_obtenido = 100 / coefiente
+        else:
+            estandar.porcentaje_obtenido = 0
+        estandar.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
+        coefiente = 0
 
         for i in lista_estandares:
             acumulador += i.calificacion_obtenida
         ciclo.calificacion_obtenida = acumulador
-        ciclo.save(update_fields=['calificacion_obtenida'])
+        if ciclo.calificacion_obtenida != 0:
+            coefiente = ciclo.calificacion_maxima / ciclo.calificacion_obtenida
+            ciclo.porcentaje_obtenido = 100 / coefiente
+        else:
+            ciclo.porcentaje_obtenido = 0
+        ciclo.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
+        coefiente = 0
+
+        for i in ciclos:
+            acumulador += i.calificacion_obtenida
+        phva.calificacion_obtenida = acumulador
+        phva.save(update_fields=['calificacion_obtenida'])
 
         # Contextos individuales (Objeto)
         context['ciclo'] = Ciclo.objects.get(id = 3)
@@ -439,7 +760,9 @@ class Actuar(generic.ListView, LoginRequiredMixin):
         pass
 
     def get_context_data(self, **kwargs):
+        # Prerrequisito
         context = super(Actuar, self).get_context_data(**kwargs)
+        # public ItemEstandar lista_items
         lista_items:(ItemEstandar) = ItemEstandar.objects.filter(fk_sub_estandar=21)
 
         lista_calculo_estandar:(SubEstandar) = SubEstandar.objects.filter(fk_estandar_id=7)
@@ -450,27 +773,54 @@ class Actuar(generic.ListView, LoginRequiredMixin):
         sub_estandar:(SubEstandar) = SubEstandar.objects.get(id=21)
         
         estandar:(Estandar) = Estandar.objects.get(id=7)
+
+        ciclos:(Ciclo) = Ciclo.objects.all()
+        phva:(Phva) = Phva.objects.get(id=1)
         
         ciclo:(Ciclo) = Ciclo.objects.get(id=4)
-        acumulador:(int) = 0 
+        acumulador:(int) = 0
+        coefiente:(float) = 0
         #Terminar el otro sub estandar (lista y for)
         for i in lista_items:
             acumulador += i.puntaje_obtenido
         sub_estandar.calificacion_obtenida = acumulador
-        sub_estandar.save(update_fields=['calificacion_obtenida'])
+        if sub_estandar.calificacion_obtenida != 0:
+            coefiente = sub_estandar.calificacion_maxima / sub_estandar.calificacion_obtenida
+            sub_estandar.porcentaje_obtenido = 100 / coefiente
+        else:
+            sub_estandar.porcentaje_obtenido = 0
+        sub_estandar.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
+        coefiente = 0
 
         for i in lista_calculo_estandar:
             acumulador += i.calificacion_obtenida
         estandar.calificacion_obtenida = acumulador
-        estandar.save(update_fields=['calificacion_obtenida'])
+        if estandar.calificacion_obtenida != 0:
+            coefiente = estandar.calificacion_maxima / estandar.calificacion_obtenida
+            estandar.porcentaje_obtenido = 100 / coefiente
+        else:
+            estandar.porcentaje_obtenido = 0
+        estandar.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
+        coefiente = 0
 
         for i in lista_estandares:
             acumulador += i.calificacion_obtenida
         ciclo.calificacion_obtenida = acumulador
-        ciclo.save(update_fields=['calificacion_obtenida'])
+        if ciclo.calificacion_obtenida != 0:
+            coefiente = ciclo.calificacion_maxima / ciclo.calificacion_obtenida
+            ciclo.porcentaje_obtenido = 100 / coefiente
+        else:
+            ciclo.porcentaje_obtenido = 0
+        ciclo.save(update_fields=['calificacion_obtenida', 'porcentaje_obtenido'])
         acumulador = 0
+        coefiente = 0
+
+        for i in ciclos:
+            acumulador += i.calificacion_obtenida
+        phva.calificacion_obtenida = acumulador
+        phva.save(update_fields=['calificacion_obtenida'])
 
         # Contextos individuales (Objeto)
         context['ciclo'] = Ciclo.objects.get(id = 4)
@@ -537,6 +887,13 @@ class FormatoDeleteView(BSModalDeleteView):
     template_name = 'usuarios/eliminar_formato.html'
     success_message = 'Success: Formato borrado.'
     success_url = "/formatos_admin/"
+
+
+class EvidenciaPlanearDeleteView(BSModalDeleteView):
+    model = Evidencia
+    template_name = 'usuarios/eliminar_evidencia.html'
+    success_message = 'Success: evidencia borrado.'
+    success_url = "/planear/"
 
 
 class ItemEstadoUpdateView(BSModalUpdateView):
@@ -620,10 +977,10 @@ class ItemEstadoActuarUpdateView(BSModalUpdateView):
 
     def form_valid(self, form, **kwargs):
         self.object = self.get_object()
-        item = ItemEstandar.objects.get(id=self.object.pk) # Obtener pk de la url con self.object.pk y self.get_object()
+        item:(ItemEstandar) = ItemEstandar.objects.get(id=self.object.pk) # Obtener pk de la url con self.object.pk y self.get_object()
         puntaje_maximo = item.puntaje_maximo
         # Acceder al id de la fk con .id
-        estado = item.fk_estado.id
+
         if form.instance.fk_estado.id == 1:
             item.puntaje_obtenido = puntaje_maximo
             item.save(update_fields=['puntaje_obtenido'])
@@ -693,10 +1050,22 @@ def calificar_planear(request):
     return JsonResponse(response)
 
 
+class TortaAdministrador(generic.ListView, LoginRequiredMixin):
+    item = Ciclo
+    context_object_name = 'item'
+    template_name = 'usuarios/torta_administrador.html'
 
-@login_required
-def torta_administrador(request):
-    return render(request, 'usuarios/torta_administrador.html')
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        context = super(TortaAdministrador, self).get_context_data(**kwargs)
+        context['planear'] = Ciclo.objects.get(id = 1)
+        context['hacer'] = Ciclo.objects.get(id = 2)
+        context['verificar'] = Ciclo.objects.get(id = 3)
+        context['actuar'] = Ciclo.objects.get(id = 4)
+        context['phva'] = Phva.objects.get(id = 1)
+        return context
 
 
 @login_required

@@ -67,7 +67,7 @@ class FormatoModelForm(BSModalModelForm):
 
 
     def clean_formato(self, **kwargs):
-        CONTENT_TYPES = ['pdf','png']
+        CONTENT_TYPES = ['png', 'pdf', 'xlsx', 'xls', 'docx', 'doc']
         # 2.5MB - 2621440
         # 5MB - 5242880
         # 10MB - 10485760

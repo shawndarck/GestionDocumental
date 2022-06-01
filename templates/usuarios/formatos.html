@@ -226,12 +226,12 @@
         });
 
         // Delete book buttons - formURL is retrieved from the data of the element
-        function deleteBookModalForm() {
+        function deleteFormatoModalForm() {
             $(".eliminar-formato").each(function () {
                 $(this).modalForm({formURL: $(this).data("form-url"), isDeleteForm: true});
             });
         }
-        deleteBookModalForm();
+        deleteBookFormatoForm();
     </script>
     {% endblock extrascripts %}
 </body>
