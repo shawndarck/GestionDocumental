@@ -37,7 +37,8 @@ from bootstrap_modal_forms.generic import (
 from .forms import (
     EvidenciaModelForm,
     FormatoModelForm,
-    EstadoItemForm
+    EstadoItemForm,
+    AccesoUsuarioForm,
 )
 
 CONTENT_TYPES = ['pdf','png']
@@ -54,6 +55,209 @@ MAX_UPLOAD_SIZE = "2621440"
 def index(request):
     documents = Evidencia.objects.all()
     return render(request, "usuarios/index.html", context = {"files": documents})
+
+
+class ActuarUsunormal(generic.ListView, LoginRequiredMixin):
+    item = ItemEstandar
+    context_object_name = 'item_estandar'
+    template_name = 'usuarios/usunormal_actuar.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        # Prerrequisito
+        context = super(ActuarUsunormal, self).get_context_data(**kwargs)
+        # public ItemEstandar lista_items
+        
+        # Contextos individuales (Objeto)
+        context['ciclo'] = Ciclo.objects.get(id = 4)
+        context['estandar'] = Estandar.objects.get(id = 7)
+        context['sub_estandar'] = SubEstandar.objects.get(id = 21)
+        # Items de estandar (Lista)
+        context['item_estandar1'] = ItemEstandar.objects.filter(fk_sub_estandar = 21)
+        return context
+
+
+class HacerUsunormal(generic.ListView, LoginRequiredMixin):
+    item = ItemEstandar
+    context_object_name = 'item_estandar'
+    template_name = 'usuarios/usunormal_hacer.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        context = super(HacerUsunormal, self).get_context_data(**kwargs)
+        
+        # Contextos individuales (Objeto)
+        context['ciclo'] = Ciclo.objects.get(id = 2)
+        context['estandar'] = Estandar.objects.get(id = 3)
+        context['estandar2'] = Estandar.objects.get(id = 4)
+        context['estandar3'] = Estandar.objects.get(id = 5)
+        context['sub_estandar'] = SubEstandar.objects.get(id = 14)
+        context['sub_estandar2'] = SubEstandar.objects.get(id = 15)
+        context['sub_estandar3'] = SubEstandar.objects.get(id = 16)
+        context['sub_estandar4'] = SubEstandar.objects.get(id = 17)
+        context['sub_estandar5'] = SubEstandar.objects.get(id = 18)
+        context['sub_estandar6'] = SubEstandar.objects.get(id = 19)
+        # Items de estandar (Lista)
+        context['item_estandar1'] = ItemEstandar.objects.filter(fk_sub_estandar = 14)
+        context['item_estandar2'] = ItemEstandar.objects.filter(fk_sub_estandar = 15)
+        context['item_estandar3'] = ItemEstandar.objects.filter(fk_sub_estandar = 16)
+        context['item_estandar4'] = ItemEstandar.objects.filter(fk_sub_estandar = 17)
+        context['item_estandar5'] = ItemEstandar.objects.filter(fk_sub_estandar = 18)
+        context['item_estandar6'] = ItemEstandar.objects.filter(fk_sub_estandar = 19)
+        return context
+
+
+class VerificarUsunormal(generic.ListView, LoginRequiredMixin):
+    item = ItemEstandar
+    context_object_name = 'item_estandar'
+    template_name = 'usuarios/usunormal_verificar.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        context = super(VerificarUsunormal, self).get_context_data(**kwargs)
+        
+        # Contextos individuales (Objeto)
+        context['ciclo'] = Ciclo.objects.get(id = 3)
+        context['estandar'] = Estandar.objects.get(id = 6)
+        context['sub_estandar'] = SubEstandar.objects.get(id = 20)
+        # Items de estandar (Lista)
+        context['item_estandar1'] = ItemEstandar.objects.filter(fk_sub_estandar = 20)
+        return context
+
+
+class PlanearUsunormal(generic.ListView, LoginRequiredMixin):
+    item = ItemEstandar
+    context_object_name = 'item_estandar'
+    template_name = 'usuarios/usunormal_planear.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        context = super(PlanearUsunormal, self).get_context_data(**kwargs)
+        # Contextos individuales (Objeto)
+        context['ciclo'] = Ciclo.objects.get(id = 1)
+        context['estandar'] = Estandar.objects.get(id = 1)
+        context['estandar2'] = Estandar.objects.get(id = 2)
+        context['sub_estandar'] = SubEstandar.objects.get(id = 1)
+        context['sub_estandar2'] = SubEstandar.objects.get(id = 2)
+        context['sub_estandar3'] = SubEstandar.objects.get(id = 3)
+        context['sub_estandar4'] = SubEstandar.objects.get(id = 4)
+        context['sub_estandar5'] = SubEstandar.objects.get(id = 5)
+        context['sub_estandar6'] = SubEstandar.objects.get(id = 6)
+        context['sub_estandar7'] = SubEstandar.objects.get(id = 7)
+        context['sub_estandar8'] = SubEstandar.objects.get(id = 8)
+        context['sub_estandar9'] = SubEstandar.objects.get(id = 9)
+        context['sub_estandar10'] = SubEstandar.objects.get(id = 10)
+        context['sub_estandar11'] = SubEstandar.objects.get(id = 11)
+        context['sub_estandar12'] = SubEstandar.objects.get(id = 12)
+        context['sub_estandar13'] = SubEstandar.objects.get(id = 13)
+        # Items de estandar (Lista)
+        context['item_estandar1'] = ItemEstandar.objects.filter(fk_sub_estandar = 1)
+        context['item_estandar2'] = ItemEstandar.objects.filter(fk_sub_estandar = 2)
+        context['item_estandar3'] = ItemEstandar.objects.filter(fk_sub_estandar = 3)
+        context['item_estandar4'] = ItemEstandar.objects.filter(fk_sub_estandar = 4)
+        context['item_estandar5'] = ItemEstandar.objects.filter(fk_sub_estandar = 5)
+        context['item_estandar6'] = ItemEstandar.objects.filter(fk_sub_estandar = 6)
+        context['item_estandar7'] = ItemEstandar.objects.filter(fk_sub_estandar = 7)
+        context['item_estandar8'] = ItemEstandar.objects.filter(fk_sub_estandar = 8)
+        context['item_estandar9'] = ItemEstandar.objects.filter(fk_sub_estandar = 9)
+        context['item_estandar10'] = ItemEstandar.objects.filter(fk_sub_estandar = 10)
+        context['item_estandar11'] = ItemEstandar.objects.filter(fk_sub_estandar = 11)
+        context['item_estandar12'] = ItemEstandar.objects.filter(fk_sub_estandar = 12)
+        context['item_estandar13'] = ItemEstandar.objects.filter(fk_sub_estandar = 13)
+        return context
+
+
+class PermisosPlanearCreateView(BSModalCreateView):
+    model = ItemEstandar
+    template_name = 'usuarios/modal_permisos.html'
+    form_class = AccesoUsuarioForm
+    success_message = 'Success: Book was updated.'
+    success_url = "/accesos_planear/"
+
+    def form_valid(self, form, **kwargs):
+        self.object = self.get_object()
+        item:(ItemEstandar) = ItemEstandar.objects.get(id=self.object.pk) # Obtener pk de la url con self.object.pk y self.get_object()
+        # Acceder al id de la fk con .id
+        usu_pk:(int) = self.request.POST.get('users')
+        usuario:(Usuario) = Usuario.objects.get(id=usu_pk)
+        item.permisos_usuarios.add(usuario)
+
+        return HttpResponseRedirect(self.get_success_url())
+
+
+class PermisosHacerCreateView(BSModalCreateView):
+    model = ItemEstandar
+    template_name = 'usuarios/modal_permisos.html'
+    form_class = AccesoUsuarioForm
+    success_message = 'Success: Book was updated.'
+    success_url = "/accesos_hacer/"
+
+    def form_valid(self, form, **kwargs):
+        self.object = self.get_object()
+        item:(ItemEstandar) = ItemEstandar.objects.get(id=self.object.pk) # Obtener pk de la url con self.object.pk y self.get_object()
+        # Acceder al id de la fk con .id
+        usu_pk:(int) = self.request.POST.get('users')
+        usuario:(Usuario) = Usuario.objects.get(id=usu_pk)
+        item.permisos_usuarios.add(usuario)
+
+        return HttpResponseRedirect(self.get_success_url())
+
+
+class PermisosVerificarCreateView(BSModalCreateView):
+    model = ItemEstandar
+    template_name = 'usuarios/modal_permisos.html'
+    form_class = AccesoUsuarioForm
+    success_message = 'Success: Book was updated.'
+    success_url = "/accesos_verificar/"
+
+    def form_valid(self, form, **kwargs):
+        self.object = self.get_object()
+        item:(ItemEstandar) = ItemEstandar.objects.get(id=self.object.pk) # Obtener pk de la url con self.object.pk y self.get_object()
+        # Acceder al id de la fk con .id
+        usu_pk:(int) = self.request.POST.get('users')
+        usuario:(Usuario) = Usuario.objects.get(id=usu_pk)
+        item.permisos_usuarios.add(usuario)
+
+        return HttpResponseRedirect(self.get_success_url())
+
+
+class PermisosActuarCreateView(BSModalCreateView):
+    model = ItemEstandar
+    template_name = 'usuarios/modal_permisos.html'
+    form_class = AccesoUsuarioForm
+    success_message = 'Success: Book was updated.'
+    success_url = "/accesos_actuar/"
+
+    def form_valid(self, form, **kwargs):
+        self.object = self.get_object()
+        item:(ItemEstandar) = ItemEstandar.objects.get(id=self.object.pk) # Obtener pk de la url con self.object.pk y self.get_object()
+        # Acceder al id de la fk con .id
+        usu_pk:(int) = self.request.POST.get('users')
+        usuario:(Usuario) = Usuario.objects.get(id=usu_pk)
+        item.permisos_usuarios.add(usuario)
+
+        return HttpResponseRedirect(self.get_success_url())
+
+class PermisosReadView(generic.ListView):
+    model = Usuario
+    template_name = 'usuarios/leer_accesos.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        context = super(PermisosReadView, self).get_context_data(**kwargs)
+        pk = self.kwargs.get('pk')
+        context['usuarios'] =  Usuario.objects.filter(itemestandar__in=[pk])
+        return context
 
 
 class GestionPermisosEvidencias(generic.ListView, LoginRequiredMixin):
@@ -154,7 +358,7 @@ class AccesosVerificar(generic.ListView, LoginRequiredMixin):
         pass
 
     def get_context_data(self, **kwargs):
-        context = super(AccesosPlanear, self).get_context_data(**kwargs)
+        context = super(AccesosVerificar, self).get_context_data(**kwargs)
         # Contextos individuales (Objeto)
         context['ciclo'] = Ciclo.objects.get(id = 3)
         context['estandar'] = Estandar.objects.get(id = 6)
@@ -184,7 +388,7 @@ class AccesosActuar(generic.ListView, LoginRequiredMixin):
         return context
 
 
-class EvidenciaCreateView(BSModalCreateView):
+class EvidenciaPlanearCreateView(BSModalCreateView):
     model = ItemEstandar
     template_name = 'usuarios/crear_evidencia.html'
     form_class = EvidenciaModelForm
@@ -193,7 +397,60 @@ class EvidenciaCreateView(BSModalCreateView):
 
     def form_valid(self, form):
         form.instance.fk_item_estandar_id = self.kwargs.get('pk')
-        return super(EvidenciaCreateView, self).form_valid(form)
+        return super(EvidenciaPlanearCreateView, self).form_valid(form)
+
+class EvidenciaHacerCreateView(BSModalCreateView):
+    model = ItemEstandar
+    template_name = 'usuarios/crear_evidencia.html'
+    form_class = EvidenciaModelForm
+    success_message = 'Success: Book was created.'
+    success_url = reverse_lazy('hacer')
+
+    def form_valid(self, form):
+        form.instance.fk_item_estandar_id = self.kwargs.get('pk')
+        return super(EvidenciaHacerCreateView, self).form_valid(form)
+
+class EvidenciaVerificarCreateView(BSModalCreateView):
+    model = ItemEstandar
+    template_name = 'usuarios/crear_evidencia.html'
+    form_class = EvidenciaModelForm
+    success_message = 'Success: Book was created.'
+    success_url = reverse_lazy('verificar')
+
+    def form_valid(self, form):
+        form.instance.fk_item_estandar_id = self.kwargs.get('pk')
+        return super(EvidenciaVerificarCreateView, self).form_valid(form)
+
+class EvidenciaActuarCreateView(BSModalCreateView):
+    model = ItemEstandar
+    template_name = 'usuarios/crear_evidencia.html'
+    form_class = EvidenciaModelForm
+    success_message = 'Success: Book was created.'
+    success_url = reverse_lazy('actuar')
+
+    def form_valid(self, form):
+        form.instance.fk_item_estandar_id = self.kwargs.get('pk')
+        return super(EvidenciaActuarCreateView, self).form_valid(form)
+
+
+class EvidenciaUsuarioReadView(generic.ListView):
+    model = Evidencia
+    template_name = 'usuarios/leer_evidencias.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        context = super(EvidenciaUsuarioReadView, self).get_context_data(**kwargs)
+        pk = self.kwargs.get('fk')
+        items = ItemEstandar.objects.filter(permisos_usuarios__in=[self.request.user.id])
+        item:(ItemEstandar) = ItemEstandar
+        for i in items:
+            if i.id == pk:
+                item = i
+                context['evidencias'] = Evidencia.objects.filter(fk_item_estandar = item.id)
+                break
+        return context
 
 
 class EvidenciaReadView(generic.ListView):
@@ -828,23 +1085,6 @@ class Actuar(generic.ListView, LoginRequiredMixin):
         context['sub_estandar'] = SubEstandar.objects.get(id = 21)
         # Items de estandar (Lista)
         context['item_estandar1'] = ItemEstandar.objects.filter(fk_sub_estandar = 21)
-        return context
-
-
-
-class PlanearUsunormal(generic.ListView, LoginRequiredMixin):
-    item = ItemEstandar
-    context_object_name = 'item_estandar'
-    template_name = 'usuarios/usuario/planear.html'
-
-    def get_queryset(self):
-        pass
-
-    def get_context_data(self, **kwargs):
-        context = super(PlanearUsunormal, self).get_context_data(**kwargs)
-        context['item_estandar1'] = ItemEstandar.objects.filter(fk_sub_estandar = 1)
-        # Add any other variables to the context here
-        context['item_estandar2'] = ItemEstandar.objects.filter(fk_sub_estandar = 2)
         return context
 
 

@@ -1,3 +1,4 @@
+
 from django.forms import TextInput, ValidationError
 from dataclasses import field, fields
 import django
@@ -12,11 +13,34 @@ from ciclo_phva.models import (
     Evidencia,
     Formato,
     EstadoItemEstandar,
-    ItemEstandar
+    ItemEstandar,
 )
+
+from usuarios.models import (
+    Usuario,
+)
+
 from bootstrap_modal_forms.forms import BSModalModelForm
 from django.forms import ModelChoiceField
 
+
+
+
+class AccesoUsuarioForm(BSModalModelForm):
+
+    usuarios = []
+    for user in Usuario.objects.filter(es_usuario = True):
+        usuarios.append((user.id, user.username))
+
+    users = forms.ChoiceField(choices = usuarios)
+    class Meta:
+        model = ItemEstandar
+        fields = ['users']
+
+    def clean_users(self, **kwards):
+        data = self.cleaned_data
+        users = data['users']
+        return users
 
 
 class EstadoItemForm(BSModalModelForm):

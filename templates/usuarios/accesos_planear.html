@@ -39,7 +39,7 @@
                     </div>
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgb(136, 137, 142);"><path d="M16.813 4.419A.997.997 0 0 0 16 4H3a1 1 0 0 0-.813 1.581L6.771 12l-4.585 6.419A1 1 0 0 0 3 20h13a.997.997 0 0 0 .813-.419l5-7a.997.997 0 0 0 0-1.162l-5-7z"></path></svg>
-                        <span>Accesos</span>
+                        <span> <a href="{% url 'permisos_evidencias' %}">Accesos</a></span>
                     </div>
                 </div>
                 <br>
@@ -97,8 +97,6 @@
                                   </th>
                                   <th scope="col"></th>
                                   <th scope="col"></th>
-                                  <th scope="col"></th>
-                                  <th scope="col"></th>
                                 </tr>
                               </thead>
 
@@ -107,8 +105,6 @@
                                   <th scope="col text-dark">{{ sub_estandar }}
                                   </th>                                  
                                   <th scope="col">({{ sub_estandar.calificacion_obtenida }})%</th>
-                                  <th scope="col"></th>
-                                  <th scope="col">Estado</th>
                                   <th scope="col"></th>
                                 </tr>
                               </thead>
@@ -122,18 +118,10 @@
                                     </td>
                                     
                                     <td>
-                                      <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia' item.pk %}" >Cargar evidencias</a>
+                                      <a class="accesos btn btn-warning text-dark" data-id="{% url 'permisos_usuarios_planear' item.pk %}" >Otorgar accesos</a>
                                     </td>
                                     <td>
-                                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias' item.pk %}" >Ver evidencias</a>
-                                    </td>
-                                    <td>
-                                      <a>{{ item.fk_estado }}</a>
-                                    </td>
-                                    <td>                                      
-                                      <button type="button" class="estado btn btn-sm btn-primary" data-form-url="{% url 'estado_item' item.pk %}">
-                                        Calificar
-                                      </button>                                      
+                                      <a class="leer-permisos btn btn-primary" data-form-url="{% url 'leer_permisos' item.pk %}" >Ver accesos</a>
                                     </td>
                                   </tr>
                                 {% endfor %}
@@ -145,8 +133,6 @@
                                   <th scope="col text-dark">{{ sub_estandar2 }}
                                   </th>                                  
                                   <th scope="col">({{ sub_estandar2.calificacion_obtenida }})%</th>
-                                  <th scope="col"></th>
-                                  <th scope="col">Estado</th>
                                   <th scope="col"></th>
                                 </tr>
                               </thead>
@@ -160,18 +146,10 @@
                                     </td>
                                     
                                     <td>
-                                      <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia' item.pk %}" >Cargar evidencias</a>
+                                      <a class="accesos btn btn-warning text-dark" data-id="{% url 'permisos_usuarios_planear' item.pk %}" >Otorgar accesos</a>
                                     </td>
                                     <td>
-                                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias' item.pk %}" >Ver evidencias</a>
-                                    </td>
-                                    <td>
-                                      <a>{{ item.fk_estado }}</a>
-                                    </td>
-                                    <td>                                      
-                                      <button type="button" class="estado btn btn-sm btn-primary" data-form-url="{% url 'estado_item' item.pk %}">
-                                        Calificar
-                                      </button>                                      
+                                      <a class="leer-permisos btn btn-primary" data-form-url="{% url 'leer_permisos' item.pk %}" >Ver accesos</a>
                                     </td>
                                   </tr>
                                 {% endfor %}
@@ -184,8 +162,6 @@
                                   </th>
                                   <th scope="col"></th>
                                   <th scope="col"></th>
-                                  <th scope="col"></th>
-                                  <th scope="col"></th>
                                 </tr>
                               </thead>
 
@@ -194,8 +170,6 @@
                                   <th scope="col text-dark">{{ sub_estandar3 }}
                                   </th>                                  
                                   <th scope="col">({{ sub_estandar3.calificacion_obtenida }})%</th>
-                                  <th scope="col"></th>
-                                  <th scope="col">Estado</th>
                                   <th scope="col"></th>
                                 </tr>
                               </thead>
@@ -209,18 +183,10 @@
                                     </td>
                                     
                                     <td>
-                                      <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia' item.pk %}" >Cargar evidencias</a>
+                                      <a class="accesos btn btn-warning text-dark" data-id="{% url 'permisos_usuarios_planear' item.pk %}" >Otorgar accesos</a>
                                     </td>
                                     <td>
-                                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias' item.pk %}" >Ver evidencias</a>
-                                    </td>
-                                    <td>
-                                      <a>{{ item.fk_estado }}</a>
-                                    </td>
-                                    <td>                                      
-                                      <button type="button" class="estado btn btn-sm btn-primary" data-form-url="{% url 'estado_item' item.pk %}">
-                                        Calificar
-                                      </button>                                      
+                                      <a class="leer-permisos btn btn-primary" data-form-url="{% url 'leer_permisos' item.pk %}" >Ver accesos</a>
                                     </td>
                                   </tr>
                                 {% endfor %}
@@ -231,8 +197,6 @@
                                   <th scope="col text-dark">{{ sub_estandar4 }}
                                   </th>                                  
                                   <th scope="col">({{ sub_estandar4.calificacion_obtenida }})%</th>
-                                  <th scope="col"></th>
-                                  <th scope="col">Estado</th>
                                   <th scope="col"></th>
                                 </tr>
                               </thead>
@@ -246,18 +210,10 @@
                                     </td>
                                     
                                     <td>
-                                      <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia' item.pk %}" >Cargar evidencias</a>
+                                      <a class="accesos btn btn-warning text-dark" data-id="{% url 'permisos_usuarios_planear' item.pk %}" >Otorgar accesos</a>
                                     </td>
                                     <td>
-                                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias' item.pk %}" >Ver evidencias</a>
-                                    </td>
-                                    <td>
-                                      <a>{{ item.fk_estado }}</a>
-                                    </td>
-                                    <td>                                      
-                                      <button type="button" class="estado btn btn-sm btn-primary" data-form-url="{% url 'estado_item' item.pk %}">
-                                        Calificar
-                                      </button>                                      
+                                      <a class="leer-permisos btn btn-primary" data-form-url="{% url 'leer_permisos' item.pk %}" >Ver accesos</a>
                                     </td>
                                   </tr>
                                 {% endfor %}
@@ -268,8 +224,6 @@
                                   <th scope="col text-dark">{{ sub_estandar5 }}
                                   </th>                                  
                                   <th scope="col">({{ sub_estandar5.calificacion_obtenida }})%</th>
-                                  <th scope="col"></th>
-                                  <th scope="col">Estado</th>
                                   <th scope="col"></th>
                                 </tr>
                               </thead>
@@ -283,18 +237,10 @@
                                     </td>
                                     
                                     <td>
-                                      <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia' item.pk %}" >Cargar evidencias</a>
+                                      <a class="accesos btn btn-warning text-dark" data-id="{% url 'permisos_usuarios_planear' item.pk %}" >Otorgar accesos</a>
                                     </td>
                                     <td>
-                                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias' item.pk %}" >Ver evidencias</a>
-                                    </td>
-                                    <td>
-                                      <a>{{ item.fk_estado }}</a>
-                                    </td>
-                                    <td>                                      
-                                      <button type="button" class="estado btn btn-sm btn-primary" data-form-url="{% url 'estado_item' item.pk %}">
-                                        Calificar
-                                      </button>                                      
+                                      <a class="leer-permisos btn btn-primary" data-form-url="{% url 'leer_permisos' item.pk %}" >Ver accesos</a>
                                     </td>
                                   </tr>
                                 {% endfor %}
@@ -305,8 +251,6 @@
                                   <th scope="col text-dark">{{ sub_estandar6 }}
                                   </th>                                  
                                   <th scope="col">({{ sub_estandar6.calificacion_obtenida }})%</th>
-                                  <th scope="col"></th>
-                                  <th scope="col">Estado</th>
                                   <th scope="col"></th>
                                 </tr>
                               </thead>
@@ -320,18 +264,10 @@
                                     </td>
                                     
                                     <td>
-                                      <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia' item.pk %}" >Cargar evidencias</a>
+                                      <a class="accesos btn btn-warning text-dark" data-id="{% url 'permisos_usuarios_planear' item.pk %}" >Otorgar accesos</a>
                                     </td>
                                     <td>
-                                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias' item.pk %}" >Ver evidencias</a>
-                                    </td>
-                                    <td>
-                                      <a>{{ item.fk_estado }}</a>
-                                    </td>
-                                    <td>                                      
-                                      <button type="button" class="estado btn btn-sm btn-primary" data-form-url="{% url 'estado_item' item.pk %}">
-                                        Calificar
-                                      </button>                                      
+                                      <a class="leer-permisos btn btn-primary" data-form-url="{% url 'leer_permisos' item.pk %}" >Ver accesos</a>
                                     </td>
                                   </tr>
                                 {% endfor %}
@@ -342,8 +278,6 @@
                                   <th scope="col text-dark">{{ sub_estandar7 }}
                                   </th>                                  
                                   <th scope="col">({{ sub_estandar7.calificacion_obtenida }})%</th>
-                                  <th scope="col"></th>
-                                  <th scope="col">Estado</th>
                                   <th scope="col"></th>
                                 </tr>
                               </thead>
@@ -357,18 +291,10 @@
                                     </td>
                                     
                                     <td>
-                                      <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia' item.pk %}" >Cargar evidencias</a>
+                                      <a class="accesos btn btn-warning text-dark" data-id="{% url 'permisos_usuarios_planear' item.pk %}" >Otorgar accesos</a>
                                     </td>
                                     <td>
-                                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias' item.pk %}" >Ver evidencias</a>
-                                    </td>
-                                    <td>
-                                      <a>{{ item.fk_estado }}</a>
-                                    </td>
-                                    <td>                                      
-                                      <button type="button" class="estado btn btn-sm btn-primary" data-form-url="{% url 'estado_item' item.pk %}">
-                                        Calificar
-                                      </button>                                      
+                                      <a class="leer-permisos btn btn-primary" data-form-url="{% url 'leer_permisos' item.pk %}" >Ver accesos</a>
                                     </td>
                                   </tr>
                                 {% endfor %}
@@ -379,8 +305,6 @@
                                   <th scope="col text-dark">{{ sub_estandar8 }}
                                   </th>                                  
                                   <th scope="col">({{ sub_estandar8.calificacion_obtenida }})%</th>
-                                  <th scope="col"></th>
-                                  <th scope="col">Estado</th>
                                   <th scope="col"></th>
                                 </tr>
                               </thead>
@@ -394,18 +318,10 @@
                                     </td>
                                     
                                     <td>
-                                      <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia' item.pk %}" >Cargar evidencias</a>
+                                      <a class="accesos btn btn-warning text-dark" data-id="{% url 'permisos_usuarios_planear' item.pk %}" >Otorgar accesos</a>
                                     </td>
                                     <td>
-                                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias' item.pk %}" >Ver evidencias</a>
-                                    </td>
-                                    <td>
-                                      <a>{{ item.fk_estado }}</a>
-                                    </td>
-                                    <td>                                      
-                                      <button type="button" class="estado btn btn-sm btn-primary" data-form-url="{% url 'estado_item' item.pk %}">
-                                        Calificar
-                                      </button>                                      
+                                      <a class="leer-permisos btn btn-primary" data-form-url="{% url 'leer_permisos' item.pk %}" >Ver accesos</a>
                                     </td>
                                   </tr>
                                 {% endfor %}
@@ -416,8 +332,6 @@
                                   <th scope="col text-dark">{{ sub_estandar9 }}
                                   </th>                                  
                                   <th scope="col">({{ sub_estandar9.calificacion_obtenida }})%</th>
-                                  <th scope="col"></th>
-                                  <th scope="col">Estado</th>
                                   <th scope="col"></th>
                                 </tr>
                               </thead>
@@ -431,18 +345,10 @@
                                     </td>
                                     
                                     <td>
-                                      <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia' item.pk %}" >Cargar evidencias</a>
+                                      <a class="accesos btn btn-warning text-dark" data-id="{% url 'permisos_usuarios_planear' item.pk %}" >Otorgar accesos</a>
                                     </td>
                                     <td>
-                                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias' item.pk %}" >Ver evidencias</a>
-                                    </td>
-                                    <td>
-                                      <a>{{ item.fk_estado }}</a>
-                                    </td>
-                                    <td>                                      
-                                      <button type="button" class="estado btn btn-sm btn-primary" data-form-url="{% url 'estado_item' item.pk %}">
-                                        Calificar
-                                      </button>                                      
+                                      <a class="leer-permisos btn btn-primary" data-form-url="{% url 'leer_permisos' item.pk %}" >Ver accesos</a>
                                     </td>
                                   </tr>
                                 {% endfor %}
@@ -453,8 +359,6 @@
                                   <th scope="col text-dark">{{ sub_estandar10 }}
                                   </th>                                  
                                   <th scope="col">({{ sub_estandar10.calificacion_obtenida }})%</th>
-                                  <th scope="col"></th>
-                                  <th scope="col">Estado</th>
                                   <th scope="col"></th>
                                 </tr>
                               </thead>
@@ -468,18 +372,10 @@
                                     </td>
                                     
                                     <td>
-                                      <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia' item.pk %}" >Cargar evidencias</a>
+                                      <a class="accesos btn btn-warning text-dark" data-id="{% url 'permisos_usuarios_planear' item.pk %}" >Otorgar accesos</a>
                                     </td>
                                     <td>
-                                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias' item.pk %}" >Ver evidencias</a>
-                                    </td>
-                                    <td>
-                                      <a>{{ item.fk_estado }}</a>
-                                    </td>
-                                    <td>                                      
-                                      <button type="button" class="estado btn btn-sm btn-primary" data-form-url="{% url 'estado_item' item.pk %}">
-                                        Calificar
-                                      </button>                                      
+                                      <a class="leer-permisos btn btn-primary" data-form-url="{% url 'leer_permisos' item.pk %}" >Ver accesos</a>
                                     </td>
                                   </tr>
                                 {% endfor %}
@@ -490,8 +386,6 @@
                                   <th scope="col text-dark">{{ sub_estandar11 }}
                                   </th>                                  
                                   <th scope="col">({{ sub_estandar11.calificacion_obtenida }})%</th>
-                                  <th scope="col"></th>
-                                  <th scope="col">Estado</th>
                                   <th scope="col"></th>
                                 </tr>
                               </thead>
@@ -505,18 +399,10 @@
                                     </td>
                                     
                                     <td>
-                                      <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia' item.pk %}" >Cargar evidencias</a>
+                                      <a class="accesos btn btn-warning text-dark" data-id="{% url 'permisos_usuarios_planear' item.pk %}" >Otorgar accesos</a>
                                     </td>
                                     <td>
-                                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias' item.pk %}" >Ver evidencias</a>
-                                    </td>
-                                    <td>
-                                      <a>{{ item.fk_estado }}</a>
-                                    </td>
-                                    <td>                                      
-                                      <button type="button" class="estado btn btn-sm btn-primary" data-form-url="{% url 'estado_item' item.pk %}">
-                                        Calificar
-                                      </button>                                      
+                                      <a class="leer-permisos btn btn-primary" data-form-url="{% url 'leer_permisos' item.pk %}" >Ver accesos</a>
                                     </td>
                                   </tr>
                                 {% endfor %}
@@ -527,8 +413,6 @@
                                   <th scope="col text-dark">{{ sub_estandar12 }}
                                   </th>                                  
                                   <th scope="col">({{ sub_estandar12.calificacion_obtenida }})%</th>
-                                  <th scope="col"></th>
-                                  <th scope="col">Estado</th>
                                   <th scope="col"></th>
                                 </tr>
                               </thead>
@@ -542,18 +426,10 @@
                                     </td>
                                     
                                     <td>
-                                      <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia' item.pk %}" >Cargar evidencias</a>
+                                      <a class="accesos btn btn-warning text-dark" data-id="{% url 'permisos_usuarios_planear' item.pk %}" >Otorgar accesos</a>
                                     </td>
                                     <td>
-                                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias' item.pk %}" >Ver evidencias</a>
-                                    </td>
-                                    <td>
-                                      <a>{{ item.fk_estado }}</a>
-                                    </td>
-                                    <td>                                      
-                                      <button type="button" class="estado btn btn-sm btn-primary" data-form-url="{% url 'estado_item' item.pk %}">
-                                        Calificar
-                                      </button>                                      
+                                      <a class="leer-permisos btn btn-primary" data-form-url="{% url 'leer_permisos' item.pk %}" >Ver accesos</a>
                                     </td>
                                   </tr>
                                 {% endfor %}
@@ -564,8 +440,6 @@
                                   <th scope="col text-dark">{{ sub_estandar13 }}
                                   </th>                                  
                                   <th scope="col">({{ sub_estandar13.calificacion_obtenida }})%</th>
-                                  <th scope="col"></th>
-                                  <th scope="col">Estado</th>
                                   <th scope="col"></th>
                                 </tr>
                               </thead>
@@ -579,18 +453,10 @@
                                     </td>
                                     
                                     <td>
-                                      <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia' item.pk %}" >Cargar evidencias</a>
+                                      <a class="accesos btn btn-warning text-dark" data-id="{% url 'permisos_usuarios_planear' item.pk %}" >Otorgar accesos</a>
                                     </td>
                                     <td>
-                                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias' item.pk %}" >Ver evidencias</a>
-                                    </td>
-                                    <td>
-                                      <a>{{ item.fk_estado }}</a>
-                                    </td>
-                                    <td>                                      
-                                      <button type="button" class="estado btn btn-sm btn-primary" data-form-url="{% url 'estado_item' item.pk %}">
-                                        Calificar
-                                      </button>                                      
+                                      <a class="leer-permisos btn btn-primary" data-form-url="{% url 'leer_permisos' item.pk %}" >Ver accesos</a>
                                     </td>
                                   </tr>
                                 {% endfor %}
@@ -789,19 +655,18 @@
 
       {# Update Item Modal Form #}
       $(function () {
-          $(".create").each(function () {
-              $(this).modalForm({formURL: $(this).data('id')});
-          });
+        $(".accesos").each(function () {
+            $(this).modalForm({formURL: $(this).data('id')});
+        });
       });
 
       // Leer 
-      function leerEvidenciasModalForm() {
-        $(".leer-evidencias").each(function () {
+      function leerPermisosModalForm() {
+        $(".leer-permisos").each(function () {
             $(this).modalForm({formURL: $(this).data("form-url")});
         });
       }
-      leerEvidenciasModalForm();
-
+      leerPermisosModalForm();
       // Leer 
       function estadoModalForm() {
         $(".estado").each(function () {

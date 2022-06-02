@@ -31,7 +31,7 @@
                 <div class="container-svg">
                   
                     <div>
-                      <ion-icon size="large" src="{% static 'usuarios/img/home-outline.svg' %}"></ion-icon><span></ion-icon><span><a href="{% url 'torta_administrador' %}">Inicio</a></span>
+                      <ion-icon size="large" src="{% static 'usuarios/img/home-outline.svg' %}"></ion-icon><span></ion-icon><span><a href="{% url 'torta_usunormal' %}">Inicio</a></span>
                     </div>
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgb(136, 137, 142);"><path d="m20 8-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM9 19H7v-9h2v9zm4 0h-2v-6h2v6zm4 0h-2v-3h2v3zM14 9h-1V4l5 5h-4z"></path></svg>
@@ -64,7 +64,7 @@
                     <div class="d-flex ">
                         <a id="menu-toggle"><span id="open-close" id="menu-toggle"><i class='bx bx-menu mt-2'></i></span></a>
                         <img src="{% static 'usuarios/img/logo.png' %}" alt="" width="120" height="43" class="mt-2">
-                        <a class="navbar-brand ms-3 mt-2" href="">Administrador / {{user.username}}</a>
+                        <a class="navbar-brand ms-3 mt-2" href="">Usuario / {{user.username}}</a>
                     </div>
                     
                     <form class="d-flex">
@@ -82,7 +82,7 @@
                     <div class="col">
                       <div class="card bg-default shadow">
                         <div class="card-header bg-transparent border-0">
-                          <h3 class="text-white mb-1 ms-4">{{ ciclo }} ({{ciclo.calificacion_obtenida}}%)</h3>
+                          <h3 class="text-white mb-1 ms-4">{{ ciclo }} ({{ciclo.calificacion_obtenida}}% - 5%)</h3>
                           <div class="progress ms-4 me-4">
                             <div class="progress-bar bg-primary" placeholder="hola mundo" role="progressbar" style="width: {{ciclo.porcentaje_obtenido}}%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
                           </div>
@@ -95,9 +95,6 @@
                                   <th scope="col"><h6> {{ estandar.descripcion }} ({{estandar.calificacion_obtenida}}%) </h6>
                                   </th>
                                   <th scope="col"></th>
-                                  <th scope="col"></th>
-                                  <th scope="col"></th>
-                                  <th scope="col"></th>
                                 </tr>
                               </thead>
 
@@ -106,9 +103,6 @@
                                   <th scope="col text-dark">{{ sub_estandar }}
                                   </th>                                  
                                   <th scope="col">({{ sub_estandar.calificacion_obtenida }})%</th>
-                                  <th scope="col"></th>
-                                  <th scope="col">Estado</th>
-                                  <th scope="col"></th>
                                 </tr>
                               </thead>
                               
@@ -119,24 +113,12 @@
                                     <td scope="row">
                                       {{ item.descripcion }}
                                     </td>
-                                    
                                     <td>
-                                      <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia_actuar' item.pk %}" >Cargar evidencias</a>
-                                    </td>
-                                    <td>
-                                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias' item.pk %}" >Ver evidencias</a>
-                                    </td>
-                                    <td>
-                                      <a>{{ item.fk_estado }}</a>
-                                    </td>
-                                    <td>                                      
-                                      <button type="button" class="estado btn btn-sm btn-primary" data-form-url="{% url 'estado_item_actuar' item.pk %}">
-                                        Calificar
-                                      </button>                                      
+                                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
                                     </td>
                                   </tr>
                                 {% endfor %}
-                                  
+                                   
                               </tbody>
                           </table>
                           
