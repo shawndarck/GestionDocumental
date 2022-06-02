@@ -136,7 +136,7 @@ class Evidencia(models.Model):
     nombre_evidencia = models.CharField(max_length=200)
     formato = models.FileField(upload_to = "pdf/", validators=[FileExtensionValidator(['png', 'pdf'])])
     fk_item_estandar = models.ForeignKey(ItemEstandar, related_name='item_estandar', null=True, on_delete=models.CASCADE)
-    permisos_usuarios = models.ManyToManyField(Usuario) # Eliminar esta relación
+
 
     class Meta:
         verbose_name='Evidencia'
