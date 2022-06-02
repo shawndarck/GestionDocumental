@@ -55,6 +55,10 @@ urlpatterns = [
     path('actuar/', login_required(views.Actuar.as_view()), name="actuar"),
     path('', views.login, name="login"),
     path('logout/', auth_view.LogoutView.as_view(template_name='usuarios/logout.html'), name="logout"),
+
+    # Gestión de usuarios
+    path('gestion_usuarios/', login_required(views.GestionUsuarios.as_view()), name='gestion_usuarios'),
+    path('estado_usuarios/<int:pk>', login_required(views.CambiaEstadoUsuario.as_view()), name='estado_usuarios'),
 ]
 
 if settings.DEBUG: 

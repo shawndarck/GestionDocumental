@@ -28,11 +28,7 @@ from django.forms import ModelChoiceField
 
 class AccesoUsuarioForm(BSModalModelForm):
 
-    usuarios = []
-    for user in Usuario.objects.filter(es_usuario = True):
-        usuarios.append((user.id, user.username))
-
-    users = forms.ChoiceField(choices = usuarios)
+    users = forms.ModelChoiceField(queryset = Usuario.objects.filter(es_usuario = True))
     class Meta:
         model = ItemEstandar
         fields = ['users']

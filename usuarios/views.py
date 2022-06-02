@@ -56,6 +56,60 @@ def index(request):
     documents = Evidencia.objects.all()
     return render(request, "usuarios/index.html", context = {"files": documents})
 
+class CambiaEstadoUsuario(generic.ListView, LoginRequiredMixin):
+    item = Usuario
+    context_object_name = 'usuario'
+    template_name = 'usuarios/gestion_usuarios.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        # Prerrequisito
+        context = super(CambiaEstadoUsuario, self).get_context_data(**kwargs) 
+        usu=Usuario.objects.get(id=self.kwargs.get('pk'))
+        if usu.is_active == True:
+            usu.is_active = False
+        else:
+            usu.is_active = True
+        usu.save(update_fields=['is_active'])
+        # Contextos individuales (Objeto)
+        context['usuarios'] = Usuario.objects.all()
+        return context
+
+    #     success_url = "/planear/"
+
+    # def form_valid(self, form, **kwargs):
+    #     self.object = self.get_object()
+    #     item = ItemEstandar.objects.get(id=self.object.pk) # Obtener pk de la url con self.object.pk y self.get_object()
+    #     puntaje_maximo = item.puntaje_maximo
+    #     # Acceder al id de la fk con .id
+    #     estado = item.fk_estado.id
+    #     if form.instance.fk_estado.id == 1:
+    #         item.puntaje_obtenido = puntaje_maximo
+    #         item.save(update_fields=['puntaje_obtenido'])
+    #     elif form.instance.fk_estado.id == 2 or form.instance.fk_estado.id == 3:
+    #         item.puntaje_obtenido = 0
+    #         item.save(update_fields=['puntaje_obtenido'])
+    #     item.fk_estado = form.instance.fk_estado
+    #     item.save(update_fields=['fk_estado_id'])
+    #     return HttpResponseRedirect(self.get_success_url())
+
+class GestionUsuarios(generic.ListView, LoginRequiredMixin):
+    item = Usuario
+    context_object_name = 'usuario'
+    template_name = 'usuarios/gestion_usuarios.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        # Prerrequisito
+        context = super(GestionUsuarios, self).get_context_data(**kwargs)        
+        # Contextos individuales (Objeto)
+        context['usuarios'] = Usuario.objects.all()
+        return context
+
 
 class ActuarUsunormal(generic.ListView, LoginRequiredMixin):
     item = ItemEstandar
