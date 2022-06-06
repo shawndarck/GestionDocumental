@@ -83,7 +83,9 @@
                       <div class="card bg-default shadow">
                         <div class="card-header bg-transparent border-0">
                           <h3 class="text-white mb-1 ms-4">Gestión de usuarios</h3>
-                          
+                          <button id="create-user" class="btn btn-primary" type="button" name="button">
+                            <span class="fa fa-plus mr-2"></span>Registrar usuario
+                          </button>  
                         </div>
                         <div class="table-responsive">
                           <table id="tbl-planear" class="table align-items-center table-light table-flush">
@@ -93,6 +95,7 @@
                                   <th scope="col">Usuario
                                   </th>
                                   <th scope="col">Correo</th>
+                                  <th scope="col">Rol</th>
                                   <th scope="col"></th>
                                   <th scope="col"></th>
                                 </tr>
@@ -103,13 +106,22 @@
                                 {% for item in usuarios %}
                                 <tr>
                                     <td scope="row">
-                                      {{ item.username }}
+                                        {{ item.username }}
                                     </td>
                                     <td scope="row">
                                         {{ item.email }}
-                                      </td>
+                                    </td>
                                     <td scope="row">
-                                      <a class="btn btn-warning text-dark" href="{% url 'estado_usuarios' item.pk %}" >Cambiar estado</a>
+                                      {% if item.es_administrador %}
+                                        <span>Administrador</span>
+                                      {% elif item.es_usuario %}
+                                        <span>Usuario</span>
+                                      {% else %}
+                                        <span>Sin rol</span>
+                                      {% endif %}
+                                    </td>
+                                    <td scope="row">
+                                        <a class="btn btn-warning text-dark" href="{% url 'estado_usuarios' item.pk %}" >Cambiar estado</a>
                                     </td>
                                     <td scope="row">
                                         {% if item.is_active %}
@@ -118,9 +130,8 @@
                                             <span><img height="35px" width="35px" src="{% static 'usuarios/img/no.png' %}" alt=""/></span>
                                         {% endif %}
                                     </td>
-                                  </tr>
+                                </tr>
                                 {% endfor %}
-                                  
                               </tbody>
                           </table>
                           
@@ -314,93 +325,23 @@
 
       {# Update Item Modal Form #}
       $(function () {
-          $(".create").each(function () {
-              $(this).modalForm({formURL: $(this).data('id')});
-          });
+        // Create book synchronous
+        function createUserSyncModalForm() {
+            $("#create-user").modalForm({
+                formURL: "{% url 'registrar_usuario' %}",
+                modalID: "#create-modal"
+            });
+        }
+        createUserSyncModalForm();
       });
 
-      // Leer 
-      function leerEvidenciasModalForm() {
-        $(".leer-evidencias").each(function () {
-            $(this).modalForm({formURL: $(this).data("form-url")});
-        });
-      }
-      leerEvidenciasModalForm();
-
-      // Leer 
-      function estadoModalForm() {
-        $(".estado").each(function () {
-            $(this).modalForm({formURL: $(this).data("form-url")});
-        });
-      }
-      estadoModalForm();
-
-      // ajax
-      $(document).ready(function () {
-        // catch the form's submit event
-        $("input[id='op1']:radio").click(function () {
-            // create an AJAX call
-            $.ajax({
-                data: $(this).serialize(), // get the form data
-                url: "{% url 'calificar_planear' %}",
-                // on success
-                success: function (response) {
-                  console.log('resuelto')
-                  $("#op2").prop("checked" , false)
-                  $("#op3").prop("checked" , false)
-                  $("#op1").prop("checked" , true) 
-                  
-                },
-                // on error
-                error: function (response) {
-                    // alert the error if any error occured
-                    //console.log(response.responseJSON.errors)
-                }
-            });
-            return false;
-        });
-        $("input[id='op2']:radio").click(function () {
-          // create an AJAX call
-          $.ajax({
-              data: $(this).serialize(), // get the form data
-              url: "{% url 'calificar_planear' %}",
-              // on success
-              success: function (response) {
-                console.log('resuelto')
-                $("#op1").prop("checked" , false)
-                $("#op3").prop("checked" , false) 
-                $("#op2").prop("checked" , true) 
-              },
-              // on error
-              error: function (response) {
-                  // alert the error if any error occured
-                  //console.log(response.responseJSON.errors)
-              }
+      // Delete book buttons - formURL is retrieved from the data of the element
+      function deleteUserModalForm() {
+          $(".delete-user").each(function () {
+              $(this).modalForm({formURL: $(this).data("form-url"), isDeleteForm: true});
           });
-          return false;
-        });
-        $("input[id='op3']:radio").click(function () {
-          // create an AJAX call
-          $.ajax({
-              data: $(this).serialize(), // get the form data
-              url: "{% url 'calificar_planear' %}",
-              // on success
-              success: function (response) {
-                console.log('resuelto')
-                $("#op1").prop("checked" , false) 
-                $("#op2").prop("checked" , false)
-                $("#op3").prop("checked" , true)
-              },
-              // on error
-              error: function (response) {
-                  // alert the error if any error occured
-                  //console.log(response.responseJSON.errors)
-              }
-          });
-          return false;
-        });
-      })
-      
+      }
+      deleteUserModalForm();
     </script>    
     {% endblock extrascripts %}
 </body>

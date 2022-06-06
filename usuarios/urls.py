@@ -59,6 +59,7 @@ urlpatterns = [
     # Gestión de usuarios
     path('gestion_usuarios/', login_required(views.GestionUsuarios.as_view()), name='gestion_usuarios'),
     path('estado_usuarios/<int:pk>', login_required(views.CambiaEstadoUsuario.as_view()), name='estado_usuarios'),
+    path('registrar_usuario/', login_required(views.RegistrarUsuario.as_view()), name='registrar_usuario'),
 ]
 
 if settings.DEBUG: 

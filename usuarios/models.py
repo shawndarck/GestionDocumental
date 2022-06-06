@@ -2,7 +2,7 @@ from tkinter import CASCADE
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.contenttypes.models import ContentType
-
+from django.contrib.auth.models import Group
 
 class Usuario(AbstractUser):
     es_administrador = models.BooleanField(default=False)
@@ -32,6 +32,14 @@ class Usuario(AbstractUser):
         if hasattr(self, 'perfilnormal'):
             perfil_normal = self.perfil_normal
         return perfil_normal
+
+    # def save(self,*args,**kwargs):
+    #     if not self.id:
+    #         super().save(*args,**kwargs)
+    #         grupo = Group.objects.get(name = 'perfilnormal')
+    #         if grupo:
+    #             self.groups.add(grupo)
+    #         super().save(*args,**kwargs)
 
 
 class UsuarioAdministrador(models.Model):

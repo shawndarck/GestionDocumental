@@ -1,13 +1,9 @@
-
-from django.forms import TextInput, ValidationError
-from dataclasses import field, fields
-import django
-
-
 from django.contrib.auth.models import User
-
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.forms import TextInput, ValidationError
+from django.forms import ModelChoiceField
+from bootstrap_modal_forms.forms import BSModalModelForm
 
 from ciclo_phva.models import (
     Evidencia,
@@ -20,15 +16,13 @@ from usuarios.models import (
     Usuario,
 )
 
-from bootstrap_modal_forms.forms import BSModalModelForm
-from django.forms import ModelChoiceField
-
-
+from django.contrib.auth.models import Group
 
 
 class AccesoUsuarioForm(BSModalModelForm):
 
     users = forms.ModelChoiceField(queryset = Usuario.objects.filter(es_usuario = True))
+
     class Meta:
         model = ItemEstandar
         fields = ['users']
@@ -49,6 +43,7 @@ class EstadoItemForm(BSModalModelForm):
         data = self.cleaned_data
         fk_estado = data['fk_estado']
         return fk_estado
+
 
 class EvidenciaModelForm(BSModalModelForm):
 
@@ -108,9 +103,18 @@ class FormatoModelForm(BSModalModelForm):
         return formato
 
 
-class UserRegisterForm(UserCreationForm):
-    email = forms.EmailField()
+class UsuarioForm(BSModalModelForm, UserCreationForm):
+
+    group = forms.ModelChoiceField(
+        queryset=Group.objects.all(),
+        required=True
+    )
 
     class Meta:
-        model = User
-        fields = ['username', 'email', 'password1', 'password2']
+        model = Usuario
+        fields = ['username', 'email', 'password1', 'password2', 'group']
+
+    def clean_group(self, **kwards):
+        data = self.cleaned_data
+        group = data['group']
+        return group

@@ -1,5 +1,7 @@
 from ast import For
 from decimal import Subnormal
+from django.conf import settings
+from django.core.mail import send_mail
 from django.forms import ValidationError
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
@@ -13,6 +15,7 @@ from django.views import generic
 from django.views.generic.edit import DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
+from django.contrib.auth.models import Group
 from ciclo_phva.models import (
     ItemEstandar,
     Evidencia,
@@ -23,7 +26,7 @@ from ciclo_phva.models import (
     Phva,
 )
 from usuarios.models import Usuario 
-from .forms import UserRegisterForm
+from . forms import UsuarioForm
 from bootstrap_modal_forms.generic import BSModalCreateView
 from bootstrap_modal_forms.generic import (
     BSModalLoginView,
@@ -39,6 +42,7 @@ from .forms import (
     FormatoModelForm,
     EstadoItemForm,
     AccesoUsuarioForm,
+    UsuarioForm,
 )
 
 CONTENT_TYPES = ['pdf','png']
@@ -60,6 +64,7 @@ class CambiaEstadoUsuario(generic.ListView, LoginRequiredMixin):
     item = Usuario
     context_object_name = 'usuario'
     template_name = 'usuarios/gestion_usuarios.html'
+    http_method_names = ['get']
 
     def get_queryset(self):
         pass
@@ -525,6 +530,7 @@ class Planear(generic.ListView, LoginRequiredMixin):
     item = ItemEstandar
     context_object_name = 'item_estandar'
     template_name = 'usuarios/planear.html'
+    
 
     def get_queryset(self):
         pass
@@ -1307,6 +1313,39 @@ def register(request):
         form = UserRegisterForm()
 
     return render(request, 'usuarios/register.html', {'form': form})
+
+
+
+
+class RegistrarUsuario(BSModalCreateView):
+    template_name = 'usuarios/crear_usuario.html'
+    model = Usuario
+    form_class = UsuarioForm
+    success_message = 'Success: Book was created.'
+    success_url = reverse_lazy("gestion_usuarios")
+
+    def get_queryset(self):
+        return Usuario.objects.all()
+
+    def form_valid(self, form):
+        usu:(Usuario) = form.save(commit=False)
+        grupo:(Group) = form.cleaned_data['group'] # <- Guarda el grupo que se eligio en el menú desplegable
+        if grupo.name == 'perfilnormal':
+            usu.es_administrador == True
+        elif grupo.name == 'perfiladministrador':
+            usu.es_usuaro == True
+        else:
+            assert False, "No se pudo determinar el tipo de usuario" # Estudiar como elevar excepciones en class vased view's
+        usu.save()
+        usu.groups.add(grupo)
+        # Envía email 
+        send_mail(
+            subject=usu.username,
+            message='Has sido registrado en el sistema de gestión documental SST',
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[usu.email],
+        )
+        return reverse_lazy("gestion_usuarios") # super(RegistrarUsuario, self).form_valid(form)
 
 
 def login(request):
