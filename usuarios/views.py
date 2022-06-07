@@ -1,21 +1,23 @@
-from ast import For
-from decimal import Subnormal
+import random
 from django.conf import settings
 from django.core.mail import send_mail
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
+from django.views.decorators.csrf import csrf_protect
 from django.forms import ValidationError
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render, redirect
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login as dj_login
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.views.generic.edit import DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.conf import settings
 from django.contrib.auth.models import Group
+from usuarios.models import Usuario 
 from ciclo_phva.models import (
     ItemEstandar,
     Evidencia,
@@ -25,8 +27,15 @@ from ciclo_phva.models import (
     Ciclo,
     Phva,
 )
-from usuarios.models import Usuario 
-from . forms import UsuarioForm
+
+from .forms import (
+    EvidenciaModelForm,
+    FormatoModelForm,
+    EstadoItemForm,
+    AccesoUsuarioForm,
+    UsuarioForm,
+)
+
 from bootstrap_modal_forms.generic import BSModalCreateView
 from bootstrap_modal_forms.generic import (
     BSModalLoginView,
@@ -37,13 +46,7 @@ from bootstrap_modal_forms.generic import (
     BSModalDeleteView
 )
 
-from .forms import (
-    EvidenciaModelForm,
-    FormatoModelForm,
-    EstadoItemForm,
-    AccesoUsuarioForm,
-    UsuarioForm,
-)
+from verify_email.email_handler import send_verification_email
 
 CONTENT_TYPES = ['pdf','png']
 # 2.5MB - 2621440
@@ -55,10 +58,6 @@ CONTENT_TYPES = ['pdf','png']
 # 250MB - 214958080
 # 500MB - 429916160
 MAX_UPLOAD_SIZE = "2621440"
-
-def index(request):
-    documents = Evidencia.objects.all()
-    return render(request, "usuarios/index.html", context = {"files": documents})
 
 class CambiaEstadoUsuario(generic.ListView, LoginRequiredMixin):
     item = Usuario
@@ -104,6 +103,7 @@ class GestionUsuarios(generic.ListView, LoginRequiredMixin):
     item = Usuario
     context_object_name = 'usuario'
     template_name = 'usuarios/gestion_usuarios.html'
+    success_url = "/gestion_usuarios/"
 
     def get_queryset(self):
         pass
@@ -1301,54 +1301,34 @@ def actuar(request):
     return render(request, 'usuarios/actuar.html')
 
 
-def register(request):
-    if request.method == "POST":
-        form = UserRegisterForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, f'Hi {username}, Tu cuenta ha sido creada con exito!')
-            return redirect('home')
-    else:
-        form = UserRegisterForm()
-
-    return render(request, 'usuarios/register.html', {'form': form})
-
-
-
-
 class RegistrarUsuario(BSModalCreateView):
+    # template_name = 'usuarios/crear_usuario.html'
+    # model = Usuario
+    # form_class = UsuarioForm
+    # success_message = 'Success: Book was created.'
+    # success_url = "/gestion_usuarios/"
     template_name = 'usuarios/crear_usuario.html'
-    model = Usuario
     form_class = UsuarioForm
     success_message = 'Success: Book was created.'
-    success_url = reverse_lazy("gestion_usuarios")
-
-    def get_queryset(self):
-        return Usuario.objects.all()
-
+    success_url = reverse_lazy('gestion_usuarios')
+    """
+    Esta función asigna el grupo y rol al usuario registrado
+    Genera clave aleatoria y la envia al correo
+    Encripta la clave autogenerada
+    """
     def form_valid(self, form):
-        usu:(Usuario) = form.save(commit=False)
-        grupo:(Group) = form.cleaned_data['group'] # <- Guarda el grupo que se eligio en el menú desplegable
-        if grupo.name == 'perfilnormal':
-            usu.es_administrador == True
-        elif grupo.name == 'perfiladministrador':
-            usu.es_usuaro == True
-        else:
-            assert False, "No se pudo determinar el tipo de usuario" # Estudiar como elevar excepciones en class vased view's
-        usu.save()
-        usu.groups.add(grupo)
-        # Envía email 
-        send_mail(
-            subject=usu.username,
-            message='Has sido registrado en el sistema de gestión documental SST',
-            from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[usu.email],
-        )
-        return reverse_lazy("gestion_usuarios") # super(RegistrarUsuario, self).form_valid(form)
+        form.send_email()
+        return HttpResponseRedirect('/gestion_usuarios/')
 
+    def get_form_kwargs(self):
+        """ Pasar objeto usuario al formulario """
+
+        kwargs = super(RegistrarUsuario, self).get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
 
 def login(request):
+
     if request.method == 'GET':
         context = ''
         return render(request, 'usuarios/login.html', {'context': context})
@@ -1360,13 +1340,22 @@ def login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             dj_login(request, user)
+            # Agregar otro if para verificar el estado y validacion de usuario
+            # if user.is_active & user.es_valido:
             # Validar grupos (roles)
-            if user.groups.filter(name='perfiladministrador').exists():
-                return redirect('/torta_administrador/')
-            elif user.groups.filter(name='perfilgestor').exists():
-                return redirect('/torta_gestor/')
-            elif user.groups.filter(name='perfilnormal').exists():
+            if user.groups.filter(name='perfilnormal').exists() & user.es_valido & user.es_usuario:
                 return redirect('/torta_usunormal/')
+            elif user.groups.filter(name='perfiladministrador').exists() & user.es_valido & user.es_administrador:
+                return redirect('/torta_administrador/')
+            elif user.groups.filter(name='perfilgestor').exists() & user.es_valido & user.es_gestor:
+                return redirect('/torta_gestor/')
+            # Si el usuario no esta validado y no tiene grupo (´is__active´ es el estado que bringa Django ej->cambiar estado en gestión de usuarios)
+            elif user.es_usuario & user.es_valido == True & user.is_active == True:
+                Group.objects.get(name='perfilnormal').user_set.add(user)
+                return redirect('/torta_usunormal/')
+            elif user.es_administrador & user.es_valido == True & user.is_active == True:
+                Group.objects.get(name='perfiladministrador').user_set.add(user)
+                return redirect('/torta_administrador/')
             else:
                 context = {'error': 'Wrong credintials'}  # Agregar mensaje de error
                 return render(request, 'usuarios/login.html', {'context': context})

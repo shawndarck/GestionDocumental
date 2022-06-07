@@ -4,10 +4,13 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.auth.models import Group
 
+
+
 class Usuario(AbstractUser):
     es_administrador = models.BooleanField(default=False)
     es_usuario = models.BooleanField(default=False)
     es_gestor = models.BooleanField(default=False)
+    es_valido = models.BooleanField(default=False)
 
     class Meta:
         db_table = 'usuario'

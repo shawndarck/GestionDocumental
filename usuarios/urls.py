@@ -1,5 +1,5 @@
 
-from django.urls import path
+from django.urls import include, path
 from . import views
 from django.contrib.auth import views as auth_view
 from django.conf import settings
@@ -22,8 +22,7 @@ urlpatterns = [
     path('registrar_evidencia_verificar/<int:pk>', login_required(views.EvidenciaVerificarCreateView.as_view()), name='registrar_evidencia_verificar'),
     path('registrar_evidencia_actuar/<int:pk>', login_required(views.EvidenciaActuarCreateView.as_view()), name='registrar_evidencia_actuar'),
     path('leer_evidencias/<int:fk>', login_required(views.EvidenciaReadView.as_view()), name='leer_evidencias'),
-    path('index/',views.index,name="index"),
-    path('register/', views.register, name='register'),
+
     # Redirecciones
     path('estado_item/<int:pk>', login_required(views.ItemEstadoUpdateView.as_view()), name='estado_item'),
     path('estado_item_hacer/<int:pk>', login_required(views.ItemEstadoHacerUpdateView.as_view()), name='estado_item_hacer'),
@@ -60,6 +59,8 @@ urlpatterns = [
     path('gestion_usuarios/', login_required(views.GestionUsuarios.as_view()), name='gestion_usuarios'),
     path('estado_usuarios/<int:pk>', login_required(views.CambiaEstadoUsuario.as_view()), name='estado_usuarios'),
     path('registrar_usuario/', login_required(views.RegistrarUsuario.as_view()), name='registrar_usuario'),
+    path('verification/', include('verify_email.urls')),
+    # path('verification/', include('verify_email')),
 ]
 
 if settings.DEBUG: 
