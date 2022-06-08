@@ -126,3 +126,27 @@ class AdminForm(BSModalModelForm, UserCreationForm):
     class Meta:
         model = Usuario
         fields = ['username', 'email', 'es_administrador']
+
+class CambiarParsswordForm(BSModalModelForm):
+
+    password1 = forms.CharField(initial='cintesst',  widget = forms.PasswordInput(), label='')
+    password2 = forms.CharField(initial='cintesst',  widget = forms.PasswordInput(), label='')
+
+    class Meta:
+        model = Usuario
+        fields = ['password1', 'password2']
+
+    def clean_password2(self):
+        """ Validación de Contraseña
+
+        Metodo que valida que ambas contraseñas ingresadas sean igual, esto antes de ser encriptadas
+        y guardadas en la base dedatos, Retornar la contraseña Válida.
+
+        Excepciones:
+        - ValidationError -- cuando las contraseñas no son iguales muestra un mensaje de error
+        """
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+        if password1 != password2:
+            raise forms.ValidationError('Contraseñas no coinciden!')
+        return password2

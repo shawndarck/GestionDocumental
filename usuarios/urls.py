@@ -61,6 +61,8 @@ urlpatterns = [
     path('registrar_usuario/', login_required(views.RegistrarUsuario.as_view()), name='registrar_usuario'),
     path('registrar_administrador/', login_required(views.RegistrarAdministrador.as_view()), name='registrar_administrador'),
     path('verification/', include('verify_email.urls')),
+    path('perfil/', login_required(views.PerfilDetailView.as_view()), name='perfil'),
+    path('cambiar_clave/<int:pk>', login_required(views.PasswordUpdateView.as_view()), name='cambiar_clave'),
     # path('verification/', include('verify_email')),
 ]
 

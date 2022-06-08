@@ -10,7 +10,7 @@ from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.contrib.auth import authenticate, login as dj_login
+from django.contrib.auth import authenticate, login as dj_login, logout
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.views.generic.edit import DeleteView
@@ -35,6 +35,7 @@ from .forms import (
     AccesoUsuarioForm,
     UsuarioForm,
     AdminForm,
+    CambiarParsswordForm,
 )
 
 from bootstrap_modal_forms.generic import BSModalCreateView
@@ -1301,6 +1302,44 @@ def verificar(request):
 def actuar(request):
     return render(request, 'usuarios/actuar.html')
 
+class PerfilDetailView(generic.ListView, LoginRequiredMixin):
+    item = Usuario
+    context_object_name = 'usuario'
+    template_name = 'usuarios/perfil.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        context = super(PerfilDetailView, self).get_context_data(**kwargs)
+        context['usuario'] = Usuario.objects.get(id=self.request.user.id)
+
+
+class PasswordUpdateView(BSModalUpdateView):
+    model = Usuario
+    template_name = 'usuarios/actualizar_clave.html'
+    form_class = CambiarParsswordForm
+    success_message = 'Success: Clave cambiada.'
+    success_url = reverse_lazy('perfil')
+
+    def get(self, request, *args, **kwargs):
+        return render(request, self.template_name, {'form': self.form_class})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            user = Usuario.objects.filter(id=request.user.id)
+            if user.exists():
+                user = user.first()
+                user.set_password(form.cleaned_data.get('password1'))
+                user.save()
+                logout(request)
+                return redirect(self.success_url)
+            return redirect(self.success_url)
+        else:
+            form = self.form_class(request.POST)
+            return render(request, self.template_name, {'form': form})
+
 
 class RegistrarAdministrador(BSModalCreateView):
     template_name = 'usuarios/crear_administrador.html'
@@ -1320,7 +1359,7 @@ class RegistrarAdministrador(BSModalCreateView):
             password = Usuario.objects.make_random_password()
             usu.set_password(password)
             usu.save()
-
+            # Envía mail
             send_mail(
                 subject=username,
                 message='Has sido registrado en el sistema de gestión documental SST, tu clave es: ' + password,
