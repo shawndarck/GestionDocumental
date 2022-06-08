@@ -3,10 +3,11 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
-from django.forms import TextInput, ValidationError
+from django.forms import HiddenInput, TextInput, ValidationError
 from django.forms import ModelChoiceField
 from django.core.mail import send_mail
 from bootstrap_modal_forms.forms import BSModalModelForm
+from django.utils.crypto import get_random_string
 
 from ciclo_phva.models import (
     Evidencia,
@@ -108,50 +109,20 @@ class FormatoModelForm(BSModalModelForm):
 
 class UsuarioForm(BSModalModelForm, UserCreationForm):
 
-    group = forms.ModelChoiceField(
-        queryset=Group.objects.all(),
-        required=True
-    )
+    es_usuario = forms.BooleanField(initial=True, widget=forms.HiddenInput(), label='')
+    password1 = forms.CharField(initial='cintesst', widget=forms.HiddenInput(), label='')
+    password2 = forms.CharField(initial='cintesst', widget=forms.HiddenInput(), label='')
 
     class Meta:
         model = Usuario
-        fields = ['username', 'email', 'password1', 'password2', 'group']
+        fields = ['username', 'email', 'es_usuario']
 
-    def clean_group(self):
-        usu:(Usuario) = self.request.user
-        grupo:(Group) = self.cleaned_data['group'] # <- Guarda el grupo que se eligio en el menú desplegable
-        usu.save()
-        if grupo.name == 'perfilnormal':
-            usu.es_usuario = True
-        elif grupo.name == 'perfiladministrador':
-            usu.es_administrador = True
-        else:
-            assert False, "No se pudo determinar el tipo de usuario" # Estudiar como elevar excepciones en class vased view's
-        return grupo 
+class AdminForm(BSModalModelForm, UserCreationForm):
 
-    def send_email(self):
-        # send email using the self.cleaned_data dictionary
-        email = self.cleaned_data['email']
-        username = self.cleaned_data['username']
-        
-        # Generar clave aleatoria
-        mayusculas = ['A', 'B', 'C', 'D', 'F', 'G']
-        minusculas = ['a', 'b', 'c', 'd', 'f', 'g']
-        simbolos = ['*', '/', '-', '#', '?', '%']
-        numeros = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
-        # Suma de listas
-        caracteres = mayusculas + minusculas + simbolos + numeros
+    es_administrador = forms.BooleanField(initial=True, widget=forms.HiddenInput(), label='')
+    password1 = forms.CharField(initial='cintesst', widget=forms.HiddenInput(), label='')
+    password2 = forms.CharField(initial='cintesst', widget=forms.HiddenInput(), label='')
 
-        clave = []
-
-        for i in range(8):
-            caracter_random = random.choice(caracteres)
-            clave.append(caracter_random)
-        #Convertir lista en un String
-        clave = ''.join(clave)
-        send_mail(
-            subject=username,
-            message='Has sido registrado en el sistema de gestión documental SST, tu clave es: ' + clave,
-            from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[email],
-        )
+    class Meta:
+        model = Usuario
+        fields = ['username', 'email', 'es_administrador']

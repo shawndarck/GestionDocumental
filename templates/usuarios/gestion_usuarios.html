@@ -85,6 +85,9 @@
                           <h3 class="text-white mb-1 ms-4">Gestión de usuarios</h3>
                           <button id="create-user" class="btn btn-primary" type="button" name="button">
                             <span class="fa fa-plus mr-2"></span>Registrar usuario
+                          </button> 
+                          <button id="create-admin" class="btn btn-primary" type="button" name="button">
+                            <span class="fa fa-plus mr-2"></span>Registrar Administrador
                           </button>  
                         </div>
                         <div class="table-responsive">
@@ -326,22 +329,23 @@
       {# Update Item Modal Form #}
       $(function () {
         // Create book synchronous
-        function createUserSyncModalForm() {
+        function CrearUsuarioSyncModalForm() {
             $("#create-user").modalForm({
-                formURL: "{% url 'registrar_usuario' %}",
-                modalID: "#create-modal"
+              formURL: "{% url 'registrar_usuario' %}",
+              modalID: "#create-modal"
             });
-        }
-        createUserSyncModalForm();
-      });
+          }
+        CrearUsuarioSyncModalForm();
 
-      // Delete book buttons - formURL is retrieved from the data of the element
-      function deleteUserModalForm() {
-          $(".delete-user").each(function () {
-              $(this).modalForm({formURL: $(this).data("form-url"), isDeleteForm: true});
+        function CrearAdministradorSyncModalForm() {
+          $("#create-admin").modalForm({
+            formURL: "{% url 'registrar_administrador' %}",
+            modalID: "#create-modal"
           });
-      }
-      deleteUserModalForm();
+        }
+        CrearAdministradorSyncModalForm();
+        });
+
     </script>    
     {% endblock extrascripts %}
 </body>

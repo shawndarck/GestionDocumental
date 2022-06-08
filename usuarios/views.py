@@ -34,6 +34,7 @@ from .forms import (
     EstadoItemForm,
     AccesoUsuarioForm,
     UsuarioForm,
+    AdminForm,
 )
 
 from bootstrap_modal_forms.generic import BSModalCreateView
@@ -1301,31 +1302,65 @@ def actuar(request):
     return render(request, 'usuarios/actuar.html')
 
 
+class RegistrarAdministrador(BSModalCreateView):
+    template_name = 'usuarios/crear_administrador.html'
+    form_class = AdminForm
+    success_message = 'Success: Usuario creado.'
+    success_url = reverse_lazy('gestion_usuarios')
+    
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            form = self.get_form()
+            usu = form.save(commit=False)
+            # Enviar correo con clave
+            email = form.cleaned_data['email']
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            password = Usuario.objects.make_random_password()
+            usu.set_password(password)
+            usu.save()
+
+            send_mail(
+                subject=username,
+                message='Has sido registrado en el sistema de gestión documental SST, tu clave es: ' + password,
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[email],
+            )
+            return self.form_valid(form)
+        else:
+            return HttpResponseRedirect(reverse_lazy('gestion_usuarios'))
+
+
 class RegistrarUsuario(BSModalCreateView):
-    # template_name = 'usuarios/crear_usuario.html'
-    # model = Usuario
-    # form_class = UsuarioForm
-    # success_message = 'Success: Book was created.'
-    # success_url = "/gestion_usuarios/"
     template_name = 'usuarios/crear_usuario.html'
     form_class = UsuarioForm
-    success_message = 'Success: Book was created.'
+    success_message = 'Success: Usuario creado.'
     success_url = reverse_lazy('gestion_usuarios')
-    """
-    Esta función asigna el grupo y rol al usuario registrado
-    Genera clave aleatoria y la envia al correo
-    Encripta la clave autogenerada
-    """
-    def form_valid(self, form):
-        form.send_email()
-        return HttpResponseRedirect('/gestion_usuarios/')
 
-    def get_form_kwargs(self):
-        """ Pasar objeto usuario al formulario """
+    def post(self, request, *args, **kwargs):
+        form = self.get_form()
+        if form.is_valid():
+            form = self.get_form()
+            usu = form.save(commit=False)
+            # Enviar correo con clave
+            email = form.cleaned_data['email']
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            password = Usuario.objects.make_random_password()
+            usu.set_password(password)
 
-        kwargs = super(RegistrarUsuario, self).get_form_kwargs()
-        kwargs['request'] = self.request
-        return kwargs
+            usu.save()
+
+            send_mail(
+                subject=username,
+                message='Has sido registrado en el sistema de gestión documental SST, tu clave es: ' + password,
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[email],
+            )
+            return self.form_valid(form)
+        else:
+            return HttpResponseRedirect(reverse_lazy('gestion_usuarios'))
 
 def login(request):
 
@@ -1349,11 +1384,11 @@ def login(request):
                 return redirect('/torta_administrador/')
             elif user.groups.filter(name='perfilgestor').exists() & user.es_valido & user.es_gestor:
                 return redirect('/torta_gestor/')
-            # Si el usuario no esta validado y no tiene grupo (´is__active´ es el estado que bringa Django ej->cambiar estado en gestión de usuarios)
-            elif user.es_usuario & user.es_valido == True & user.is_active == True:
+            # Si el usuario no esta validado y no tiene grupo se le asigna un grupo y se activa
+            elif user.es_usuario == True:
                 Group.objects.get(name='perfilnormal').user_set.add(user)
                 return redirect('/torta_usunormal/')
-            elif user.es_administrador & user.es_valido == True & user.is_active == True:
+            elif user.es_administrador == True:
                 Group.objects.get(name='perfiladministrador').user_set.add(user)
                 return redirect('/torta_administrador/')
             else:

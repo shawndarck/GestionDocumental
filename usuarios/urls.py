@@ -11,7 +11,7 @@ urlpatterns = [
     path('calificar_planear/', views.calificar_planear, name='calificar_planear'),
 
     # Formatos
-    path('registrar_formato/', views.FormatoCreateView.as_view(), name='registrar_formato'),
+    path('registrar_formato/', login_required(views.FormatoCreateView.as_view()), name='registrar_formato'),
     path('formatos_admin/', views.FormatosAdmin.as_view(), name='formatos_admin'),
     path('formatos_usunormal/', views.FormatosUsunormal.as_view(), name='formatos_usunormal'),
     path('<int:pk>/eliminar_formato', views.FormatoDeleteView.as_view(), name='eliminar_formato'),
@@ -59,6 +59,7 @@ urlpatterns = [
     path('gestion_usuarios/', login_required(views.GestionUsuarios.as_view()), name='gestion_usuarios'),
     path('estado_usuarios/<int:pk>', login_required(views.CambiaEstadoUsuario.as_view()), name='estado_usuarios'),
     path('registrar_usuario/', login_required(views.RegistrarUsuario.as_view()), name='registrar_usuario'),
+    path('registrar_administrador/', login_required(views.RegistrarAdministrador.as_view()), name='registrar_administrador'),
     path('verification/', include('verify_email.urls')),
     # path('verification/', include('verify_email')),
 ]
