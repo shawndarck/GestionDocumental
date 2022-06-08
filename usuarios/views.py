@@ -1314,6 +1314,32 @@ class PerfilDetailView(generic.ListView, LoginRequiredMixin):
         context = super(PerfilDetailView, self).get_context_data(**kwargs)
         context['usuario'] = Usuario.objects.get(id=self.request.user.id)
 
+# class PermisosReadView(generic.ListView):
+#     model = Usuario
+#     template_name = 'usuarios/leer_accesos.html'
+
+#     def get_queryset(self):
+#         pass
+
+#     def get_context_data(self, **kwargs):
+#         context = super(PermisosReadView, self).get_context_data(**kwargs)
+#         pk = self.kwargs.get('pk')
+#         context['usuarios'] =  Usuario.objects.filter(itemestandar__in=[pk])
+#         return context
+
+def bar_chart_phva(request):
+    labels = []
+    data = []
+
+    queryset = Ciclo.objects.order_by('-id')[:4]
+    for ciclo in queryset:
+        labels.append(ciclo.descripcion)
+        data.append(ciclo.calificacion_obtenida)
+
+    return render(request, 'usuarios/grafico.html', {
+        'labels': labels,
+        'data': data,
+    })
 
 class PasswordUpdateView(BSModalUpdateView):
     model = Usuario

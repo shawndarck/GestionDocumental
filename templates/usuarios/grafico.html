@@ -1,0 +1,60 @@
+{% load widget_tweaks %}
+
+<div class="modal-header">
+  <h3 class="modal-title">Usuarios con acceso a este item </h3>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+
+    {% block content %}
+    <div id="container" style="width: 75%;">
+        <canvas id="bar-chart"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script>
+
+    var config = {
+    type: 'bar',
+    data: {
+        datasets: [{
+        data: {{ data|safe }},
+        backgroundColor: [
+            '#696969', '#808080', '#A9A9A9', '#C0C0C0'
+        ],
+        label: 'Phva'
+        }],
+        labels: {{ labels|safe }}
+    },
+    options: {
+        responsive: true
+    }
+    };
+
+    window.onload = function() {
+    var ctx = document.getElementById('bar-chart').getContext('2d');
+    window.myPie = new Chart(ctx, config);
+    };
+
+    </script>
+
+{% endblock %}
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+</div>
+
+{% block extrascripts %}
+    <script type="text/javascript">
+      function deleteBookModalForm() {
+        $(".eliminar-evidencia").each(function () {
+            $(this).modalForm({formURL: $(this).data("form-url"), isDeleteForm: true});
+        });
+      }
+      deleteBookModalForm();
+    </script>
+{% endblock extrascripts %}

@@ -64,6 +64,9 @@ urlpatterns = [
     path('perfil/', login_required(views.PerfilDetailView.as_view()), name='perfil'),
     path('cambiar_clave/<int:pk>', login_required(views.PasswordUpdateView.as_view()), name='cambiar_clave'),
     # path('verification/', include('verify_email')),
+
+    # Grafico estadistico
+    path('grafico_phva/', login_required(views.bar_chart_phva), name='grafico_phva'),
 ]
 
 if settings.DEBUG: 
