@@ -17,6 +17,8 @@
               
           </div>
           <div class="card-header border-0">
+
+            <a class="eliminar-acceso btn btn-danger text-light" data-form-url="{% url 'eliminar_acceso' i.pk item.pk %}" >Eliminar</a>
               <h5 class="card-title"> {{ i.username }}</h5>
           </div>
       </div>
@@ -31,11 +33,16 @@
 
 {% block extrascripts %}
     <script type="text/javascript">
-      function deleteBookModalForm() {
-        $(".eliminar-evidencia").each(function () {
-            $(this).modalForm({formURL: $(this).data("form-url"), isDeleteForm: true});
+      {# Update Item Modal Form #}
+      $(function () {
+        // Create book synchronous
+        function eliminarAccesoModalForm() {
+            $(".eliminar-acceso").each(function () {
+                $(this).modalForm({formURL: $(this).data("form-url")});
+            });
+        }
+        eliminarAccesoModalForm();
         });
-      }
-      deleteBookModalForm();
+    </script>  
     </script>
 {% endblock extrascripts %}

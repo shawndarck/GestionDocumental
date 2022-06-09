@@ -48,6 +48,7 @@ urlpatterns = [
     path('verificar_usuario/', login_required(views.VerificarUsunormal.as_view()), name='verificar_usuario'),
     path('actuar_usuario/', login_required(views.ActuarUsunormal.as_view()), name='actuar_usuario'),
     path('leer_evidencias_usuario/<int:fk>', login_required(views.EvidenciaUsuarioReadView.as_view()), name='leer_evidencias_usuario'),
+    path('eliminar_acceso/<int:pk>/<int:id>', login_required(views.QuitarAcceso.as_view()), name='eliminar_acceso'),
 
     path('hacer/', login_required(views.Hacer.as_view()), name="hacer"),
     path('verificar/', login_required(views.Verificar.as_view()), name="verificar"),

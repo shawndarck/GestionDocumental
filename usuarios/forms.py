@@ -23,6 +23,7 @@ from usuarios.models import (
 from django.contrib.auth.models import Group
 
 
+
 class AccesoUsuarioForm(BSModalModelForm):
 
     users = forms.ModelChoiceField(queryset = Usuario.objects.filter(es_usuario = True))

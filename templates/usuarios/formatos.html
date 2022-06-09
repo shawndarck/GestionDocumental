@@ -31,7 +31,7 @@
                 <div class="container-svg">
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgb(136, 137, 142);"><path d="M2 3h20v4H2zm17 5H3v11a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8h-2zm-3 6H8v-2h8v2z"></path></svg>
-                        <span>Formatos</span>
+                        <span><a href="{% url 'formatos_admin' %}">Formatos</a></span>
                     </div>
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgb(136, 137, 142);"><path d="m20 8-6-6H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM9 19H7v-9h2v9zm4 0h-2v-6h2v6zm4 0h-2v-3h2v3zM14 9h-1V4l5 5h-4z"></path></svg>
@@ -39,7 +39,7 @@
                     </div>
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgb(136, 137, 142);"><path d="M16.813 4.419A.997.997 0 0 0 16 4H3a1 1 0 0 0-.813 1.581L6.771 12l-4.585 6.419A1 1 0 0 0 3 20h13a.997.997 0 0 0 .813-.419l5-7a.997.997 0 0 0 0-1.162l-5-7z"></path></svg>
-                        <span>Accesos</span>
+                        <span> <a href="{% url 'permisos_evidencias' %}">Accesos</a></span>
                     </div>
                 </div>
                 <br>
@@ -48,7 +48,11 @@
                 <br>
                     <div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgb(136, 137, 142);"><path d="M12 2C6.579 2 2 6.579 2 12s4.579 10 10 10 10-4.579 10-10S17.421 2 12 2zm0 5c1.727 0 3 1.272 3 3s-1.273 3-3 3c-1.726 0-3-1.272-3-3s1.274-3 3-3zm-5.106 9.772c.897-1.32 2.393-2.2 4.106-2.2h2c1.714 0 3.209.88 4.106 2.2C15.828 18.14 14.015 19 12 19s-3.828-.86-5.106-2.228z"></path></svg>
-                        <span>Perfil</span>
+                        <span><a href="{% url 'gestion_usuarios' %}">Gestion de usuarios</a></span>
+                    </div>
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" style="fill: rgb(136, 137, 142);"><path d="M12 2C6.579 2 2 6.579 2 12s4.579 10 10 10 10-4.579 10-10S17.421 2 12 2zm0 5c1.727 0 3 1.272 3 3s-1.273 3-3 3c-1.726 0-3-1.272-3-3s1.274-3 3-3zm-5.106 9.772c.897-1.32 2.393-2.2 4.106-2.2h2c1.714 0 3.209.88 4.106 2.2C15.828 18.14 14.015 19 12 19s-3.828-.86-5.106-2.228z"></path></svg>
+                        <span><a href="{% url 'perfil' %}">Perfil</a></span>
                     </div>
                 </div>
         </div>
@@ -226,12 +230,12 @@
         });
 
         // Delete book buttons - formURL is retrieved from the data of the element
-        function deleteFormatoModalForm() {
+        function deleteBookModalForm() {
             $(".eliminar-formato").each(function () {
                 $(this).modalForm({formURL: $(this).data("form-url"), isDeleteForm: true});
             });
         }
-        deleteBookFormatoForm();
+        deleteBookModalForm();
     </script>
     {% endblock extrascripts %}
 </body>

@@ -1,4 +1,5 @@
 import random
+from types import NoneType
 from django.conf import settings
 from django.core.mail import send_mail
 from django.utils.decorators import method_decorator
@@ -307,6 +308,7 @@ class PermisosActuarCreateView(BSModalCreateView):
 
         return HttpResponseRedirect(self.get_success_url())
 
+
 class PermisosReadView(generic.ListView):
     model = Usuario
     template_name = 'usuarios/leer_accesos.html'
@@ -318,7 +320,53 @@ class PermisosReadView(generic.ListView):
         context = super(PermisosReadView, self).get_context_data(**kwargs)
         pk = self.kwargs.get('pk')
         context['usuarios'] =  Usuario.objects.filter(itemestandar__in=[pk])
+        context['item'] = ItemEstandar.objects.get(id=pk)
         return context
+
+
+
+def quitar_acceso(request, pk, id):
+    # dictionary for initial data with  
+    # field names as keys 
+    context ={} 
+
+    # fetch the object related to passed id 
+    usu = get_object_or_404(Usuario, id = pk)
+    item = get_object_or_404(ItemEstandar, id = id)
+
+
+    if request.method =="POST": 
+        # delete object 
+        usu.delete() 
+        # after deleting redirect to  
+        # home page 
+        return HttpResponseRedirect("/") 
+
+    return reverse_lazy('planear')
+
+class QuitarAcceso(generic.ListView, LoginRequiredMixin):
+    item = Usuario
+    context_object_name = 'usuario'
+    template_name = 'usuarios/eliminar_acceso.html'
+    http_method_names = ['post', 'get']
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        # Prerrequisito
+        context = super(QuitarAcceso, self).get_context_data(**kwargs) 
+        context['usu'] = Usuario.objects.get(id=self.kwargs.get('pk'))
+        return context
+
+
+    def post(self, request, *args, **kwargs):
+        usu = Usuario.objects.get(id=self.kwargs.get('pk'))
+        item = ItemEstandar.objects.get(id=self.kwargs.get('id'))
+        item.permisos_usuarios.remove(usu)
+        return HttpResponseRedirect(reverse_lazy('accesos_planear'))
+
+
 
 
 class GestionPermisosEvidencias(generic.ListView, LoginRequiredMixin):
