@@ -71,6 +71,14 @@ class CambiaEstadoUsuario(generic.ListView, LoginRequiredMixin):
     def get_queryset(self):
         pass
 
+    def post(self, request, *args, **kwargs):
+        form=self.form_class(request.POST)
+        if form.is_valid():
+            messages.success(self.request, "Se a cambiado el estado correctamente")
+            return redirect(self.success_url)
+        else:
+            return HttpResponseRedirect(reverse_lazy('gestion_usuarios'))
+
     def get_context_data(self, **kwargs):
         # Prerrequisito
         context = super(CambiaEstadoUsuario, self).get_context_data(**kwargs) 
@@ -81,6 +89,7 @@ class CambiaEstadoUsuario(generic.ListView, LoginRequiredMixin):
             usu.is_active = True
         usu.save(update_fields=['is_active'])
         # Contextos individuales (Objeto)
+        messages.success(self.request, "Se a cambiado el estado correctamente")
         context['usuarios'] = Usuario.objects.all()
         return context
 

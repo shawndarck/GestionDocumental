@@ -29,6 +29,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
+
 
 # Application definition
 
@@ -86,9 +88,9 @@ WSGI_APPLICATION = 'sst.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'bd_sst',
-        'USER':'juan',
-        'PASSWORD':'juan8080',
+        'NAME': 'bd_sst3',
+        'USER':'camilo',
+        'PASSWORD':'Cuervo20',
         'HOST':'127.0.0.1',
         'DATABASE_PORT':'3306',
     }

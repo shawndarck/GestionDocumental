@@ -61,9 +61,12 @@ aside::-webkit-scrollbar-thumb{
 
 
 .container-svg{
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--text-color);
   padding: 10px 1px;
   color: var(--items-color) !important;
+}
+.container-svg a{
+  color: white;
 }
 .container-svg div{
   display: flex;
@@ -71,18 +74,20 @@ aside::-webkit-scrollbar-thumb{
   width: 100%;
   padding: 10px 20px;
   cursor: pointer;
+  color: white;
 }
 .container-svg div:hover{
-  background-color: #d81e1e;
+  background-color: #234984;
 }
 .container-svg div span{
   margin-left: 15px;
   font-size: 1.2rem;
   font-weight: 500;
 }
+
 h5{
   padding: 10px 20px;
-  color: #070707;
+  color: #ffffff  !important;
 }
 
 
@@ -193,6 +198,7 @@ list-style: none;
 .menunav li {
 position: absolute;
 }
+
 .slice {
 overflow: hidden;
 position: absolute;
@@ -239,13 +245,13 @@ width: 280px;
 }
 
 /* Cell background colors */
-.coconut label, .ococonut:checked ~ nav .unsel { background: #f58a8a; }
-.vanilla label, .ovanilla:checked ~ nav .unsel { background: #FAA027; }
-.orange label, .oorange:checked ~ nav .unsel { background: #ffb038; }
-.almond label, .oalmond:checked ~ nav .unsel { background: #d3a573; }
-.grape label, .ogrape:checked ~ nav .unsel { background: #FA4C28; }
-.blackberry label, .oblackberry:checked ~ nav .unsel { background: #A95BF7; }
-.cherry label, .ocherry:checked ~ nav .unsel { background: #ED64E2; }
+.coconut label, .ococonut:checked ~ nav .unsel { background: #41b751; }
+.vanilla label, .ovanilla:checked ~ nav .unsel { background: #ffc332; }
+.orange label, .oorange:checked ~ nav .unsel { background: #fc367b; }
+.almond label, .oalmond:checked ~ nav .unsel { background: #004d87; }
+.grape label, .ogrape:checked ~ nav .unsel { background: #ff7d00 ; }
+.blackberry label, .oblackberry:checked ~ nav .unsel { background: #D21B30; }
+.cherry label, .ocherry:checked ~ nav .unsel { background: #004d87; }
 
 
 .slice label { font-weight: 700; line-height: 5; }
@@ -282,7 +288,7 @@ background-color: white;
   background-color: var(--fondo-color);
 position: absolute;
 left: 50%;
-}
+} 
 .visible{
   display: block;
   position: absolute;

@@ -2,6 +2,7 @@
     --primary: #202020;
     --black: #55141c;
     --grey: #2e151a;
+    --azul: #172b4d;
 }
 
 #wrapper {
@@ -15,7 +16,7 @@
     -moz-transition: margin .25s ease-out;
     -o-transition: margin .25s ease-out;
     transition: margin .25s ease-out;
-    background-color: white !important;
+    background-color: #172b4d !important;
 }
 
 #carta {
