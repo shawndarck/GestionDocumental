@@ -26,10 +26,11 @@
 		        <div class="login">
                     <form action="" method="post">
                         {% csrf_token %}
+                        
                         <label>Email</label>
-                        <input class='form-control' type="text" name="username" required>
+                        <input class='form-control' type="text" name="username">
                         <br>
-                        <label>Password</label><input class='form-control' type="password" name="password" required>
+                        <label>Password</label><input class='form-control' type="password" name="password">
                         <input type="submit" value="Login">
                     </form>
                     <hr class="bg-light"></hr>
