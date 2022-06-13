@@ -60,8 +60,18 @@
     line-height: 1.5;
     margin: 0;
     text-align: left;
-    color: #525f7f;
+    color: rgb(0, 0, 0);
     background-color: #f8f9fe;
+    }
+
+    .card-header {
+        color: #172b4d;
+        background-color: #172b4d;
+    }
+
+    #header-table{
+        color: #172b4d;
+        background-color: #172b4d;
     }
     
     [tabindex='-1']:focus {
@@ -98,7 +108,7 @@
     
     a {
     text-decoration: none;
-    color: #5e72e4;
+    color: #ffffff;
     background-color: transparent;
     -webkit-text-decoration-skip: objects;
     }
@@ -868,9 +878,7 @@
     background-color: #ec0c38 !important;
     }
     
-    .bg-default {
-    background-color: #172b4d !important;
-    }
+    
     
     a.bg-default:hover,
     a.bg-default:focus,

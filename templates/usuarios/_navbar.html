@@ -1,0 +1,28 @@
+{% load static %}
+<!--Navbar-->
+<nav class="navbar navbar-expand-lg shadow-lg">
+    <div class="container-fluid">
+        <div class="d-flex ">
+            <a id="menu-toggle"><span id="open-close" id="menu-toggle"><i class='bx bx-menu mt-2'></i></span></a>
+            <img src="{% static 'usuarios/img/logo.png' %}" alt="" width="120" height="43" class="mt-2">
+            <b class="navbar-brand ms-3 mt-2">
+                {% if user.es_administrador %}
+                    Administrador
+                {% elif user.es_usuario %}
+                    Usuario
+                {% elif user.es_gestor %}
+                    Gestor
+                {% else %}
+                    Sin permisos
+                {% endif %} / {{user.username}}
+            </b>
+        </div>
+        <span><a href="{% url 'torta_administrador' %}"><ion-icon size="large" src="{% static 'usuarios/img/home-outline.svg' %}"></ion-icon></a></span>
+        
+        <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+            <button class="btn btn-primary" type="submit">Buscar</button>
+        </form>
+        <a href="{% url 'logout' %}" type="button" class="btn btn-danger">Cerrar</a>
+    </div>
+</nav>
