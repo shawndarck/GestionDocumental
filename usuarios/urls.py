@@ -68,6 +68,8 @@ urlpatterns = [
 
     # Grafico estadistico
     path('grafico_phva/', login_required(views.bar_chart_phva), name='grafico_phva'),
+    # Reporte en excel
+    path('reporte_excel/', login_required(views.ExcelDetailView.as_view()), name='reporte_excel'),
 ]
 
 if settings.DEBUG: 
