@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'bootstrap_modal_forms',
     'widget_tweaks',
     "verify_email.apps.VerifyEmailConfig",
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -132,13 +133,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
-#Me muestra los archivos estaticos en el template raíz
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
-#Ruta de guardado de archivos
-MEDIA_URL='/media/'
-MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static')
+]
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -148,6 +152,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, 'static')
 # ]
+
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -170,5 +175,20 @@ EMAIL_HOST_PASSWORD = 'qjlmzixxxnfzlybh'
 
 # Custom setting. To email
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+
+
+#S3 BUCKETS CONFIG
+
+AWS_ACCESS_KEY_ID = 'AKIAZIMRAYOBGLBINB43'
+AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = 'bucket-sst-cinte'
+
+AWS_S3_FILE_OVERWRITE = False
+AWS_DEFAULT_ACL = None
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3ManifestStaticStorage'
+AWS_QUERYSTRING_AUTH = False
+
 
 EXPIRE_AFTER = "1s"

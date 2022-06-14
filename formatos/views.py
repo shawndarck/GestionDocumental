@@ -56,4 +56,4 @@ class FormatoDeleteView(BSModalDeleteView):
     model = Formato
     template_name = 'usuarios/eliminar_formato.html'
     success_message = 'Success: Formato borrado.'
-    success_url = "/formatos_admin/"
+    success_url = reverse_lazy('formatos_admin')
