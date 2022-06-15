@@ -51,71 +51,111 @@ from bootstrap_modal_forms.generic import (
 )
 
 
-CONTENT_TYPES = ['pdf','png']
-# 2.5MB - 2621440
-# 5MB - 5242880
-# 10MB - 10485760
-# 20MB - 20971520
-# 50MB - 5242880
-# 100MB 104857600
-# 250MB - 214958080
-# 500MB - 429916160
-MAX_UPLOAD_SIZE = "2621440"
-
-class CambiaEstadoUsuario(generic.ListView, LoginRequiredMixin):
-    item = Usuario
-    context_object_name = 'usuario'
-    template_name = 'usuarios/gestion_usuarios.html'
-    http_method_names = ['get']
-
-    def get_queryset(self):
-        pass
-
+class RegistrarAdministrador(BSModalCreateView):
+    template_name = 'usuarios/crear_administrador.html'
+    form_class = AdminForm
+    success_message = 'Success: Usuario creado.'
+    success_url = reverse_lazy('gestion_usuarios')
+    
     def post(self, request, *args, **kwargs):
-        form=self.form_class(request.POST)
+        form = self.get_form()
         if form.is_valid():
-            messages.success(self.request, "Se a cambiado el estado correctamente")
-            return redirect(self.success_url)
+            # Enviar correo con clave
+            username = form.cleaned_data['username']
+            if "@grupocinte.com" in username:
+                usu = form.save(commit=False)
+                password = Usuario.objects.make_random_password()
+                usu.password =password
+                # Envía mail
+                send_mail(
+                    subject=username,
+                    message='Has sido registrado en el sistema de gestión documental SST, tu clave es: ' + password,
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=[username],
+                )
+                usu.save()
+                messages.success(request, "Usuario creado correctamente, clave enviada al correo")
+                return self.form_valid(form)
+            else:
+                messages.success(request, "Usuario duplicado o dominio de cinte incorrecto @grupocinte.com")
+                return HttpResponseRedirect(reverse_lazy('gestion_usuarios'))
         else:
             return HttpResponseRedirect(reverse_lazy('gestion_usuarios'))
 
-    def get_context_data(self, **kwargs):
-        # Prerrequisito
-        context = super(CambiaEstadoUsuario, self).get_context_data(**kwargs) 
-        usu=Usuario.objects.get(id=self.kwargs.get('pk'))
-        if usu.is_active == True:
-            usu.is_active = False
+
+class RegistrarUsuario(BSModalCreateView):
+    template_name = 'usuarios/crear_usuario.html'
+    form_class = UsuarioForm
+    success_message = 'Success: Usuario creado.'
+    success_url = reverse_lazy('gestion_usuarios')
+
+    def get_success_url(self):
+        """Return the URL to redirect to after processing a valid form."""
+        if self.success_url:
+            url = self.success_url.format(**self.object.__dict__)
         else:
-            usu.is_active = True
-        usu.save(update_fields=['is_active'])
-        # Contextos individuales (Objeto)
-        messages.success(self.request, "Se a cambiado el estado correctamente")
-        context['usuarios'] = Usuario.objects.all()
-        return context
+            url = self.object.get_absolute_url()
+        return url
 
-    #     success_url = "/planear/"
+    def form_valid(self, form, **kwargs):
+        form = self.get_form()
+        usu = form.save(commit=False)
+        # Enviar correo con clave
+        email = form.cleaned_data['email']
+        username = form.cleaned_data['username']
+        password = form.cleaned_data['password1']
+        password = Usuario.objects.make_random_password()
+        usu.set_password(password)
 
-    # def form_valid(self, form, **kwargs):
-    #     self.object = self.get_object()
-    #     item = ItemEstandar.objects.get(id=self.object.pk) # Obtener pk de la url con self.object.pk y self.get_object()
-    #     puntaje_maximo = item.puntaje_maximo
-    #     # Acceder al id de la fk con .id
-    #     estado = item.fk_estado.id
-    #     if form.instance.fk_estado.id == 1:
-    #         item.puntaje_obtenido = puntaje_maximo
-    #         item.save(update_fields=['puntaje_obtenido'])
-    #     elif form.instance.fk_estado.id == 2 or form.instance.fk_estado.id == 3:
-    #         item.puntaje_obtenido = 0
-    #         item.save(update_fields=['puntaje_obtenido'])
-    #     item.fk_estado = form.instance.fk_estado
-    #     item.save(update_fields=['fk_estado_id'])
-    #     return HttpResponseRedirect(self.get_success_url())
+        usu.save()
+
+        send_mail(
+            subject=username,
+            message='Has sido registrado en el sistema de gestión documental SST, tu clave es: ' + password,
+            from_email=settings.EMAIL_HOST_USER,
+            recipient_list=[email],
+        )
+        return HttpResponseRedirect(self.get_success_url())
+
+
+    # def post(self, request, *args, **kwargs):
+    #     form = self.get_form()
+    #     if form.is_valid():
+    #         form = self.get_form()
+    #         usu = form.save(commit=False)
+    #         # Enviar correo con clave
+    #         email = form.cleaned_data['email']
+    #         username = form.cleaned_data['username']
+    #         password = form.cleaned_data['password1']
+    #         password = Usuario.objects.make_random_password()
+    #         usu.set_password(password)
+
+    #         usu.save()
+
+    #         send_mail(
+    #             subject=username,
+    #             message='Has sido registrado en el sistema de gestión documental SST, tu clave es: ' + password,
+    #             from_email=settings.EMAIL_HOST_USER,
+    #             recipient_list=[email],
+    #         )
+    #         return self.form_valid(form)
+    #     else:
+    #         return HttpResponseRedirect(reverse_lazy('gestion_usuarios'))
+
 
 class GestionUsuarios(generic.ListView, LoginRequiredMixin):
     item = Usuario
-    context_object_name = 'usuario'
+    context_object_name = 'usuarios'
     template_name = 'usuarios/gestion_usuarios.html'
-    success_url = "/gestion_usuarios/"
+    success_url = reverse_lazy('gestion_usuarios')
+
+    def get_success_url(self):
+        """Return the URL to redirect to after processing a valid form."""
+        if self.success_url:
+            url = self.success_url.format(**self.object.__dict__)
+        else:
+            url = self.object.get_absolute_url()
+        return url
 
     def get_queryset(self):
         pass
@@ -127,13 +167,6 @@ class GestionUsuarios(generic.ListView, LoginRequiredMixin):
         context['usuarios'] = Usuario.objects.all()
         return context
 
-
-def verificar(request):
-    return render(request, 'usuarios/verificar.html')
-
-
-def actuar(request):
-    return render(request, 'usuarios/actuar.html')
 
 class PerfilDetailView(generic.ListView, LoginRequiredMixin):
     item = Usuario
@@ -173,66 +206,6 @@ class PasswordUpdateView(BSModalUpdateView):
             return render(request, self.template_name, {'form': form})
 
 
-class RegistrarAdministrador(BSModalCreateView):
-    template_name = 'usuarios/crear_administrador.html'
-    form_class = AdminForm
-    success_message = 'Success: Usuario creado.'
-    success_url = reverse_lazy('gestion_usuarios')
-    
-    def post(self, request, *args, **kwargs):
-        form = self.get_form()
-        if form.is_valid():
-            form = self.get_form()
-            usu = form.save(commit=False)
-            # Enviar correo con clave
-            email = form.cleaned_data['email']
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password1']
-            password = Usuario.objects.make_random_password()
-            usu.set_password(password)
-            usu.save()
-            # Envía mail
-            send_mail(
-                subject=username,
-                message='Has sido registrado en el sistema de gestión documental SST, tu clave es: ' + password,
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=[email],
-            )
-            return self.form_valid(form)
-        else:
-            return HttpResponseRedirect(reverse_lazy('gestion_usuarios'))
-
-
-class RegistrarUsuario(BSModalCreateView):
-    template_name = 'usuarios/crear_usuario.html'
-    form_class = UsuarioForm
-    success_message = 'Success: Usuario creado.'
-    success_url = reverse_lazy('gestion_usuarios')
-
-    def post(self, request, *args, **kwargs):
-        form = self.get_form()
-        if form.is_valid():
-            form = self.get_form()
-            usu = form.save(commit=False)
-            # Enviar correo con clave
-            email = form.cleaned_data['email']
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password1']
-            password = Usuario.objects.make_random_password()
-            usu.set_password(password)
-
-            usu.save()
-
-            send_mail(
-                subject=username,
-                message='Has sido registrado en el sistema de gestión documental SST, tu clave es: ' + password,
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=[email],
-            )
-            return self.form_valid(form)
-        else:
-            return HttpResponseRedirect(reverse_lazy('gestion_usuarios'))
-
 def login(request):
 
     if request.method == 'GET':
@@ -267,10 +240,10 @@ def login(request):
                 Group.objects.get(name='perfiladministrador').user_set.add(user)
                 return redirect('/torta_administrador/')
             else:
-                context = {'error': 'Wrong credintials'}  # Agregar mensaje de error
+                context = {'error': messages.success(request, "Usuario desactivado! contacte con un administrador")}  # Agregar mensaje de error
                 return render(request, 'usuarios/login.html', {'context': context})
         else:
-            context = {'error': 'Wrong credintials'}  # Agregar mensaje de error
+            context = {'error': messages.success(request, "Correo o clave incorrectos")}  # Agregar mensaje de error
             return render(request, 'usuarios/login.html', {'context': context})
 
 
@@ -289,6 +262,38 @@ class TortaAdministrador(generic.ListView, LoginRequiredMixin):
         context['verificar'] = Ciclo.objects.get(id = 3)
         context['actuar'] = Ciclo.objects.get(id = 4)
         context['phva'] = Phva.objects.get(id = 1)
+        return context
+
+
+class CambiaEstadoUsuario(generic.ListView, LoginRequiredMixin):
+    item = Usuario
+    context_object_name = 'usuario'
+    template_name = 'usuarios/gestion_usuarios.html'
+    http_method_names = ['get']
+
+    def get_queryset(self):
+        pass
+
+    def post(self, request, *args, **kwargs):
+        form=self.form_class(request.POST)
+        if form.is_valid():
+            messages.success(self.request, "Se a cambiado el estado correctamente")
+            return redirect(self.success_url)
+        else:
+            return HttpResponseRedirect(reverse_lazy('gestion_usuarios'))
+
+    def get_context_data(self, **kwargs):
+        # Prerrequisito
+        context = super(CambiaEstadoUsuario, self).get_context_data(**kwargs) 
+        usu=Usuario.objects.get(id=self.kwargs.get('pk'))
+        if usu.is_active == True:
+            usu.is_active = False
+        else:
+            usu.is_active = True
+        usu.save(update_fields=['is_active'])
+        # Contextos individuales (Objeto)
+        messages.success(self.request, "Se a cambiado el estado correctamente")
+        context['usuarios'] = Usuario.objects.all()
         return context
 
 

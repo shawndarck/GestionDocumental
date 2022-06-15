@@ -98,7 +98,7 @@
 {% endif %}
 <script type="text/javascript">
 
-  {# Update Item Modal Form #}
+  //{# Update Item Modal Form #}
   $(function () {
     // Create book synchronous
     function CrearUsuarioSyncModalForm() {
@@ -108,15 +108,13 @@
         });
       }
     CrearUsuarioSyncModalForm();
-
-    function CrearAdministradorSyncModalForm() {
-      $("#create-admin").modalForm({
-        formURL: "{% url 'registrar_administrador' %}",
-        modalID: "#create-modal"
-      });
-    }
-    CrearAdministradorSyncModalForm();
+    
+    $("#create-admin").modalForm({
+        formURL: "{% url 'registrar_administrador' %}"
     });
+  
+
+  });
 
 </script>
 {% endblock %}

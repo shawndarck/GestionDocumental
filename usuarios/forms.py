@@ -1,6 +1,7 @@
 import random
 from tkinter.tix import Form
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
@@ -42,15 +43,17 @@ class UsuarioForm(BSModalModelForm, UserCreationForm):
         model = Usuario
         fields = ['username', 'email', 'es_usuario']
 
-class AdminForm(BSModalModelForm, UserCreationForm):
 
+
+class AdminForm(BSModalModelForm):
+
+    username = forms.CharField()
     es_administrador = forms.BooleanField(initial=True, widget=forms.HiddenInput(), label='')
-    password1 = forms.CharField(initial='cintesst', widget=forms.HiddenInput(), label='')
-    password2 = forms.CharField(initial='cintesst', widget=forms.HiddenInput(), label='')
+    password = forms.CharField(initial='cintesettempo', widget=forms.HiddenInput(), label='')
 
     class Meta:
         model = Usuario
-        fields = ['username', 'email', 'es_administrador']
+        fields = ['username', 'es_administrador']
 
 class CambiarParsswordForm(BSModalModelForm):
 

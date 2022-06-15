@@ -11,18 +11,7 @@ class Formato(models.Model):
         verbose_name='Formato'
         verbose_name_plural='Formatos'
         db_table='formato'
-
-    def __str__(self) -> str:
-        return self.descripcion
-
-
-class RegistroAnual(models.Model):
-    descripcion = models.CharField(max_length=65)
-
-    class Meta:
-        verbose_name='RegistroAnual'
-        verbose_name_plural='RegistroAnuals'
-        db_table='registro_anual'
+        ordering = ['id']
 
     def __str__(self) -> str:
         return self.descripcion
@@ -39,6 +28,7 @@ class Phva(models.Model):
         verbose_name='Phva'
         verbose_name_plural='Phvas'
         db_table='phva'
+        ordering = ['id']
 
     def __str__(self) -> str:
         return self.descripcion
@@ -56,6 +46,7 @@ class Ciclo(models.Model):
         verbose_name='Ciclo'
         verbose_name_plural='Ciclos'
         db_table='ciclo'
+        ordering = ['id']
 
     def __str__(self) -> str:
         return self.descripcion
@@ -76,6 +67,7 @@ class Estandar(models.Model):
         verbose_name='Estandar'
         verbose_name_plural='Estandars'
         db_table='estandar'
+        ordering = ['id']
 
     def __str__(self) -> str:
         return self.descripcion
@@ -96,6 +88,7 @@ class SubEstandar(models.Model):
         verbose_name='SubEstandar'
         verbose_name_plural='SubEstandars'
         db_table='sub_estandar'
+        ordering = ['id']
 
     def __str__(self) -> str:
         return self.descripcion
@@ -108,6 +101,7 @@ class EstadoItemEstandar(models.Model):
         verbose_name='EstadoItemEstandar'
         verbose_name_plural='EstadoItemEstandars'
         db_table='estado_item_estandar'
+        ordering = ['id']
 
     def __str__(self) -> str:
         return self.descripcion
@@ -127,6 +121,7 @@ class ItemEstandar(models.Model):
         verbose_name='ItemEstandar'
         verbose_name_plural='ItemEstandars'
         db_table='item_estandar'
+        ordering = ['id']
 
     def __str__(self) -> str:
         return self.descripcion
@@ -142,6 +137,7 @@ class Evidencia(models.Model):
         verbose_name='Evidencia'
         verbose_name_plural='Evidencias'
         db_table='evidencia'
+        ordering = ['id']
 
     def __str__(self) -> str:
         return self.nombre_evidencia

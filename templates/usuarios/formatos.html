@@ -42,7 +42,7 @@
                         {{ item.descripcion }}
                     </td>
                     <td>
-                        <a class="btn btn-primary" href='{{ item.formato_nombre.url }}' >Descargar formato</a>
+                        <a class="btn btn-primary" href='{{ item.formato_nombre.url }}' target="_blank" rel="noopener noreferrer">Descargar formato</a>
                     </td>
                     <td>
                         <a class="eliminar-formato btn btn-danger text-light" data-form-url="{% url 'eliminar_formato' item.pk %}" >Eliminar</a>

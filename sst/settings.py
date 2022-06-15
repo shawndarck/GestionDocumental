@@ -88,12 +88,12 @@ WSGI_APPLICATION = 'sst.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'bd_sst',
-        'USER':'juan',
+        'USER':'postgres',
         'PASSWORD':'juan8080',
         'HOST':'127.0.0.1',
-        'DATABASE_PORT':'3306',
+        'DATABASE_PORT':'5432',
     }
 }
 
