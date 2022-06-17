@@ -252,8 +252,11 @@ class ItemEstadoHacerUpdateView(BSModalUpdateView):
         if form.instance.fk_estado.id == 1:
             item.puntaje_obtenido = puntaje_maximo
             item.save(update_fields=['puntaje_obtenido'])
-        elif form.instance.fk_estado.id == 2 or form.instance.fk_estado.id == 3:
+        elif form.instance.fk_estado.id == 2:
             item.puntaje_obtenido = 0
+            item.save(update_fields=['puntaje_obtenido'])
+        elif form.instance.fk_estado.id == 3:
+            item.puntaje_obtenido = puntaje_maximo
             item.save(update_fields=['puntaje_obtenido'])
         item.fk_estado = form.instance.fk_estado
         item.save(update_fields=['fk_estado_id'])

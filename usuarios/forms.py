@@ -26,7 +26,7 @@ from usuarios.models import (
 from django.contrib.auth.models import Group
 
 
-class UsuarioForm(BSModalModelForm, UserCreationForm):
+class UsuarioForm(BSModalModelForm):
     username = forms.CharField(
         min_length=7,
         validators=[
@@ -36,12 +36,11 @@ class UsuarioForm(BSModalModelForm, UserCreationForm):
             )
         ])
     es_usuario = forms.BooleanField(initial=True, widget=forms.HiddenInput(), label='')
-    password1 = forms.CharField(initial='cintesst', widget=forms.HiddenInput(), label='')
-    password2 = forms.CharField(initial='cintesst', widget=forms.HiddenInput(), label='')
+    password = forms.CharField(initial='cintesst', widget=forms.HiddenInput(), label='')
 
     class Meta:
         model = Usuario
-        fields = ['username', 'email', 'es_usuario']
+        fields = ['username', 'es_usuario']
 
 
 

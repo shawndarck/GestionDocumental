@@ -58,14 +58,17 @@ class RegistrarAdministrador(BSModalCreateView):
     success_url = reverse_lazy('gestion_usuarios')
     
     def post(self, request, *args, **kwargs):
-        form = self.get_form()
+        form = self.form_class(request.POST)
         if form.is_valid():
             # Enviar correo con clave
             username = form.cleaned_data['username']
             if "@grupocinte.com" in username:
-                usu = form.save(commit=False)
                 password = Usuario.objects.make_random_password()
-                usu.password =password
+                nuevo_administrador = Usuario(
+                    username=form.cleaned_data.get('username'),
+                    password=password
+                )
+                nuevo_administrador.save()
                 # Envía mail
                 send_mail(
                     subject=username,
@@ -73,9 +76,8 @@ class RegistrarAdministrador(BSModalCreateView):
                     from_email=settings.EMAIL_HOST_USER,
                     recipient_list=[username],
                 )
-                usu.save()
                 messages.success(request, "Usuario creado correctamente, clave enviada al correo")
-                return self.form_valid(form)
+                return HttpResponseRedirect(reverse_lazy('gestion_usuarios'))
             else:
                 messages.success(request, "Usuario duplicado o dominio de cinte incorrecto @grupocinte.com")
                 return HttpResponseRedirect(reverse_lazy('gestion_usuarios'))
@@ -89,33 +91,23 @@ class RegistrarUsuario(BSModalCreateView):
     success_message = 'Success: Usuario creado.'
     success_url = reverse_lazy('gestion_usuarios')
 
-    def get_success_url(self):
-        """Return the URL to redirect to after processing a valid form."""
-        if self.success_url:
-            url = self.success_url.format(**self.object.__dict__)
-        else:
-            url = self.object.get_absolute_url()
-        return url
 
-    def form_valid(self, form, **kwargs):
-        form = self.get_form()
-        usu = form.save(commit=False)
+    def form_valid(self, form):
         # Enviar correo con clave
-        email = form.cleaned_data['email']
         username = form.cleaned_data['username']
-        password = form.cleaned_data['password1']
         password = Usuario.objects.make_random_password()
-        usu.set_password(password)
-
-        usu.save()
-
+        nuevo_usuario = Usuario(
+            username=username,
+            password=password
+        )
+        nuevo_usuario.save()
         send_mail(
             subject=username,
             message='Has sido registrado en el sistema de gestión documental SST, tu clave es: ' + password,
             from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[email],
+            recipient_list=[username],
         )
-        return HttpResponseRedirect(self.get_success_url())
+        return super().form_valid(form)
 
 
     # def post(self, request, *args, **kwargs):
