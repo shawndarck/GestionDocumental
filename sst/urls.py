@@ -16,5 +16,6 @@ urlpatterns = [
     path('actuar/', include('actuar.urls')),
     path('', include('accesos.urls')),
     path('formatos/', include('formatos.urls')),
+    path('covid19/', include('covid19.urls')),
 ]
 # urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

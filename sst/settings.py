@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     #Propios
     'usuarios',
     'ciclo_phva',
+    'covid19',
     'crispy_forms',
     'bootstrap_modal_forms',
     'widget_tweaks',

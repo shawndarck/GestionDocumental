@@ -1,0 +1,81 @@
+<!--Hereda de tema.html (el padre)-->
+{% extends "usuarios/tema.html" %}
+{% load static %}
+
+<!--Título de la página-->
+{% block title %}Covid 19{% endblock %}
+
+<!--Estilos especificos de esta página-->
+{% block extrastyles %}
+<link rel="stylesheet" href="{% static 'usuarios/css/tablas.css' %}">
+{% endblock extrastyles %}
+
+<!--Contenido de la página-->
+{% block content %}
+    <!--Incluye el modal-->
+    {% include "usuarios/_modal.html" %}
+<!-- Dark table -->
+<div class="container">
+    <div class="row">
+        <div class="col m-3">
+            <div class="row">
+                <div class="card shadow-lg" style="width:27rem;">
+                    <div class="card-body">
+                        <h5 class="card-title text-dark">Tablas de datos covid-19</h5>
+                        <div class="container m-4">
+                            <div class="card-title row">Pruebas covid <a href="" class="btn btn-primary p-2 m-2">Ver</a></div>
+                            <div class="card-title row">Epidemología <a href="" class="btn btn-primary p-2 m-2">Ver</a></div>
+                            <div class="card-title row">Incapacidades <a href="" class="btn btn-primary p-2 m-2">Ver</a></div>
+                            <div class="card-title row">Incidencias <a href="" class="btn btn-primary p-2 m-2">Ver</a></div>
+                            <div class="card-title row">Tipo de caso sospechoso <a href="" class="btn btn-primary p-2 m-2">Ver</a></div>
+                            <div class="card-title row">Casos por cliente <a href="" class="btn btn-primary p-2 m-2">Ver</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col"><img class="m-3" src="{% static 'usuarios/img/grafica.png' %}" alt="" class="mt-2"></div>
+    </div>
+    
+
+</div>
+{% endblock %}
+
+<!--Scripts extras-->
+{% block extrascripts %}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+{% if messages %}
+    {% for m in messages %}
+        <script>
+            Swal.fire({  
+                "title": "Felicitaciones",
+                "text": "{{m}}",
+                "icon": "success",
+                "confirmButtonColor":"#172b4d"
+            })
+        </script>
+    {% endfor %}
+{% endif %}
+<script type="text/javascript">
+
+  //{# Update Item Modal Form #}
+  $(function () {
+    // Create book synchronous
+    function CrearUsuarioSyncModalForm() {
+        $("#create-user").modalForm({
+          formURL: "{% url 'registrar_usuario' %}",
+          modalID: "#create-modal"
+        });
+      }
+    CrearUsuarioSyncModalForm();
+    
+    $("#create-admin").modalForm({
+        formURL: "{% url 'registrar_administrador' %}"
+    });
+  
+
+  });
+
+</script>
+{% endblock %}
