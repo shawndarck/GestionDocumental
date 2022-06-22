@@ -42,7 +42,9 @@
             </div>
         </div>
         
-        <div class="col"><img class="m-3" src="{% static 'usuarios/img/grafica.png' %}" alt="" class="mt-2"></div>
+        <div id="container" style="width: 50%;">
+            <canvas id="bar-chart"></canvas>
+        </div>
     </div>
     
 
@@ -51,6 +53,32 @@
 
 <!--Scripts extras-->
 {% block extrascripts %}
+
+<script>
+    var config = {
+    type: 'bar',
+    data: {
+        datasets: [{
+        data: {{ data|safe }},
+        backgroundColor: [
+            '#41b751', '#ffc332', '#fc367b', '#ff7d00'
+        ],
+        label: 'Covid 19'
+        }],
+        labels: {{ labels|safe }}
+    },
+    options: {
+        responsive: true
+    }
+    };
+    window.onload = function() {
+    var ctx = document.getElementById('bar-chart').getContext('2d');
+    window.myPie = new Chart(ctx, config);
+    };
+</script>
+
+
+
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
 {% if messages %}
     {% for m in messages %}
@@ -65,6 +93,7 @@
     {% endfor %}
 {% endif %}
 <script type="text/javascript">
+    
 
   //{# Update Item Modal Form #}
   $(function () {

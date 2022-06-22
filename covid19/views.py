@@ -26,13 +26,33 @@ from bootstrap_modal_forms.generic import (
 )
 
 
-class Covid19(generic.ListView, LoginRequiredMixin):
-    item = RegistroAnual
-    context_object_name = 'registro_anual'
-    template_name = 'usuarios/covid19_central.html'
+def covid19(request):
+    labels = []
+    data = []
+    positivos:(int) = 0
+    negativos:(int) = 0
+    sin_prueba:(int) = 0
+    fallecidos:(int) = 0
 
-    def get_queryset(self):
-        pass
+    queryset = PruebasCovid.objects.all()
+    for covid19 in queryset:
+        positivos += covid19.positivos
+        negativos += covid19.negativos
+        sin_prueba += covid19.sin_prueba
+
+    data.append(positivos)
+    data.append(negativos)
+    data.append(sin_prueba)
+    data.append(fallecidos)
+    labels.append('Positivos')
+    labels.append('Negativos')
+    labels.append('Sin Prueba')
+    labels.append('Fallecidos')
+
+    return render(request, 'usuarios/covid19_central.html', {
+        'labels': labels,
+        'data': data,
+    })
 
 
 class PruebasCovidTabla(generic.ListView, LoginRequiredMixin):
