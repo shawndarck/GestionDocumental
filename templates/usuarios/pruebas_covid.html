@@ -56,7 +56,9 @@
                             {{ item.total }}
                         </td>
                         <td>
-                            <a href="" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-prueba">Editar</a>
+                            <button type="button" class="prueba_covid btn btn-sm btn-primary" data-form-url="{% url 'editar_prueba_covid' item.pk %}">
+                                Calificar
+                            </button>   
                         </td>
                     </tr>
                     {% endfor %}
@@ -90,5 +92,12 @@ function leerAnualModalForm() {
         $(this).modalForm({formURL: $(this).data("form-url")});
     });
 }
+
+function pruebaModalForm() {
+    $(".prueba_covid").each(function () {
+        $(this).modalForm({formURL: $(this).data("form-url")});
+    });
+}
+pruebaModalForm();
 </script>
 {% endblock %}

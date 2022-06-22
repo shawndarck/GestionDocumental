@@ -5,7 +5,10 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from covid19.forms import RegistroAnualForm
+from covid19.forms import (
+    RegistroAnualForm,
+    PruebasCovidForm,
+)
 
 from . models import (
     RegistroAnual,
@@ -54,6 +57,21 @@ class PruebasCovidTabla(generic.ListView, LoginRequiredMixin):
         return context
 
 
+class PruebasCovidUpdateView(BSModalUpdateView):
+    model = PruebasCovid
+    template_name = 'usuarios/cambiar_estado_item.html'
+    form_class = PruebasCovidForm
+    success_message = 'Success: prueba covid actualizada.'
+    success_url = reverse_lazy('pruebas_covid')
+
+
+    def form_valid(self, form):
+        prueba = form.save(commit=False)
+        prueba.total = prueba.casos_sospechosos + prueba.positivos + prueba.negativos + prueba.sin_prueba
+        prueba.save()
+        return super().form_valid(form)
+
+
 class LeerAnualReadView(generic.ListView, LoginRequiredMixin):
     item = RegistroAnual
     context_object_name = 'item_estandar'
@@ -75,13 +93,11 @@ class RegistroAnualCreateView(BSModalCreateView, LoginRequiredMixin):
     success_message = 'Registro anual Creado'
     success_url = reverse_lazy('leer_anuales')
 
-    def form_valid(self, form):
-        
-        return HttpResponseRedirect(reverse_lazy('leer_anuales'))
-
 
 class RegistroAnualDeleteView(BSModalDeleteView, LoginRequiredMixin):
     model = RegistroAnual
     template_name = 'usuarios/eliminar_anual.html'
     success_message = 'Success: Registro anual eliminado.'
     success_url = reverse_lazy('leer_anuales')
+
+
