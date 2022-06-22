@@ -1,0 +1,89 @@
+<!--Hereda de tema.html (el padre)-->
+{% extends "usuarios/tema.html" %}
+{% load static %}
+
+<!--Título de la página-->
+{% block title %}Actuar{% endblock %}
+
+<!--Estilos especificos de esta página-->
+{% block extrastyles %}
+<link rel="stylesheet" href="{% static 'usuarios/css/tablas.css' %}">
+{% endblock extrastyles %}
+
+<!--Contenido de la página-->
+{% block content %}
+  <!--Incluye el modal-->
+  {% include "usuarios/_modal.html" %}
+<!-- Dark table -->
+<div class="row m-3">
+  <div class="col">
+    <div class="card bg-default shadow">
+      <div class="card-header border-0" id="header-table">
+        <h3 class="text-white mb-1 ms-4">Registro anual</h3>
+        <button id="crear-anual" class="btn btn-primary">Registrar año</button>
+      </div>
+      <div class="table-responsive">
+        <table id="tbl-planear" class="table align-items-center table-light table-flush">
+
+            <thead class="">
+                <tr class="cabezera-sub-estandar">
+                    <th scope="col text-dark">Año</th>                                  
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                {% for item in anuales %}
+                    <tr>
+                        <td scope="row">
+                            {{ item.descripcion }}
+                        </td>
+                        <td>                                      
+                            <button type="button" class="eliminar-anual btn btn-danger" data-form-url="{% url 'eliminar_anual' item.pk %}">
+                            Eliminar
+                            </button>                                      
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+<!--Scripts extras-->
+{% block extrascripts %}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+{% if messages %}
+    {% for m in messages %}
+        <script>
+            Swal.fire({  
+                "title": "Atención",
+                "text": "{{m}}",
+                "icon": "info",
+                "confirmButtonColor":"#172b4d"
+            })
+        </script>
+    {% endfor %}
+{% endif %}
+<script type="text/javascript">
+    {# Update Item Modal Form #}
+    $(function () {
+        $("#crear-anual").modalForm({
+            formURL: "{% url 'crear_anual' %}"
+        });
+
+
+        // Delete book buttons - formURL is retrieved from the data of the element
+        function EliminarAnualModalForm() {
+            $(".eliminar-anual").each(function () {
+                $(this).modalForm({formURL: $(this).data("form-url"), isDeleteForm: true});
+            });
+        }
+        EliminarAnualModalForm();
+    });
+</script>  
+{% endblock %}

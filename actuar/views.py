@@ -158,4 +158,3 @@ class EvidenciaActuarDeleteView(BSModalDeleteView):
     template_name = 'usuarios/eliminar_evidencia.html'
     success_message = 'Success: evidencia borrada.'
     success_url = "/actuar/actuar"
-

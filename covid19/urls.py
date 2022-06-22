@@ -9,6 +9,10 @@ from django.contrib.auth.decorators import login_required
 urlpatterns = [
     # Redirecciones
     path('covid19/', login_required(views.Covid19.as_view()), name='covid19'),
+    path('pruebas_covid/', login_required(views.PruebasCovidTabla.as_view()), name='pruebas_covid'),
+    path('leer_anuales/', login_required(views.LeerAnualReadView.as_view()), name='leer_anuales'),
+    path('crear_anual/', login_required(views.RegistroAnualCreateView.as_view()), name='crear_anual'),
+    path('<int:pk>/eliminar_anual', views.RegistroAnualDeleteView.as_view(), name='eliminar_anual'),
 ]
 
 if settings.DEBUG: 

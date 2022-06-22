@@ -19,11 +19,18 @@
     <div class="row">
         <div class="col m-3">
             <div class="row">
+                <div class="card shadow-lg mb-3" style="width:13rem;">
+                    <div class="card-body">
+                        <div><a href="{% url 'leer_anuales' %}" class="btn btn-primary">Gestión de años</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="card shadow-lg" style="width:27rem;">
                     <div class="card-body">
                         <h5 class="card-title text-dark">Tablas de datos covid-19</h5>
                         <div class="container m-4">
-                            <div class="card-title row">Pruebas covid <a href="" class="btn btn-primary p-2 m-2">Ver</a></div>
+                            <div class="card-title row">Pruebas covid <a href="{% url 'pruebas_covid' %}" class="btn btn-primary p-2 m-2">Ver</a></div>
                             <div class="card-title row">Epidemología <a href="" class="btn btn-primary p-2 m-2">Ver</a></div>
                             <div class="card-title row">Incapacidades <a href="" class="btn btn-primary p-2 m-2">Ver</a></div>
                             <div class="card-title row">Incidencias <a href="" class="btn btn-primary p-2 m-2">Ver</a></div>

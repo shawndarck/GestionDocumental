@@ -52,7 +52,7 @@ class AdminForm(BSModalModelForm):
 
     class Meta:
         model = Usuario
-        fields = ['username', 'es_administrador']
+        fields = ['username', 'es_administrador', 'first_name', 'last_name']
 
 class CambiarParsswordForm(BSModalModelForm):
 
