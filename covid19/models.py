@@ -30,7 +30,7 @@ class PruebasCovid(models.Model):
         ordering = ['id']
 
 
-class Epidemologia(models.Model):
+class Epidemiologia(models.Model):
     fk_registro_anual = models.ForeignKey(RegistroAnual, null=True, on_delete=models.CASCADE)
     casos_sospechosos = models.IntegerField()
     hospitalizados = models.IntegerField()
@@ -39,9 +39,9 @@ class Epidemologia(models.Model):
     fallecidos = models.IntegerField()
 
     class Meta:
-        verbose_name='Epidemologia'
-        verbose_name_plural='Epidemologia'
-        db_table='epidemologia'
+        verbose_name='Epidemiologia'
+        verbose_name_plural='Epidemiologia'
+        db_table='epidemiologia'
         ordering = ['id']
 
 
@@ -51,7 +51,6 @@ class IncapacidadesCovid(models.Model):
     numero_incapacidades = models.IntegerField()
     numero_dias_perdidos_covid = models.IntegerField()
     casos_negativos_sin_prueba_con_incapacidad = models.IntegerField()
-    numero_incapacidades = models.IntegerField()
     numero_dias_perdidos_sospecha = models.IntegerField()
 
     class Meta:
@@ -78,7 +77,7 @@ class TipoCasoSospechoso(models.Model):
     fk_registro_anual = models.ForeignKey(RegistroAnual, null=True, on_delete=models.CASCADE)
     casos_por_sintomas = models.IntegerField()
     contacto_directo = models.IntegerField()
-    contacto_indireto = models.IntegerField()
+    contacto_indirecto = models.IntegerField()
     antes_de_ingreso_cinte = models.IntegerField()
     otros = models.IntegerField()
 

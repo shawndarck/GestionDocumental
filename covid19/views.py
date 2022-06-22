@@ -5,16 +5,22 @@ from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from . models import (
+    Epidemiologia,
+    RegistroAnual,
+    PruebasCovid,
+    IncapacidadesCovid,
+    Incidencia,
+    TipoCasoSospechoso,
+)
+
 from covid19.forms import (
     RegistroAnualForm,
     PruebasCovidForm,
-    EpidemologiaForm,
-)
-
-from . models import (
-    Epidemologia,
-    RegistroAnual,
-    PruebasCovid,
+    EpidemiologiaForm,
+    IncapacidadesCovidForm,
+    IncidenciaForm,
+    TipoCasoSospechosoForm,
 )
 
 # Create your views here.
@@ -125,10 +131,12 @@ class PruebasCovidUpdateView(BSModalUpdateView):
         return super().form_valid(form)
 
 
-class PruebasCovidTabla(generic.ListView, LoginRequiredMixin):
-    item = PruebasCovid
-    context_object_name = 'pruebas_covid'
-    template_name = 'usuarios/pruebas_covid.html'
+# Epidemiología ------------------------------------------------------------------------------------------------
+
+class EpidemiologiaTabla(generic.ListView, LoginRequiredMixin):
+    item = Epidemiologia
+    context_object_name = 'epidemiologia'
+    template_name = 'usuarios/epidemiologia.html'
 
     def get_queryset(self):
         pass
@@ -138,42 +146,105 @@ class PruebasCovidTabla(generic.ListView, LoginRequiredMixin):
     """
     def get_context_data(self, **kwargs):
         # Prerrequisito
-        context = super(PruebasCovidTabla, self).get_context_data(**kwargs)
+        context = super(EpidemiologiaTabla, self).get_context_data(**kwargs)
         # Ciclo de creación de pruebas covid a partir de un año nuevo
         for anual in RegistroAnual.objects.all():
-            if not PruebasCovid.objects.filter(fk_registro_anual_id=anual.id):
-                PruebasCovid.objects.create(fk_registro_anual = anual, casos_sospechosos = 0, positivos = 0, negativos = 0, sin_prueba = 0, total = 0)
-        context['pruebas_covid'] = PruebasCovid.objects.all()
+            if not Epidemiologia.objects.filter(fk_registro_anual_id=anual.id):
+                Epidemiologia.objects.create(fk_registro_anual = anual, casos_sospechosos = 0, hospitalizados = 0, sintomaticos_recuperados = 0, asintomaticos = 0, fallecidos = 0)
+        context['epidemiologia'] = Epidemiologia.objects.all()
         return context
 
 
-# Epidemología ------------------------------------------------------------------------------------------------
-
-class EpidemologiaTabla(generic.ListView, LoginRequiredMixin):
-    item = Epidemologia
-    context_object_name = 'epidemologia'
-    template_name = 'usuarios/epidemologia.html'
-
-    def get_queryset(self):
-        pass
-    """
-    Esta función tiene dos ciclos que crean registros de pruebas covid según el año registrado
-    Maneja un ciclo de creación y eliminacion a partir de validaciones dentro de los bucles
-    """
-    def get_context_data(self, **kwargs):
-        # Prerrequisito
-        context = super(EpidemologiaTabla, self).get_context_data(**kwargs)
-        # Ciclo de creación de pruebas covid a partir de un año nuevo
-        for anual in RegistroAnual.objects.all():
-            if not Epidemologia.objects.filter(fk_registro_anual_id=anual.id):
-                Epidemologia.objects.create(fk_registro_anual = anual, casos_sospechosos = 0, hospitalizados = 0, sintomaticos_recuperados = 0, asintomaticos = 0, fallecidos = 0)
-        context['epidemologia'] = Epidemologia.objects.all()
-        return context
-
-
-class EpidemologiaUpdateView(BSModalUpdateView):
-    model = Epidemologia
+class EpidemiologiaUpdateView(BSModalUpdateView):
+    model = Epidemiologia
     template_name = 'usuarios/cambiar_estado_item.html'
-    form_class = EpidemologiaForm
+    form_class = EpidemiologiaForm
     success_message = 'Success: Epidemologia actualizada.'
     success_url = reverse_lazy('epidemologia')
+
+
+# Incapacidades covid ------------------------------------------------------------------------------------------------
+class IncapacidadesCovidTabla(generic.ListView, LoginRequiredMixin):
+    item = IncapacidadesCovid
+    context_object_name = 'incapacidades_covid'
+    template_name = 'usuarios/incapacidades_covid.html'
+
+    def get_queryset(self):
+        pass
+    """
+    Esta función tiene dos ciclos que crean registros de pruebas covid según el año registrado
+    Maneja un ciclo de creación y eliminacion a partir de validaciones dentro de los bucles
+    """
+    def get_context_data(self, **kwargs):
+        # Prerrequisito
+        context = super(IncapacidadesCovidTabla, self).get_context_data(**kwargs)
+        # Ciclo de creación de pruebas covid a partir de un año nuevo
+        for anual in RegistroAnual.objects.all():
+            if not IncapacidadesCovid.objects.filter(fk_registro_anual_id=anual.id):
+                IncapacidadesCovid.objects.create(fk_registro_anual = anual, casos_positivos_con_incapacidad = 0, numero_incapacidades = 0, numero_dias_perdidos_covid = 0, casos_negativos_sin_prueba_con_incapacidad = 0, numero_dias_perdidos_sospecha = 0)
+        context['incapacidades_covid'] = IncapacidadesCovid.objects.all()
+        return context
+
+
+class IncapacidadesCovidUpdateView(BSModalUpdateView):
+    model = IncapacidadesCovid
+    template_name = 'usuarios/cambiar_estado_item.html'
+    form_class = IncapacidadesCovidForm
+    success_message = 'Success: Incapacidad covid actualizada.'
+    success_url = reverse_lazy('incapacidades')
+
+
+# Incidencias ------------------------------------------------------------------------------------------------
+class IncidenciasTabla(generic.ListView, LoginRequiredMixin):
+    item = Incidencia
+    context_object_name = 'incidencias'
+    template_name = 'usuarios/incidencias.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        # Prerrequisito
+        context = super(IncidenciasTabla, self).get_context_data(**kwargs)
+        # Ciclo de creación de pruebas covid a partir de un año nuevo
+        for anual in RegistroAnual.objects.all():
+            if not Incidencia.objects.filter(fk_registro_anual_id=anual.id):
+                Incidencia.objects.create(fk_registro_anual = anual, numero_casos = 0, numero_trabajadores = 0, porcentaje_incidencia = 0)
+        context['incidencias'] = Incidencia.objects.all()
+        return context
+
+
+class IncidenciasUpdateView(BSModalUpdateView):
+    model = Incidencia
+    template_name = 'usuarios/cambiar_estado_item.html'
+    form_class = IncidenciaForm
+    success_message = 'Success: Incidencia actualizada.'
+    success_url = reverse_lazy('incidencias')
+
+
+# Tipo de caso sospechoso ------------------------------------------------------------------------------------------------
+class TipoCasoSospechosoTabla(generic.ListView, LoginRequiredMixin):
+    item = TipoCasoSospechoso
+    context_object_name = 'tipo_caso_sospechoso'
+    template_name = 'usuarios/tipo_caso_sospechoso.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        # Prerrequisito
+        context = super(TipoCasoSospechosoTabla, self).get_context_data(**kwargs)
+        # Ciclo de creación de pruebas covid a partir de un año nuevo
+        for anual in RegistroAnual.objects.all():
+            if not TipoCasoSospechoso.objects.filter(fk_registro_anual_id=anual.id):
+                TipoCasoSospechoso.objects.create(fk_registro_anual = anual, casos_por_sintomas = 0, contacto_directo = 0, contacto_indirecto = 0, antes_de_ingreso_cinte = 0, otros = 0)
+        context['tipo_caso_sospechosos'] = TipoCasoSospechoso.objects.all()
+        return context
+
+
+class TipoCasoSospechosoUpdateView(BSModalUpdateView):
+    model = TipoCasoSospechoso
+    template_name = 'usuarios/cambiar_estado_item.html'
+    form_class = TipoCasoSospechosoForm
+    success_message = 'Success: Tipo caso sospechoso actualizado.'
+    success_url = reverse_lazy('tipo_caso_sospechoso')

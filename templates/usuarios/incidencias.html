@@ -1,0 +1,96 @@
+<!--Hereda de tema.html (el padre)-->
+{% extends "usuarios/tema.html" %}
+{% load static %}
+
+<!--Título de la página-->
+{% block title %}Covid 19{% endblock %}
+
+<!--Estilos especificos de esta página-->
+{% block extrastyles %}
+<link rel="stylesheet" href="{% static 'usuarios/css/tablas.css' %}">
+{% endblock extrastyles %}
+
+<!--Contenido de la página-->
+{% block content %}
+    <!--Incluye el modal-->
+    {% include "usuarios/_modal.html" %}
+<!-- Dark table -->
+<div class="row m-3">
+    <div class="col">
+        <div class="card bg-default shadow">
+            <div class="card-header border-0" id="header-table">
+            <h3 class="text-white mb-1 ms-4">Incidencias</h3>
+        </div>
+        <div class="table-responsive">
+            <table id="tbl-planear" class="table align-items-center table-light table-flush">
+                <thead class="">
+                    <tr class="cabezera-sub-estandar">
+                        <th scope="col text-dark">Año</th>                                  
+                        <th scope="col">Número de casos</th>
+                        <th scope="col">Número de trabajadores</th>
+                        <th scope="col">% incidencia</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in incidencias %}
+                    <tr>
+                        <td scope="row">
+                            {{ item.fk_registro_anual }}
+                        </td>
+                        <td>
+                            {{ item.numero_casos }}
+                        </td>
+                        <td>
+                            {{ item.numero_trabajadores }}
+                        </td>
+                        <td>
+                            {{ item.porcentaje_incidencia }}
+                        </td>
+                        <td>
+                            <button type="button" class="incidencia btn btn-sm btn-primary" data-form-url="{% url 'editar_incidencia' item.pk %}">
+                                Calificar
+                            </button>   
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}
+
+<!--Scripts extras-->
+{% block extrascripts %}
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+{% if messages %}
+    {% for m in messages %}
+        <script>
+            Swal.fire({  
+                "title": "Felicitaciones",
+                "text": "{{m}}",
+                "icon": "success",
+                "confirmButtonColor":"#172b4d"
+            })
+        </script>
+    {% endfor %}
+{% endif %}
+<script type="text/javascript">
+// Leer años
+function leerAnualModalForm() {
+    $(".leer-anual").each(function () {
+        $(this).modalForm({formURL: $(this).data("form-url")});
+    });
+}
+
+function epidemologiaModalForm() {
+    $(".incidencia").each(function () {
+        $(this).modalForm({formURL: $(this).data("form-url")});
+    });
+}
+epidemologiaModalForm();
+</script>
+{% endblock %}

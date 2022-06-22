@@ -14,8 +14,17 @@ urlpatterns = [
     path('pruebas_covid/', login_required(views.PruebasCovidTabla.as_view()), name='pruebas_covid'),
     path('editar_prueba_covid/<int:pk>', views.PruebasCovidUpdateView.as_view(), name='editar_prueba_covid'),
     # Epidemologia
-    path('epidemologia/', login_required(views.EpidemologiaTabla.as_view()), name='epidemologia'),
-    path('editar_epidemologia/<int:pk>', views.EpidemologiaUpdateView.as_view(), name='editar_epidemologia'),
+    path('epidemologia/', login_required(views.EpidemiologiaTabla.as_view()), name='epidemologia'),
+    path('editar_epidemologia/<int:pk>', views.EpidemiologiaUpdateView.as_view(), name='editar_epidemologia'),
+    # Incapacidades
+    path('incapacidades/', login_required(views.IncapacidadesCovidTabla.as_view()), name='incapacidades'),
+    path('editar_incapacidad/<int:pk>', login_required(views.IncapacidadesCovidUpdateView.as_view()), name='editar_incapacidad'),
+    # Incidencias
+    path('incidencias/', login_required(views.IncidenciasTabla.as_view()), name='incidencias'),
+    path('editar_incidencia/<int:pk>', login_required(views.IncidenciasUpdateView.as_view()), name='editar_incidencia'),
+    # Tipos de caso sospechoso
+    path('tipo_caso_sospechoso/', login_required(views.TipoCasoSospechosoTabla.as_view()), name='tipo_caso_sospechoso'),
+    path('editar_tipo_incidencia/<int:pk>', login_required(views.TipoCasoSospechosoUpdateView.as_view()), name='editar_tipo_incidencia'),
     # Gestión de años
     path('leer_anuales/', login_required(views.LeerAnualReadView.as_view()), name='leer_anuales'),
     path('crear_anual/', login_required(views.RegistroAnualCreateView.as_view()), name='crear_anual'),
