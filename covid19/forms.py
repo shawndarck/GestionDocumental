@@ -17,6 +17,13 @@ class RegistroAnualForm(BSModalModelForm):
         model = RegistroAnual
         fields = ['descripcion']
 
+    def clean_descripcion(self):
+        descripcion = self.cleaned_data['descripcion']
+        if RegistroAnual.objects.filter(descripcion=descripcion).exists():
+            raise ValidationError('Este año ya existe')
+    
+        return descripcion
+
 
 class PruebasCovidForm(BSModalModelForm):
 

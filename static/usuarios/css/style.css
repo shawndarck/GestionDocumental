@@ -108,13 +108,13 @@ body{
 }
 
 .login input[type=submit]{
-	width: 260px;
+	width: 250px;
 	height: 35px;
 	background: #fff;
 	border: 1px solid #fff;
 	cursor: pointer;
 	border-radius: 2px;
-	color: #a18d6c;
+	color: #000000;
 	font-family: 'Exo', sans-serif;
 	font-size: 16px;
 	font-weight: 400;

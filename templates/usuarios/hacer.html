@@ -18,7 +18,7 @@
     <div class="col">
       <div class="card bg-default shadow">
         <div class="card-header border-0" id="header-table">
-          <h3 class="text-white mb-1 ms-4">{{ ciclo }} ({{ciclo.calificacion_obtenida}}% - 60%)</h3>
+          <h2 class="text-white mb-1 ms-4">{{ ciclo }} ({{ciclo.calificacion_obtenida}}% - 60%)</h2>
           <div class="progress ms-4 me-4">
             <div class="progress-bar bg-primary" placeholder="hola mundo" role="progressbar" style="width: {{ciclo.porcentaje_obtenido}}%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
@@ -28,7 +28,7 @@
   
               <thead class="">
                 <tr class="cabezera-estandar">
-                  <th scope="col"><h6> {{ estandar.descripcion }} ({{estandar.calificacion_obtenida}}%) </h6>
+                  <th scope="col"><h6> {{ estandar.descripcion }} ({{estandar.calificacion_obtenida}}% - 20%) </h6>
                   </th>
                   <th scope="col"></th>
                   <th scope="col"></th>
@@ -39,9 +39,9 @@
   
               <thead class="">
                 <tr class="cabezera-sub-estandar">
-                  <th scope="col text-dark">{{ sub_estandar }}
+                  <th scope="col text-dark"><h6>{{ sub_estandar }}</h6>
                   </th>                                  
-                  <th scope="col">({{ sub_estandar.calificacion_obtenida }})%</th>
+                  <th scope="col"><h6>({{ sub_estandar.calificacion_obtenida }})% - (9.0)% </h6></th>
                   <th scope="col"></th>
                   <th scope="col">Estado</th>
                   <th scope="col"></th>
@@ -77,9 +77,9 @@
   
               <thead class="">
                 <tr class="cabezera-sub-estandar">
-                  <th scope="col text-dark">{{ sub_estandar2 }}
+                  <th scope="col text-dark"><h6>{{ sub_estandar2 }}</h6>
                   </th>                                  
-                  <th scope="col">({{ sub_estandar2.calificacion_obtenida }})%</th>
+                  <th scope="col"><h6>({{ sub_estandar2.calificacion_obtenida }})% - (5.0)%</h6></th>
                   <th scope="col"></th>
                   <th scope="col">Estado</th>
                   <th scope="col"></th>
@@ -115,9 +115,9 @@
   
               <thead class="">
                 <tr class="cabezera-sub-estandar">
-                  <th scope="col text-dark">{{ sub_estandar3 }}
+                  <th scope="col text-dark"><h6>{{ sub_estandar3 }}</h6>
                   </th>                                  
-                  <th scope="col">({{ sub_estandar2.calificacion_obtenida }})%</th>
+                  <th scope="col"><h6>({{ sub_estandar3.calificacion_obtenida }})% - (6.0)%</h6></th>
                   <th scope="col"></th>
                   <th scope="col">Estado</th>
                   <th scope="col"></th>
@@ -153,7 +153,7 @@
   
               <thead class="">
                 <tr class="cabezera-estandar">
-                  <th scope="col"><h6>{{ estandar2.descripcion }} ({{estandar2.calificacion_obtenida}}%) </h6>
+                  <th scope="col"><h6>{{ estandar2.descripcion }} ({{estandar2.calificacion_obtenida}}%) - (30)%</h6>
                   </th>
                   <th scope="col"></th>
                   <th scope="col"></th>
@@ -164,9 +164,9 @@
   
               <thead class="">
                 <tr class="cabezera-sub-estandar">
-                  <th scope="col text-dark">{{ sub_estandar4 }}
+                  <th scope="col text-dark"><h6>{{ sub_estandar4 }}</h6>
                   </th>                                  
-                  <th scope="col">({{ sub_estandar4.calificacion_obtenida }})%</th>
+                  <th scope="col"><h6>({{ sub_estandar4.calificacion_obtenida }})% - (15)%</h6></th>
                   <th scope="col"></th>
                   <th scope="col">Estado</th>
                   <th scope="col"></th>
@@ -202,9 +202,9 @@
   
               <thead class="">
                 <tr class="cabezera-sub-estandar">
-                  <th scope="col text-dark">{{ sub_estandar5 }}
+                  <th scope="col text-dark"><h6>{{ sub_estandar5 }}</h6>
                   </th>                                  
-                  <th scope="col">({{ sub_estandar5.calificacion_obtenida }})%</th>
+                  <th scope="col"><h6>({{ sub_estandar5.calificacion_obtenida }})% - (15)%</h6></th>
                   <th scope="col"></th>
                   <th scope="col">Estado</th>
                   <th scope="col"></th>
@@ -240,7 +240,7 @@
   
               <thead class="">
                 <tr class="cabezera-estandar">
-                  <th scope="col"><h6>{{ estandar3.descripcion }} ({{estandar3.calificacion_obtenida}}%) </h6>
+                  <th scope="col"><h6>{{ estandar3.descripcion }} ({{estandar3.calificacion_obtenida}}%) - (10)%</h6>
                   </th>
                   <th scope="col"></th>
                   <th scope="col"></th>
@@ -251,9 +251,9 @@
   
               <thead class="">
                 <tr class="cabezera-sub-estandar">
-                  <th scope="col text-dark">{{ sub_estandar6 }}
+                  <th scope="col text-dark"><h6>{{ sub_estandar6 }}</h6>
                   </th>                                  
-                  <th scope="col">({{ sub_estandar6.calificacion_obtenida }})%</th>
+                  <th scope="col"><h6>({{ sub_estandar6.calificacion_obtenida }})% - (10)%</h6></th>
                   <th scope="col"></th>
                   <th scope="col">Estado</th>
                   <th scope="col"></th>
