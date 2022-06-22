@@ -31,7 +31,7 @@
                         <h5 class="card-title text-dark">Tablas de datos covid-19</h5>
                         <div class="container m-4">
                             <div class="card-title row">Pruebas covid <a href="{% url 'pruebas_covid' %}" class="btn btn-primary p-2 m-2">Ver</a></div>
-                            <div class="card-title row">Epidemología <a href="" class="btn btn-primary p-2 m-2">Ver</a></div>
+                            <div class="card-title row">Epidemología <a href="{% url 'epidemologia' %}" class="btn btn-primary p-2 m-2">Ver</a></div>
                             <div class="card-title row">Incapacidades <a href="" class="btn btn-primary p-2 m-2">Ver</a></div>
                             <div class="card-title row">Incidencias <a href="" class="btn btn-primary p-2 m-2">Ver</a></div>
                             <div class="card-title row">Tipo de caso sospechoso <a href="" class="btn btn-primary p-2 m-2">Ver</a></div>
@@ -42,12 +42,10 @@
             </div>
         </div>
         
-        <div id="container" style="width: 50%;">
+        <div class="pt-3" id="container" style="width: 58%; height: 70%;">
             <canvas id="bar-chart"></canvas>
         </div>
     </div>
-    
-
 </div>
 {% endblock %}
 
@@ -77,8 +75,6 @@
     };
 </script>
 
-
-
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
 {% if messages %}
     {% for m in messages %}
@@ -93,25 +89,20 @@
     {% endfor %}
 {% endif %}
 <script type="text/javascript">
-    
-
-  //{# Update Item Modal Form #}
-  $(function () {
+//{# Update Item Modal Form #}
+$(function () {
     // Create book synchronous
     function CrearUsuarioSyncModalForm() {
-        $("#create-user").modalForm({
-          formURL: "{% url 'registrar_usuario' %}",
-          modalID: "#create-modal"
-        });
-      }
+    $("#create-user").modalForm({
+        formURL: "{% url 'registrar_usuario' %}",
+        modalID: "#create-modal"
+    });
+    }
     CrearUsuarioSyncModalForm();
     
     $("#create-admin").modalForm({
         formURL: "{% url 'registrar_administrador' %}"
     });
-  
-
-  });
-
+});
 </script>
 {% endblock %}

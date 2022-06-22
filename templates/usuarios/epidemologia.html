@@ -1,0 +1,104 @@
+<!--Hereda de tema.html (el padre)-->
+{% extends "usuarios/tema.html" %}
+{% load static %}
+
+<!--Título de la página-->
+{% block title %}Covid 19{% endblock %}
+
+<!--Estilos especificos de esta página-->
+{% block extrastyles %}
+<link rel="stylesheet" href="{% static 'usuarios/css/tablas.css' %}">
+{% endblock extrastyles %}
+
+<!--Contenido de la página-->
+{% block content %}
+    <!--Incluye el modal-->
+    {% include "usuarios/_modal.html" %}
+<!-- Dark table -->
+<div class="row m-3">
+    <div class="col">
+        <div class="card bg-default shadow">
+            <div class="card-header border-0" id="header-table">
+            <h3 class="text-white mb-1 ms-4">Epidemología</h3>
+        </div>
+        <div class="table-responsive">
+            <table id="tbl-planear" class="table align-items-center table-light table-flush">
+                <thead class="">
+                    <tr class="cabezera-sub-estandar">
+                        <th scope="col text-dark">Año</th>                                  
+                        <th scope="col">Casos sospechosos</th>
+                        <th scope="col">Hospitalizados</th>
+                        <th scope="col">Sintomaticos</th>
+                        <th scope="col">Sintomaticos recuperados</th>
+                        <th scope="col">Fallecidos</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in epidemologia %}
+                    <tr>
+                        <td scope="row">
+                            {{ item.fk_registro_anual }}
+                        </td>
+                        <td>
+                            {{ item.casos_sospechosos }}
+                        </td>
+                        <td>
+                            {{ item.hospitalizados }}
+                        </td>
+                        <td>
+                            {{ item.sintomaticos_recuperados }}
+                        </td>
+                        <td>                                      
+                            {{ item.asintomaticos }}
+                        </td>
+                        <td>
+                            {{ item.fallecidos }}
+                        </td>
+                        <td>
+                            <button type="button" class="epidemologia btn btn-sm btn-primary" data-form-url="{% url 'editar_epidemologia' item.pk %}">
+                                Calificar
+                            </button>   
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}
+
+<!--Scripts extras-->
+{% block extrascripts %}
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+{% if messages %}
+    {% for m in messages %}
+        <script>
+            Swal.fire({  
+                "title": "Felicitaciones",
+                "text": "{{m}}",
+                "icon": "success",
+                "confirmButtonColor":"#172b4d"
+            })
+        </script>
+    {% endfor %}
+{% endif %}
+<script type="text/javascript">
+// Leer años
+function leerAnualModalForm() {
+    $(".leer-anual").each(function () {
+        $(this).modalForm({formURL: $(this).data("form-url")});
+    });
+}
+
+function epidemologiaModalForm() {
+    $(".epidemologia").each(function () {
+        $(this).modalForm({formURL: $(this).data("form-url")});
+    });
+}
+epidemologiaModalForm();
+</script>
+{% endblock %}

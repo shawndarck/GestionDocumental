@@ -39,9 +39,9 @@ class Epidemologia(models.Model):
     fallecidos = models.IntegerField()
 
     class Meta:
-        verbose_name='CasosSospechosos'
-        verbose_name_plural='CasosSospechosos'
-        db_table='casos_sospechosos'
+        verbose_name='Epidemologia'
+        verbose_name_plural='Epidemologia'
+        db_table='epidemologia'
         ordering = ['id']
 
 
