@@ -1,3 +1,4 @@
+from django import forms
 from django.forms import ValidationError
 from bootstrap_modal_forms.forms import BSModalModelForm
 
@@ -8,6 +9,8 @@ from . models import (
     IncapacidadesCovid,
     Incidencia,
     TipoCasoSospechoso,
+    CasosCliente,
+    CasosAnuales,
 )
 
 
@@ -58,3 +61,17 @@ class TipoCasoSospechosoForm(BSModalModelForm):
     class Meta:
         model = TipoCasoSospechoso
         fields = ['casos_por_sintomas', 'contacto_directo', 'contacto_indirecto', 'antes_de_ingreso_cinte', 'otros']
+
+
+class CasosClienteCreateForm(BSModalModelForm):
+
+    class Meta:
+        model = CasosCliente
+        fields = ['nombre_cliente']
+
+
+class CasosClienteUpdateForm(BSModalModelForm):
+
+    class Meta:
+        model = CasosAnuales
+        fields = ['numero_casos']

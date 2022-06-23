@@ -12,6 +12,8 @@ from . models import (
     IncapacidadesCovid,
     Incidencia,
     TipoCasoSospechoso,
+    CasosCliente,
+    CasosAnuales,
 )
 
 from covid19.forms import (
@@ -21,6 +23,8 @@ from covid19.forms import (
     IncapacidadesCovidForm,
     IncidenciaForm,
     TipoCasoSospechosoForm,
+    CasosClienteCreateForm,
+    CasosClienteUpdateForm,
 )
 
 # Create your views here.
@@ -248,3 +252,55 @@ class TipoCasoSospechosoUpdateView(BSModalUpdateView):
     form_class = TipoCasoSospechosoForm
     success_message = 'Success: Tipo caso sospechoso actualizado.'
     success_url = reverse_lazy('tipo_caso_sospechoso')
+
+
+# Casos por cliente ------------------------------------------------------------------------------------------------
+class CasosClienteCreateView(BSModalCreateView, LoginRequiredMixin):
+    model = CasosCliente
+    template_name = 'usuarios/cambiar_estado_item.html'
+    form_class = CasosClienteCreateForm
+    success_message = 'Cliente creado correctamente.'
+    success_url = reverse_lazy('casos_cliente')
+
+
+class CasosClienteTabla(generic.ListView, LoginRequiredMixin):
+    item = CasosCliente
+    context_object_name = 'casos_cliente'
+    template_name = 'usuarios/casos_cliente.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        # Prerrequisito
+        context = super(CasosClienteTabla, self).get_context_data(**kwargs)
+        # Ciclo de creación de pruebas covid a partir de un año nuevo
+        for casos_cliente in CasosCliente.objects.all():
+            for anual in RegistroAnual.objects.all():
+                if not CasosAnuales.objects.filter(fk_anual_id=anual.id, fk_casos_cliente_id=casos_cliente.id):
+                    casos_cliente.registros_anuales.add(anual)
+        context['casos_cliente'] = CasosCliente.objects.all()
+        return context
+
+
+class CasosClienteUpdateView(BSModalUpdateView):
+    model = CasosAnuales
+    template_name = 'usuarios/cambiar_estado_item.html'
+    form_class = CasosClienteUpdateForm
+    success_message = 'Casos de cliente actualizado.'
+    success_url = reverse_lazy('casos_cliente')
+
+
+class ClienteAnualesReadView(generic.ListView):
+    model = CasosCliente
+    template_name = 'usuarios/leer_anuales_cliente.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        context = super(ClienteAnualesReadView, self).get_context_data(**kwargs)
+        pk = self.kwargs.get('pk')
+        context['anuales'] =  CasosAnuales.objects.filter(fk_casos_cliente_id=pk)
+        context['item'] = CasosCliente.objects.get(id=pk)
+        return context

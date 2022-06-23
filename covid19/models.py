@@ -88,27 +88,25 @@ class TipoCasoSospechoso(models.Model):
         ordering = ['id']
 
 
-class Cliente(models.Model):
-    descripcion = models.CharField(max_length=45)
-
-    class Meta:
-        verbose_name='Cliente'
-        verbose_name_plural='Clientes'
-        db_table='cliente'
-        ordering = ['id']
-
-    def __str__(self) -> str:
-        return self.descripcion
-
-
 class CasosCliente(models.Model):
-    fk_cliente = models.ForeignKey(Cliente, null=True, on_delete=models.CASCADE)
-    fk_registro_anual = models.ForeignKey(RegistroAnual, null=True, on_delete=models.CASCADE)
-    numero_casos = models.IntegerField()
-    total_casos = models.IntegerField()
+    nombre_cliente = models.CharField(max_length=100)
+    registros_anuales = models.ManyToManyField(RegistroAnual, through='CasosAnuales')
+    total_casos = models.IntegerField(null=True, blank=True)
 
     class Meta:
         verbose_name='CasosCliente'
         verbose_name_plural='CasosClientes'
         db_table='casos_cliente'
+        ordering = ['id']
+
+
+class CasosAnuales(models.Model):
+    fk_anual = models.ForeignKey(RegistroAnual, on_delete=models.CASCADE)
+    fk_casos_cliente = models.ForeignKey(CasosCliente, on_delete=models.CASCADE)
+    numero_casos = models.IntegerField(null=True, blank=True)
+
+    class Meta:
+        verbose_name='CasosAnuales'
+        verbose_name_plural='CasosAnualess'
+        db_table='casos_anuales'
         ordering = ['id']

@@ -1,0 +1,46 @@
+{% load widget_tweaks %}
+
+<div class="modal-header">
+  <h3 class="modal-title">Casos anuales por cliente</h3>
+  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+
+    <div class="row">
+        <h5 class="card-title text-dark"> {{ i.nombre_cliente }}</h5>
+        {% for i in anuales %}
+        <div class="col-lg-6">
+            <div class="card text-dark m-2 shadow-lg">
+                <div class="card-header border-0">
+                    
+                </div>
+                <div class="card-header border-0">
+                    <h5 class="card-title text-dark"> {{ i.fk_anual.descripcion }}</h5>
+                    <p>Numero de casos: {{ i.numero_casos }}</p>
+                    <a class="editar-casos-cliente btn btn-danger text-light" data-form-url="{% url 'editar_casos_cliente' i.pk %}" >Editar</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+</div>
+
+{% block extrascripts %}
+    <script type="text/javascript">
+        {# Update Item Modal Form #}
+        function pruebaModalForm() {
+            $(".editar-casos-cliente").each(function () {
+                $(this).modalForm({formURL: $(this).data("form-url")});
+            });
+        }
+        pruebaModalForm();
+    </script>  
+
+{% endblock extrascripts %}

@@ -25,6 +25,11 @@ urlpatterns = [
     # Tipos de caso sospechoso
     path('tipo_caso_sospechoso/', login_required(views.TipoCasoSospechosoTabla.as_view()), name='tipo_caso_sospechoso'),
     path('editar_tipo_incidencia/<int:pk>', login_required(views.TipoCasoSospechosoUpdateView.as_view()), name='editar_tipo_incidencia'),
+    # Casos por cliente
+    path('casos_cliente/', login_required(views.CasosClienteTabla.as_view()), name='casos_cliente'),
+    path('registrar_caso_cliente/', login_required(views.CasosClienteCreateView.as_view()), name='registrar_caso_cliente'),
+    path('editar_casos_cliente/<int:pk>', login_required(views.CasosClienteUpdateView.as_view()), name='editar_casos_cliente'),
+    path('leer_anuales_cliente/<int:pk>', login_required(views.ClienteAnualesReadView.as_view()), name='leer_anuales_cliente'),
     # Gestión de años
     path('leer_anuales/', login_required(views.LeerAnualReadView.as_view()), name='leer_anuales'),
     path('crear_anual/', login_required(views.RegistroAnualCreateView.as_view()), name='crear_anual'),
