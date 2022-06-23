@@ -216,6 +216,11 @@ class IncidenciasTabla(generic.ListView, LoginRequiredMixin):
             if not Incidencia.objects.filter(fk_registro_anual_id=anual.id):
                 Incidencia.objects.create(fk_registro_anual = anual, numero_casos = 0, numero_trabajadores = 0, porcentaje_incidencia = 0)
         context['incidencias'] = Incidencia.objects.all()
+
+        for incidencia in Incidencia.objects.all():
+            if incidencia.numero_trabajadores > 0:
+                incidencia.porcentaje_incidencia = (incidencia.numero_casos * 100) / incidencia.numero_trabajadores
+                incidencia.save()
         return context
 
 
