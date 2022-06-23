@@ -28,9 +28,9 @@
                     <tr class="cabezera-sub-estandar">
                         <th scope="col text-dark">Cliente</th>                                  
                         <th scope="col">Ver años</th>
-                        <th scope="col">Número de casos</th>
-                        <th scope="col">Total</th>
-                        <th></th>
+                        <th scope="col">Casos totales</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,10 +42,14 @@
                         <td scope="row">
                             <a class="leer-anuales btn btn-primary" data-form-url="{% url 'leer_anuales_cliente' item.pk %}" >Años</a>
                         </td>
-                        <td>
-                            <button type="button" class="casos-cliente btn btn-sm btn-primary" data-form-url="{% url 'editar_incapacidad' item.pk %}">
-                                Calificar
-                            </button>   
+                        <td scope="row">
+                            {{ item.total_casos }}
+                        </td>
+                        <td scope="row">
+                            <a class="editar-cliente btn btn-danger text-light" data-form-url="{% url 'editar_casos_cliente_nombre' item.pk %}" >Editar</a>
+                        </td>
+                        <td scope="row">
+                            <a class="eliminar-cliente btn btn-danger text-light" data-form-url="{% url 'eliminar_caso_cliente' item.pk %}" >Eliminar</a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -94,5 +98,23 @@ function leerEvidenciasModalForm() {
     });
 }
 leerEvidenciasModalForm();
+
+
+// Delete book buttons - formURL is retrieved from the data of the element
+function eliminarClienteModalForm() {
+    $(".eliminar-cliente").each(function () {
+        $(this).modalForm({formURL: $(this).data("form-url"), isDeleteForm: true});
+    });
+}
+eliminarClienteModalForm();
+
+
+{# Update Item Modal Form #}
+function pruebaModalForm() {
+    $(".editar-cliente").each(function () {
+        $(this).modalForm({formURL: $(this).data("form-url")});
+    });
+}
+pruebaModalForm();
 </script>
 {% endblock %}

@@ -75,3 +75,10 @@ class CasosClienteUpdateForm(BSModalModelForm):
     class Meta:
         model = CasosAnuales
         fields = ['numero_casos']
+
+
+class CasosClienteNombreUpdateForm(BSModalModelForm):
+
+    class Meta:
+        model = CasosCliente
+        fields = ['nombre_cliente']

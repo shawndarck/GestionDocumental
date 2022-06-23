@@ -25,6 +25,7 @@ from covid19.forms import (
     TipoCasoSospechosoForm,
     CasosClienteCreateForm,
     CasosClienteUpdateForm,
+    CasosClienteNombreUpdateForm,
 )
 
 # Create your views here.
@@ -290,6 +291,18 @@ class CasosClienteUpdateView(BSModalUpdateView):
     success_message = 'Casos de cliente actualizado.'
     success_url = reverse_lazy('casos_cliente')
 
+    def form_valid(self, form):
+        casos = form.save(commit=False)
+        acumulador:(int) = 0
+        caso_cliente:(CasosCliente) = CasosCliente.objects.get(id=casos.fk_casos_cliente_id)
+        for anual in CasosAnuales.objects.filter(fk_casos_cliente_id=casos.fk_casos_cliente):
+            if casos.fk_anual_id != anual.fk_anual_id:
+                if anual.numero_casos:
+                    acumulador += anual.numero_casos
+        caso_cliente.total_casos = acumulador + casos.numero_casos
+        caso_cliente.save()
+        return super().form_valid(form)
+
 
 class ClienteAnualesReadView(generic.ListView):
     model = CasosCliente
@@ -304,3 +317,18 @@ class ClienteAnualesReadView(generic.ListView):
         context['anuales'] =  CasosAnuales.objects.filter(fk_casos_cliente_id=pk)
         context['item'] = CasosCliente.objects.get(id=pk)
         return context
+
+
+class CasoClienteDeleteView(BSModalDeleteView):
+    model = CasosCliente
+    template_name = 'usuarios/eliminar_caso_cliente.html'
+    success_message = 'Cliente eliminado.'
+    success_url = reverse_lazy('casos_cliente')
+
+
+class CasoClienteNombreUpdateView(BSModalUpdateView):
+    model = CasosCliente
+    template_name = 'usuarios/cambiar_estado_item.html'
+    form_class = CasosClienteNombreUpdateForm
+    success_message = 'Nombre de cliente actualizado.'
+    success_url = reverse_lazy('casos_cliente')
