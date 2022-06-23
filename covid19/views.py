@@ -280,6 +280,16 @@ class CasosClienteTabla(generic.ListView, LoginRequiredMixin):
             for anual in RegistroAnual.objects.all():
                 if not CasosAnuales.objects.filter(fk_anual_id=anual.id, fk_casos_cliente_id=casos_cliente.id):
                     casos_cliente.registros_anuales.add(anual)
+
+        acumulador:(int) = 0
+        for casos in CasosCliente.objects.all():
+            caso_cliente:(CasosCliente) = CasosCliente.objects.get(id=casos.id)
+            for anual in CasosAnuales.objects.filter(fk_casos_cliente_id=casos.id):
+                if anual.numero_casos:
+                    acumulador += anual.numero_casos
+            caso_cliente.total_casos = acumulador
+            caso_cliente.save()
+            acumulador = 0
         context['casos_cliente'] = CasosCliente.objects.all()
         return context
 
