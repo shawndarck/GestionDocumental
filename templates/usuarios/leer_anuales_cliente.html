@@ -20,7 +20,7 @@
                 <div class="card-header border-0">
                     <h5 class="card-title text-dark"> {{ i.fk_anual.descripcion }}</h5>
                     <p>Numero de casos: {{ i.numero_casos }}</p>
-                    <a class="editar-casos-cliente btn btn-danger text-light" data-form-url="{% url 'editar_casos_cliente' i.pk %}" >Editar</a>
+                    <a class="editar-casos-cliente btn btn-primary text-light" data-form-url="{% url 'editar_casos_cliente' i.pk %}" >Editar</a>
                 </div>
             </div>
         </div>
