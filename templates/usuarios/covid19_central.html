@@ -19,31 +19,27 @@
     <div class="row">
         <div class="col m-3">
             <div class="row">
-                <div class="card shadow-lg mb-3" style="width:13rem;">
+                <div class="card shadow-lg mb-3" >
                     <div class="card-body">
                         <div><a href="{% url 'leer_anuales' %}" class="btn btn-primary">Gestión de años</a></div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="card shadow-lg" style="width:27rem;">
+                <div class="card shadow-lg" style="width:100%;">
                     <div class="card-body">
                         <h5 class="card-title text-dark">Tablas de datos covid-19</h5>
                         <div class="container m-4">
-                            <div class="card-title row">Pruebas covid <a href="{% url 'pruebas_covid' %}" class="btn btn-primary p-2 m-2">Ver</a></div>
-                            <div class="card-title row">Epidemología <a href="{% url 'epidemologia' %}" class="btn btn-primary p-2 m-2">Ver</a></div>
-                            <div class="card-title row">Incapacidades <a href="{% url 'incapacidades' %}" class="btn btn-primary p-2 m-2">Ver</a></div>
-                            <div class="card-title row">Incidencias <a href="{% url 'incidencias' %}" class="btn btn-primary p-2 m-2">Ver</a></div>
-                            <div class="card-title row">Tipo de caso sospechoso <a href="{% url 'tipo_caso_sospechoso' %}" class="btn btn-primary p-2 m-2">Ver</a></div>
-                            <div class="card-title row">Casos por cliente <a href="{% url 'casos_cliente' %}" class="btn btn-primary p-2 m-2">Ver</a></div>
+                            <div class="card-title row">Pruebas covid <a href="{% url 'pruebas_covid' %}" class="btn btn-primary p-2 m-2">Ver</a>  <a id="filtro-pruebas-covid" data-form-url="{% url 'filtro_pruebas_covid' %}" class="filtro-pruebas-covid btn btn-primary m-2">Gráfico</a> </div>
+                            <div class="card-title row">Epidemiología <a href="{% url 'epidemologia' %}" class="btn btn-primary p-2 m-2">Ver</a> <a id="filtro-epidemiologia" data-form-url="{% url 'filtro_epidemiologia' %}" class="filtro-epidemiologia btn btn-primary m-2">Gráfico</a></div>
+                            <div class="card-title row">Incapacidades <a href="{% url 'incapacidades' %}" class="btn btn-primary p-2 m-2">Ver</a> <a id="filtro-incapacidades-covid" data-form-url="{% url 'filtro_incapacidades' %}" class="filtro-incapacidades-covid btn btn-primary m-2">Gráfico</a></div>
+                            <div class="card-title row">Incidencias <a href="{% url 'incidencias' %}" class="btn btn-primary p-2 m-2">Ver</a> <a id="filtro-incidencia" data-form-url="{% url 'filtro_incidencias' %}" class="filtro-incidencia btn btn-primary m-2">Gráfico</a></div>
+                            <div class="card-title row">Tipo de caso sospechoso <a href="{% url 'tipo_caso_sospechoso' %}" class="btn btn-primary p-2 m-2">Ver</a><a id="filtro-tipo-caso-sospechoso" data-form-url="{% url 'filtro_tipo_caso_sospechosos' %}" class="filtro-tipo-caso-sospechoso btn btn-primary m-2">Gráfico</a></div>
+                            <div class="card-title row">Casos por cliente <a href="{% url 'casos_cliente' %}" class="btn btn-primary p-2 m-2">Ver</a> <a id="filtro-casos-cliente" data-form-url="{% url 'filtro_casos_cliente' %}" class="filtro-casos-cliente btn btn-primary m-2">Gráfico</a></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="pt-3" id="container" style="width: 58%; height: 70%;">
-            <canvas id="bar-chart"></canvas>
         </div>
     </div>
 </div>
@@ -51,29 +47,6 @@
 
 <!--Scripts extras-->
 {% block extrascripts %}
-
-<script>
-    var config = {
-    type: 'bar',
-    data: {
-        datasets: [{
-        data: {{ data|safe }},
-        backgroundColor: [
-            '#41b751', '#ffc332', '#fc367b', '#ff7d00'
-        ],
-        label: 'Covid 19'
-        }],
-        labels: {{ labels|safe }}
-    },
-    options: {
-        responsive: true
-    }
-    };
-    window.onload = function() {
-    var ctx = document.getElementById('bar-chart').getContext('2d');
-    window.myPie = new Chart(ctx, config);
-    };
-</script>
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
 {% if messages %}
@@ -91,17 +64,28 @@
 <script type="text/javascript">
 //{# Update Item Modal Form #}
 $(function () {
-    // Create book synchronous
-    function CrearUsuarioSyncModalForm() {
-    $("#create-user").modalForm({
-        formURL: "{% url 'registrar_usuario' %}",
-        modalID: "#create-modal"
+    $("#filtro-pruebas-covid").each(function () {
+        $(this).modalForm({formURL: $(this).data("form-url")});
     });
-    }
-    CrearUsuarioSyncModalForm();
-    
-    $("#create-admin").modalForm({
-        formURL: "{% url 'registrar_administrador' %}"
+
+    $("#filtro-epidemiologia").each(function () {
+        $(this).modalForm({formURL: $(this).data("form-url")});
+    });
+
+    $("#filtro-incapacidades-covid").each(function () {
+        $(this).modalForm({formURL: $(this).data("form-url")});
+    });
+
+    $("#filtro-incidencia").each(function () {
+        $(this).modalForm({formURL: $(this).data("form-url")});
+    });
+
+    $("#filtro-tipo-caso-sospechoso").each(function () {
+        $(this).modalForm({formURL: $(this).data("form-url")});
+    });
+
+    $("#filtro-casos-cliente").each(function () {
+        $(this).modalForm({formURL: $(this).data("form-url")});
     });
 });
 </script>

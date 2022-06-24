@@ -99,6 +99,9 @@ class CasosCliente(models.Model):
         db_table='casos_cliente'
         ordering = ['id']
 
+    def __str__(self) -> str:
+        return self.nombre_cliente
+
 
 class CasosAnuales(models.Model):
     fk_anual = models.ForeignKey(RegistroAnual, on_delete=models.CASCADE)

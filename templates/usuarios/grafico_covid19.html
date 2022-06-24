@@ -2,17 +2,22 @@
 {% block title %}Gráfico{% endblock %}
 {% load widget_tweaks %}
 {% block content %}
-  <div id="container" style="width: 100%;">
+  {% if 'anual' in request.GET %}
+    <div id="container" style="width: 100%;">
       <canvas id="bar-chart"></canvas>
-  </div>
+    </div>
+  {% endif %}
+  
   <script>
     var config = {
     type: 'bar',
     data: {
         datasets: [{
         data: {{ data|safe }},
-        
-        label: 'Phva'
+        backgroundColor: [
+            {{ colors|safe }}
+        ],
+        label: ' '
         }],
         labels: {{ labels|safe }}
     },
