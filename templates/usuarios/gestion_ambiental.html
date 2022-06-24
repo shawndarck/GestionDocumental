@@ -1,0 +1,91 @@
+<!--Hereda de tema.html (el padre)-->
+{% extends "usuarios/tema.html" %}
+{% load static %}
+
+<!--Título de la página-->
+{% block title %}Verificar{% endblock %}
+
+<!--Estilos especificos de esta página-->
+{% block extrastyles %}
+<link rel="stylesheet" href="{% static 'usuarios/css/tablas.css' %}">
+{% endblock extrastyles %}
+
+<!--Contenido de la página-->
+{% block content %}
+  <!--Incluye el modal-->
+  {% include "usuarios/_modal.html" %}
+<!-- Dark table -->
+<div class="row m-3">
+  <div class="col">
+    <div class="card bg-default shadow">
+      <div class="card-header border-0" id="header-table">
+        <h3 class="text-white mb-1 ms-4">Gestión ambiental</h3>
+        <div class="progress ms-4 me-4">
+            <div class="progress-bar bg-primary" placeholder="hola mundo" role="progressbar" style="width: {{ciclo.porcentaje_obtenido}}%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+      <div class="table-responsive">
+        <table id="tbl-planear" class="table align-items-center table-light table-flush">
+
+            <thead class="">
+                <tr class="cabezera-sub-estandar">
+                    <th scope="col text-dark"><h6>Nombre<h6>
+                    </th>                                  
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            
+            <tbody>
+
+                {% for item in gestion_ambiental %}
+                <tr>
+                    <td scope="row">
+                        {{ item.descripcion }}
+                    </td>                    
+                    <td>
+                        <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia_gestion_ambiental' item.pk %}" >Cargar evidencias</a>
+                    </td>
+                    <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_gestion_ambiental' item.pk %}" >Ver evidencias</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+        
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+<!--Scripts extras-->
+{% block extrascripts %}
+<script type="text/javascript">
+
+    {# Update Item Modal Form #}
+    $(function () {
+        $(".create").each(function () {
+            $(this).modalForm({formURL: $(this).data('id')});
+        });
+    });
+
+    // Leer 
+    function leerEvidenciasModalForm() {
+        $(".leer-evidencias").each(function () {
+            $(this).modalForm({formURL: $(this).data("form-url")});
+        });
+    }
+    leerEvidenciasModalForm();
+
+    // Leer 
+    function estadoModalForm() {
+        $(".estado").each(function () {
+            $(this).modalForm({formURL: $(this).data("form-url")});
+        });
+    }
+    estadoModalForm();      
+</script>
+{% endblock %}

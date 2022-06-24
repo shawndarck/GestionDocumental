@@ -24,3 +24,8 @@ urlpatterns = [
     path('grafico_casos_cliente/', login_required(views.bar_chart_casos_clientes), name='grafico_casos_cliente'),
 ]
 
+if settings.DEBUG: 
+    urlpatterns += static(
+        settings.MEDIA_URL, 
+        document_root = settings.MEDIA_ROOT
+    )

@@ -1,13 +1,14 @@
 from django.forms import ValidationError
-from ciclo_phva.models import (
-    Evidencia,
-)
+
+from gestion_ambiental.models import EvidenciaGestionAmbiental
+
 from bootstrap_modal_forms.forms import BSModalModelForm
 
-class EvidenciaModelForm(BSModalModelForm):
+
+class EvidenciaGestionAmbientalForm(BSModalModelForm):
 
     class Meta:
-        model = Evidencia
+        model = EvidenciaGestionAmbiental
         fields = ['nombre_evidencia', 'formato']
 
 
