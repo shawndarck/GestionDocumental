@@ -1,0 +1,331 @@
+:root{
+  --items-color:#202020;
+  --border-color:#383838;
+  --text-color:#e7e7e7;
+}
+*{
+  padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+}
+html{
+  font-size: 100%;
+  font-family: sans-serif;
+}
+body{
+  width: 100%;
+  height: 100vh;
+  background-color: var(--fondo-color);
+  position: relative;
+}
+nav{
+  display: flex;
+  align-items:center;
+  width: 100%;
+  padding: 10px 20px;
+  background-color: var(--fondo-color);
+  position: fixed;
+}
+nav img{
+  margin-left: 20px;
+}
+nav span i{
+  color: rgb(3, 3, 3);
+  font-size: 2.7rem;
+  cursor: pointer;
+}
+aside{
+  background-color: var(--text-color);
+  width: 260px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom:0;
+  overflow-y: hidden;
+  margin-top: 59px;
+  transition: 0.5s;
+}
+aside:hover{
+  overflow-y: auto;
+}
+.desplegar{
+  transform: translateX(-100%);
+}
+aside::-webkit-scrollbar{
+  width: 8px;
+}
+aside::-webkit-scrollbar-thumb{
+  background-color: #909090;
+  border-radius: 5px;
+}
+
+
+.container-svg{
+  border-bottom: 1px solid var(--border-color);
+  padding: 10px 1px;
+  color: var(--items-color) !important;
+}
+.container-svg div{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+.container-svg div:hover{
+  background-color: #d81e1e;
+}
+.container-svg div span{
+  margin-left: 15px;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+h5{
+  padding: 10px 20px;
+  color: #070707;
+}
+
+
+
+
+
+
+
+
+
+
+@media only screen and (min-width: 240px) and (max-width: 600px) {
+.circle label span{font-size:50%!important;}
+}
+
+@media only screen and (min-width: 600px) and (max-width: 900px)  {
+.circle label span{font-size:50%!important;}
+}
+
+@media only screen and (min-width: 901px) and (max-width: 1200px){
+.circle label span{font-size:50%!important;}
+
+}
+
+@media only screen and (min-width: 1201px) {
+.circle label span{font-size:90%!important;}
+
+}
+
+
+@media only screen and (min-width: 240px) and (max-width: 599px) {
+.menumain {
+background-color: var(--fondo-color);
+position: absolute;
+display: block;
+left: 1%;
+margin: 80px auto;
+min-width: 20em; width: 400px; max-width: 30em;
+height: 100px;
+}
+}
+
+@media only screen and (min-width: 600px) and (max-width: 900px)  {
+.unsel .visible{font-size:50%!important;}
+}
+
+@media only screen and (min-width: 901px) and (max-width: 1200px){
+.unsel .visible{font-size:50%!important;}
+
+}
+
+@media only screen and (min-width: 1201px) {
+.unsel .visible{font-size:90%!important;}
+
+}
+
+
+@media only screen and (min-width: 240px) and (max-width: 599px) {
+.visible{font-size:100%!important;}
+}
+
+@media only screen and (min-width: 600px) and (max-width: 900px)  {
+.visible{font-size:50%!important;}
+}
+
+@media only screen and (min-width: 901px) and (max-width: 1200px){
+.visible{font-size:50%!important;}
+
+}
+
+@media only screen and (min-width: 1201px) {
+.visible{font-size:90%!important;}
+
+}
+
+
+
+
+.circle, .circle:before, .circle:after { border-radius: 50%; }
+.fondo{
+max-width: 160%!important;
+margin-top: 200px!important;
+height: 180px; 
+width: 400px; 
+position:absolute; 
+background-image: url(../img/logo1.png);
+background-size:106%;
+margin-left: 15%;
+
+}
+.menunav {
+background-color: var(--fondo-color);
+position: absolute;
+display: block;
+left: 20%;
+margin: 60px auto;
+min-width: 10em; width: 50%; max-width: 30em;
+}
+
+
+
+.menunav ul {
+position: relative;
+padding: 50%;
+max-width: 0; max-height: 0;
+list-style: none;
+}
+.menunav li {
+position: absolute;
+}
+.slice {
+overflow: hidden;
+position: absolute;
+top: 0; left: 0;
+width: 50%; height: 50%;
+transform-origin: 100% 100%;
+}
+/* Cell orientation */
+.coconut { transform: rotate(65deg) skewX(40deg); }
+.vanilla { transform: rotate(122.9deg) skewX(40deg); }
+.orange { transform: rotate(183deg) skewX(40deg); }
+.almond { transform: rotate(167.29deg) skewX(40deg); }
+.grape { transform: rotate(244deg) skewX(40deg); }
+.blackberry { transform: rotate(306deg) skewX(40deg); }
+.cherry { transform: rotate(366.1deg) skewX(40deg); }
+.menunav label { cursor: pointer; }
+
+.slice label {
+display: block;
+width: 200%; height: 200%;
+transform: skew(-40deg) rotate(-65deg);
+line-height: 1.9;
+text-align: center;
+}
+.slice label span {
+display: block;
+}
+
+
+
+.slice label:hover {
+color: white;
+border: 2px solid black;
+transition: all 0.5s ease;
+}
+.circle .menuname:hover {
+  
+color: white;
+transition: color 0.5s ease;
+}
+
+.menudesc {
+width: 280px;
+}
+
+/* Cell background colors */
+.coconut label, .ococonut:checked ~ nav .unsel { background: #f58a8a; }
+.vanilla label, .ovanilla:checked ~ nav .unsel { background: #FAA027; }
+.orange label, .oorange:checked ~ nav .unsel { background: #ffb038; }
+.almond label, .oalmond:checked ~ nav .unsel { background: #d3a573; }
+.grape label, .ogrape:checked ~ nav .unsel { background: #FA4C28; }
+.blackberry label, .oblackberry:checked ~ nav .unsel { background: #A95BF7; }
+.cherry label, .ocherry:checked ~ nav .unsel { background: #ED64E2; }
+
+
+.slice label { font-weight: 700; line-height: 5; }
+.circle label { font-weight: 700; line-height: 5; }
+
+.slice p{
+width: 100px;
+margin-left: 185px;
+}
+
+.unsel {
+z-index: 2;
+top: 34%; 
+left: 34%;
+width: 32%; 
+height: 32%;
+text-align: center;
+text-align: relative;
+background-color: #3758FA;
+}
+.unsel label{
+display: block;
+width: 100%; height: 100%;
+line-height: 9;
+}
+.middle{
+z-index: 1;
+top: 30%; left: 30%;
+width: 40%; height: 40%;
+text-align: center;
+background-color: white;
+}
+.menunav{
+  background-color: var(--fondo-color);
+position: absolute;
+left: 50%;
+}
+.visible{
+  display: block;
+  position: absolute;
+  margin: 250px 0 0 250px;
+}
+.hidden{
+display: none;
+}
+.visible ul{
+list-style-type: none;
+}
+.visible details ul{
+list-style-type: square;
+}
+.visible a{
+font-size: 120%;
+text-decoration: none;
+color: purple;
+}
+.Reseau a{
+font-size: 160%;
+}
+.Reseau a:hover{
+color: red;
+}
+
+span[name="ACTUAR"]{
+-webkit-transform:rotate(-180deg);
+-moz-transform:rotate(-180deg);
+-o-transform:rotate(-180deg);
+transform:rotate(-180deg);
+}
+
+span[name="covid"]{
+-webkit-transform:rotate(-180deg);
+-moz-transform:rotate(-180deg);
+-o-transform:rotate(-180deg);
+transform:rotate(-180deg);
+}
+
+span[name="verificar"]{
+-webkit-transform:rotate(-180deg);
+-moz-transform:rotate(-180deg);
+-o-transform:rotate(-180deg);
+transform:rotate(-180deg);
+}

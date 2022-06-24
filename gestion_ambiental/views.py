@@ -45,7 +45,7 @@ class EvidenciaGestionAmbientalCreateView(BSModalCreateView):
 
 class EvidenciaGestionAmbientalReadView(generic.ListView):
     model = EvidenciaGestionAmbiental
-    template_name = 'usuarios/leer_evidencias.html'
+    template_name = 'usuarios/leer_evidencias_ambiental.html'
 
     def get_queryset(self):
         pass

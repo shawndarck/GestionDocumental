@@ -10,7 +10,7 @@ urlpatterns = [
     path('gestion_ambiental', login_required(views.GestionAmbientalListView.as_view()), name='gestion_ambiental'),
     path('registrar_evidencia_gestion_ambiental/<int:pk>', login_required(views.EvidenciaGestionAmbientalCreateView.as_view()), name='registrar_evidencia_gestion_ambiental'),
     path('leer_evidencias_gestion_ambiental/<int:fk>', login_required(views.EvidenciaGestionAmbientalReadView.as_view()), name='leer_evidencias_gestion_ambiental'),
-    path('<int:pk>/eliminar_evidencia', login_required(views.EvidenciaGestionAmbientalDeleteView.as_view()), name='eliminar_evidencia'),
+    path('<int:pk>/eliminar_evidencia_ambiental', login_required(views.EvidenciaGestionAmbientalDeleteView.as_view()), name='eliminar_evidencia_ambiental'),
 ]
 
 if settings.DEBUG: 
