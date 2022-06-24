@@ -64,11 +64,12 @@ class RegistrarAdministrador(BSModalCreateView):
             password = Usuario.objects.make_random_password()
             # Valida correo cinte
             if "@grupocinte.com" in username:
-                Usuario.objects.create(
-                    username=username,
-                    password=password,
-                    es_administrador=True,
+                nuevo_administrador = Usuario(
+                    username=form.cleaned_data.get('username'),
+                    es_administrador=True
                 )
+                nuevo_administrador.set_password(password)
+                nuevo_administrador.save()
                 # Envía mail
                 send_mail(
                     subject=username,
@@ -99,11 +100,12 @@ class RegistrarUsuario(BSModalCreateView):
             password = Usuario.objects.make_random_password()
             # Valida correo cinte
             if "@grupocinte.com" in username:
-                Usuario.objects.create(
-                    username=username,
-                    password=password,
-                    es_usuario=True,
+                nuevo_usuario = Usuario(
+                    username=form.cleaned_data.get('username'),
+                    es_usuario=True
                 )
+                nuevo_usuario.set_password(password)
+                nuevo_usuario.save()
                 # Envía mail
                 send_mail(
                     subject=username,
