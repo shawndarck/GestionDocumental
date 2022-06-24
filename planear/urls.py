@@ -12,7 +12,7 @@ urlpatterns = [
 
     # Evidencias
     path('registrar_evidencia_planear/<int:pk>', login_required(views.EvidenciaPlanearCreateView.as_view()), name='registrar_evidencia_planear'),
-    path('<int:pk>/eliminar_evidencia', views.EvidenciaPlanearDeleteView.as_view(), name='eliminar_evidencia'),
+    path('<int:pk>/eliminar_evidencia_planear', views.EvidenciaPlanearDeleteView.as_view(), name='eliminar_evidencia_planear'),
 
     # Redirecciones
     path('estado_item/<int:pk>', login_required(views.ItemEstadoUpdateView.as_view()), name='estado_item'),

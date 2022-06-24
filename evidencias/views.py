@@ -73,15 +73,57 @@ class EvidenciaUsuarioReadView(generic.ListView):
                 break
         return context
 
-class EvidenciaReadView(generic.ListView):
+class EvidenciaPlanearReadView(generic.ListView):
     model = Evidencia
-    template_name = 'usuarios/leer_evidencias.html'
+    template_name = 'usuarios/leer_evidencias_planear.html'
 
     def get_queryset(self):
         pass
 
     def get_context_data(self, **kwargs):
-        context = super(EvidenciaReadView, self).get_context_data(**kwargs)
+        context = super(EvidenciaPlanearReadView, self).get_context_data(**kwargs)
+        pk = self.kwargs.get('fk')
+        context['evidencias'] = Evidencia.objects.filter(fk_item_estandar = pk)
+        return context
+
+
+class EvidenciaHacerReadView(generic.ListView):
+    model = Evidencia
+    template_name = 'usuarios/leer_evidencias_hacer.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        context = super(EvidenciaHacerReadView, self).get_context_data(**kwargs)
+        pk = self.kwargs.get('fk')
+        context['evidencias'] = Evidencia.objects.filter(fk_item_estandar = pk)
+        return context
+
+
+class EvidenciaVerificarReadView(generic.ListView):
+    model = Evidencia
+    template_name = 'usuarios/leer_evidencias_verificar.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        context = super(EvidenciaVerificarReadView, self).get_context_data(**kwargs)
+        pk = self.kwargs.get('fk')
+        context['evidencias'] = Evidencia.objects.filter(fk_item_estandar = pk)
+        return context
+
+
+class EvidenciaActuarReadView(generic.ListView):
+    model = Evidencia
+    template_name = 'usuarios/leer_evidencias_actuar.html'
+
+    def get_queryset(self):
+        pass
+
+    def get_context_data(self, **kwargs):
+        context = super(EvidenciaActuarReadView, self).get_context_data(**kwargs)
         pk = self.kwargs.get('fk')
         context['evidencias'] = Evidencia.objects.filter(fk_item_estandar = pk)
         return context

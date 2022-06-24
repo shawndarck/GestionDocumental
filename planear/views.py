@@ -399,7 +399,7 @@ class EvidenciaPlanearDeleteView(BSModalDeleteView):
     model = Evidencia
     template_name = 'usuarios/eliminar_evidencia.html'
     success_message = 'Success: evidencia borrada.'
-    success_url = "/planear/planear"
+    success_url = reverse_lazy('planear')
 
 
 

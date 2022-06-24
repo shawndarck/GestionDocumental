@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 from django.contrib.auth.decorators import login_required
 
 urlpatterns = [
-    path('<int:pk>/eliminar_evidencia', views.EvidenciaVerificarDeleteView.as_view(), name='eliminar_evidencia'),
+    path('<int:pk>/eliminar_evidencia_verificar', views.EvidenciaVerificarDeleteView.as_view(), name='eliminar_evidencia_verificar'),
 
     path('estado_item_verificar/<int:pk>', login_required(views.ItemEstadoVerificarUpdateView.as_view()), name='estado_item_verificar'),
 

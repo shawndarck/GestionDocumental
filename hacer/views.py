@@ -1,5 +1,6 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -266,4 +267,4 @@ class EvidenciaHacerDeleteView(BSModalDeleteView):
     model = Evidencia
     template_name = 'usuarios/eliminar_evidencia.html'
     success_message = 'Success: evidencia borrada.'
-    success_url = "/hacer/hacer"
+    success_url = reverse_lazy('hacer')
