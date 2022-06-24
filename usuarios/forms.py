@@ -27,32 +27,22 @@ from django.contrib.auth.models import Group
 
 
 class UsuarioForm(BSModalModelForm):
-    username = forms.CharField(
-        min_length=7,
-        validators=[
-            RegexValidator(
-                "(\W|^)[\w.\-]{0,25}@(grupocinte)\.com(\W|$)" ,
-                message="Correo incorrecto utiliza un dominio grupocinte"
-            )
-        ])
-    es_usuario = forms.BooleanField(initial=True, widget=forms.HiddenInput(), label='')
-    password = forms.CharField(initial='cintesst', widget=forms.HiddenInput(), label='')
+    username = forms.CharField()
+    password = forms.CharField(initial='cintesettempo', widget=forms.HiddenInput(), label='')
 
     class Meta:
         model = Usuario
-        fields = ['username', 'es_usuario']
-
+        fields = ['username']
 
 
 class AdminForm(BSModalModelForm):
 
     username = forms.CharField()
-    es_administrador = forms.BooleanField(initial=True, widget=forms.HiddenInput(), label='')
     password = forms.CharField(initial='cintesettempo', widget=forms.HiddenInput(), label='')
 
     class Meta:
         model = Usuario
-        fields = ['username', 'es_administrador', 'first_name', 'last_name']
+        fields = ['username']
 
 class CambiarParsswordForm(BSModalModelForm):
 

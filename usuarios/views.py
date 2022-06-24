@@ -60,15 +60,15 @@ class RegistrarAdministrador(BSModalCreateView):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
-            # Enviar correo con clave
             username = form.cleaned_data['username']
+            password = Usuario.objects.make_random_password()
+            # Valida correo cinte
             if "@grupocinte.com" in username:
-                password = Usuario.objects.make_random_password()
-                nuevo_administrador = Usuario(
-                    username=form.cleaned_data.get('username'),
-                    password=password
+                Usuario.objects.create(
+                    username=username,
+                    password=password,
+                    es_administrador=True,
                 )
-                nuevo_administrador.save()
                 # Envía mail
                 send_mail(
                     subject=username,
@@ -92,47 +92,32 @@ class RegistrarUsuario(BSModalCreateView):
     success_url = reverse_lazy('gestion_usuarios')
 
 
-    def form_valid(self, form):
-        # Enviar correo con clave
-        username = form.cleaned_data['username']
-        password = Usuario.objects.make_random_password()
-        nuevo_usuario = Usuario(
-            username=username,
-            password=password
-        )
-        nuevo_usuario.save()
-        send_mail(
-            subject=username,
-            message='Has sido registrado en el sistema de gestión documental SST, tu clave es: ' + password,
-            from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[username],
-        )
-        return super().form_valid(form)
-
-
-    # def post(self, request, *args, **kwargs):
-    #     form = self.get_form()
-    #     if form.is_valid():
-    #         form = self.get_form()
-    #         usu = form.save(commit=False)
-    #         # Enviar correo con clave
-    #         email = form.cleaned_data['email']
-    #         username = form.cleaned_data['username']
-    #         password = form.cleaned_data['password1']
-    #         password = Usuario.objects.make_random_password()
-    #         usu.set_password(password)
-
-    #         usu.save()
-
-    #         send_mail(
-    #             subject=username,
-    #             message='Has sido registrado en el sistema de gestión documental SST, tu clave es: ' + password,
-    #             from_email=settings.EMAIL_HOST_USER,
-    #             recipient_list=[email],
-    #         )
-    #         return self.form_valid(form)
-    #     else:
-    #         return HttpResponseRedirect(reverse_lazy('gestion_usuarios'))
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = Usuario.objects.make_random_password()
+            # Valida correo cinte
+            if "@grupocinte.com" in username:
+                Usuario.objects.create(
+                    username=username,
+                    password=password,
+                    es_usuario=True,
+                )
+                # Envía mail
+                send_mail(
+                    subject=username,
+                    message='Has sido registrado en el sistema de gestión documental SST, tu clave es: ' + password,
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=[username],
+                )
+                messages.success(request, "Usuario creado correctamente, clave enviada al correo")
+                return HttpResponseRedirect(reverse_lazy('gestion_usuarios'))
+            else:
+                messages.success(request, "Usuario duplicado o dominio de cinte incorrecto @grupocinte.com")
+                return HttpResponseRedirect(reverse_lazy('gestion_usuarios'))
+        else:
+            return HttpResponseRedirect(reverse_lazy('gestion_usuarios'))
 
 
 class GestionUsuarios(generic.ListView, LoginRequiredMixin):
