@@ -1,0 +1,29 @@
+<!--Hereda de tema.html (el padre)-->
+{% extends "usuarios/tema.html" %}
+{% load static %}
+
+<!--Título de la página-->
+{% block title %}Resultados{% endblock %}
+
+<!--Estilos especificos de esta página-->
+{% block extrastyles %}
+<link rel="stylesheet" href="{% static 'usuarios/css/tablas.css' %}">
+{% endblock extrastyles %}
+
+<!--Contenido de la página-->
+{% block content %}
+  <!--Incluye el modal-->
+  {% include "usuarios/_modal.html" %}
+  <div class="container">    
+        <h1>Resultados de busqueda</h1><br>    
+        {% for item in respuestas_post %}  
+
+            <h4>{{ item.descripcion }}</h4>
+        {% endfor %}
+    </div>
+
+{% endblock %}
+
+<!--Scripts extras-->
+{% block extrascripts %}
+{% endblock %}

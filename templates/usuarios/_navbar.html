@@ -19,8 +19,8 @@
         </div>
         <span><a href="{% url 'torta_administrador' %}"><ion-icon size="large" src="{% static 'usuarios/img/home-outline.svg' %}"></ion-icon></a></span>
         
-        <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+        <form class="d-flex" action="{% url 'busqueda' %}">
+            <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" name="termino">
             <button class="btn btn-primary" type="submit">Buscar</button>
         </form>
         <a href="{% url 'logout' %}" type="button" class="btn btn-danger">Cerrar</a>

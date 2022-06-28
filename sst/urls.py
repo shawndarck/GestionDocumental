@@ -18,5 +18,6 @@ urlpatterns = [
     path('formatos/', include('formatos.urls')),
     path('covid19/', include('covid19.urls')),
     path('gestion_ambiental/', include('gestion_ambiental.urls')),
+    path('barra_busqueda/', include('barra_busqueda.urls'))
 ]
 # urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
