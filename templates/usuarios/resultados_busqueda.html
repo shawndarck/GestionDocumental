@@ -19,6 +19,7 @@
         {% for item in respuestas_post %}  
 
             <h4>{{ item.descripcion }}</h4>
+            <a class="btn btn-primary" href="{% url item.fk_sub_estandar.fk_estandar.fk_ciclo.descripcion|lower %}">Ir</a>
         {% endfor %}
     </div>
 
