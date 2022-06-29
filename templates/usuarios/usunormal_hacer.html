@@ -32,6 +32,9 @@
                 <th scope="col"><h6> {{ estandar.descripcion }} ({{estandar.calificacion_obtenida}}%) </h6>
                 </th>
                 <th scope="col"></th>
+                {% if user.es_gestor %}
+                <th></th>
+                {% endif %}
               </tr>
             </thead>
 
@@ -40,6 +43,9 @@
                 <th scope="col text-dark">{{ sub_estandar }}
                 </th>                                  
                 <th scope="col">({{ sub_estandar.calificacion_obtenida }})%</th>
+                {% if user.es_gestor %}
+                <th></th>
+                {% endif %}
               </tr>
             </thead>
             
@@ -75,6 +81,9 @@
                 <th scope="col text-dark">{{ sub_estandar2 }}
                 </th>                                  
                 <th scope="col">({{ sub_estandar2.calificacion_obtenida }})%</th>
+                {% if user.es_gestor %}
+                <th></th>
+                {% endif %}
               </tr>
             </thead>
             
@@ -110,6 +119,9 @@
                 <th scope="col text-dark">{{ sub_estandar3 }}
                 </th>                                  
                 <th scope="col">({{ sub_estandar2.calificacion_obtenida }})%</th>
+                {% if user.es_gestor %}
+                <th></th>
+                {% endif %}
               </tr>
             </thead>
             
@@ -145,6 +157,9 @@
                 <th scope="col"><h6>{{ estandar2.descripcion }} ({{estandar2.calificacion_obtenida}}%) </h6>
                 </th>
                 <th scope="col"></th>
+                {% if user.es_gestor %}
+                <th></th>
+                {% endif %}
               </tr>
             </thead>
 
@@ -153,6 +168,9 @@
                 <th scope="col text-dark">{{ sub_estandar4 }}
                 </th>                                  
                 <th scope="col">({{ sub_estandar4.calificacion_obtenida }})%</th>
+                {% if user.es_gestor %}
+                <th></th>
+                {% endif %}
               </tr>
             </thead>
             
@@ -188,6 +206,9 @@
                 <th scope="col text-dark">{{ sub_estandar5 }}
                 </th>                                  
                 <th scope="col">({{ sub_estandar5.calificacion_obtenida }})%</th>
+                {% if user.es_gestor %}
+                <th></th>
+                {% endif %}
               </tr>
             </thead>
             
@@ -223,6 +244,9 @@
                 <th scope="col"><h6>{{ estandar3.descripcion }} ({{estandar3.calificacion_obtenida}}%) </h6>
                 </th>
                 <th scope="col"></th>
+                {% if user.es_gestor %}
+                <th></th>
+                {% endif %}
               </tr>
             </thead>
 
@@ -231,6 +255,9 @@
                 <th scope="col text-dark">{{ sub_estandar6 }}
                 </th>                                  
                 <th scope="col">({{ sub_estandar6.calificacion_obtenida }})%</th>
+                {% if user.es_gestor %}
+                <th></th>
+                {% endif %}
               </tr>
             </thead>
 

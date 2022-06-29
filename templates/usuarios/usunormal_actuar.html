@@ -32,6 +32,9 @@
                 <th scope="col"><h6> {{ estandar.descripcion }} ({{estandar.porcentaje_obtenido}}%) </h6>
                 </th>
                 <th scope="col"></th>
+                {% if user.es_gestor %}
+                <th></th>
+                {% endif %}
               </tr>
             </thead>
 
@@ -40,6 +43,9 @@
                 <th scope="col text-dark">{{ sub_estandar }}
                 </th>                                  
                 <th scope="col">({{ sub_estandar.calificacion_obtenida }})%</th>
+                {% if user.es_gestor %}
+                <th></th>
+                {% endif %}
               </tr>
             </thead>
             
