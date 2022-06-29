@@ -56,9 +56,11 @@
                             {{ item.total }}
                         </td>
                         <td>
-                            <button type="button" class="prueba_covid btn btn-sm btn-primary" data-form-url="{% url 'editar_prueba_covid' item.pk %}">
-                                Calificar
-                            </button>   
+                            {% if user.es_administrador %}
+                                <button type="button" class="prueba_covid btn btn-sm btn-primary" data-form-url="{% url 'editar_prueba_covid' item.pk %}">
+                                    Calificar
+                                </button>
+                            {% endif %}
                         </td>
                     </tr>
                     {% endfor %}

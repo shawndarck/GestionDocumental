@@ -62,3 +62,4 @@ class EvidenciaGestionAmbientalDeleteView(BSModalDeleteView):
     template_name = 'usuarios/eliminar_evidencia.html'
     success_message = 'Evidencia borrada.'
     success_url = reverse_lazy('gestion_ambiental')
+

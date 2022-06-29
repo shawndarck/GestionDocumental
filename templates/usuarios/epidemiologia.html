@@ -56,9 +56,11 @@
                             {{ item.fallecidos }}
                         </td>
                         <td>
-                            <button type="button" class="epidemologia btn btn-sm btn-primary" data-form-url="{% url 'editar_epidemologia' item.pk %}">
-                                Calificar
-                            </button>   
+                            {% if user.es_administrador %}
+                                <button type="button" class="epidemologia btn btn-sm btn-primary" data-form-url="{% url 'editar_epidemologia' item.pk %}">
+                                    Calificar
+                                </button>
+                            {% endif %}
                         </td>
                     </tr>
                     {% endfor %}

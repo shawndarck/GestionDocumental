@@ -27,9 +27,11 @@
             <thead class="">
                 <tr class="cabezera-sub-estandar">
                     <th scope="col text-dark"><h6>Nombre<h6>
-                    </th>                                  
+                    </th>
                     <th scope="col"></th>
-                    <th scope="col"></th>
+                    {% if user.es_administrador or user.es_gestor %}
+                        <th scope="col"></th>
+                    {% endif %}
                 </tr>
             </thead>
             
@@ -39,10 +41,12 @@
                 <tr>
                     <td scope="row">
                         {{ item.descripcion }}
-                    </td>                    
-                    <td>
-                        <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia_gestion_ambiental' item.pk %}" >Cargar evidencias</a>
                     </td>
+                    {% if user.es_administrador or user.es_gestor %}
+                        <td>
+                            <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia_gestion_ambiental' item.pk %}" >Cargar evidencias</a>
+                        </td>
+                    {% endif %}
                     <td>
                         <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_gestion_ambiental' item.pk %}" >Ver evidencias</a>
                     </td>

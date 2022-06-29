@@ -45,12 +45,14 @@
                         <td scope="row">
                             {{ item.total_casos }}
                         </td>
-                        <td scope="row">
-                            <a class="editar-cliente btn btn-primary text-light" data-form-url="{% url 'editar_casos_cliente_nombre' item.pk %}" >Editar</a>
-                        </td>
-                        <td scope="row">
-                            <a class="eliminar-cliente btn btn-danger text-light" data-form-url="{% url 'eliminar_caso_cliente' item.pk %}" >Eliminar</a>
-                        </td>
+                        {% if user.es_administrador %}
+                            <td scope="row">
+                                <a class="editar-cliente btn btn-primary text-light" data-form-url="{% url 'editar_casos_cliente_nombre' item.pk %}" >Editar</a>
+                            </td>
+                            <td scope="row">
+                                <a class="eliminar-cliente btn btn-danger text-light" data-form-url="{% url 'eliminar_caso_cliente' item.pk %}" >Eliminar</a>
+                            </td>
+                        {% endif %}
                     </tr>
                     {% endfor %}
                 </tbody>

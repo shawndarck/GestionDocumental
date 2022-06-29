@@ -17,7 +17,7 @@
               
           </div>
           <div class="card-header border-0">
-            {% if user.es_administrador %}
+            {% if user.es_administrador or user.es_gestor %}
             <a class="eliminar-evidencia btn btn-danger text-dark" data-form-url="{% url 'eliminar_evidencia_ambiental' i.pk %}" >Eliminar</a>
             {% else %}
             {% endif %}

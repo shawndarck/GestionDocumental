@@ -19,11 +19,13 @@
     <div class="row">
         <div class="col m-3">
             <div class="row">
+                {% if user.es_administrador %}
                 <div class="card shadow-lg mb-3" >
                     <div class="card-body">
                         <div><a href="{% url 'leer_anuales' %}" class="btn btn-primary">Gestión de años</a></div>
                     </div>
                 </div>
+                {% endif %}
             </div>
             <div class="row">
                 <div class="card shadow-lg" style="width:100%;">

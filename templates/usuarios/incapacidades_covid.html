@@ -60,9 +60,11 @@
                             {{ item.numero_dias_perdidos_sospecha }}
                         </td>
                         <td>
-                            <button type="button" class="incapacidades btn btn-sm btn-primary" data-form-url="{% url 'editar_incapacidad' item.pk %}">
-                                Calificar
-                            </button>   
+                            {% if user.es_administrador %}
+                                <button type="button" class="incapacidades btn btn-sm btn-primary" data-form-url="{% url 'editar_incapacidad' item.pk %}">
+                                    Calificar
+                                </button>
+                            {% endif %}
                         </td>
                     </tr>
                     {% endfor %}

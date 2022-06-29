@@ -56,9 +56,11 @@
                             {{ item.otros }}
                         </td>
                         <td>
-                            <button type="button" class="tipo-caso-sospechoso btn btn-sm btn-primary" data-form-url="{% url 'editar_tipo_incidencia' item.pk %}">
-                                Calificar
-                            </button>   
+                            {% if user.es_administrador %}
+                                <button type="button" class="tipo-caso-sospechoso btn btn-sm btn-primary" data-form-url="{% url 'editar_tipo_incidencia' item.pk %}">
+                                    Calificar
+                                </button>
+                            {% endif %}
                         </td>
                     </tr>
                     {% endfor %}
