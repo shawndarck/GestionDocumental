@@ -22,7 +22,6 @@ class FormatoCreateView(BSModalCreateView):
     template_name = 'usuarios/crear_formato.html'
     model = Formato
     form_class = FormatoModelForm
-    success_message = 'Success: Book was created.'
     success_url = reverse_lazy('formatos_admin')
 
 class FormatosAdmin(generic.ListView, LoginRequiredMixin):

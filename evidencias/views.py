@@ -14,7 +14,6 @@ class EvidenciaPlanearCreateView(BSModalCreateView):
     model = ItemEstandar
     template_name = 'usuarios/crear_evidencia.html'
     form_class = EvidenciaModelForm
-    success_message = 'Success: Book was created.'
     success_url = reverse_lazy('planear')
 
     def get_success_url(self):
@@ -31,7 +30,6 @@ class EvidenciaHacerCreateView(BSModalCreateView):
     model = ItemEstandar
     template_name = 'usuarios/crear_evidencia.html'
     form_class = EvidenciaModelForm
-    success_message = 'Success: Book was created.'
     success_url = reverse_lazy('hacer')
 
     def get_success_url(self):
@@ -48,7 +46,6 @@ class EvidenciaVerificarCreateView(BSModalCreateView):
     model = ItemEstandar
     template_name = 'usuarios/crear_evidencia.html'
     form_class = EvidenciaModelForm
-    success_message = 'Success: Book was created.'
     success_url = reverse_lazy('verificar')
 
     def get_success_url(self):
@@ -65,7 +62,6 @@ class EvidenciaActuarCreateView(BSModalCreateView):
     model = ItemEstandar
     template_name = 'usuarios/crear_evidencia.html'
     form_class = EvidenciaModelForm
-    success_message = 'Success: Book was created.'
     success_url = reverse_lazy('actuar')
 
     def get_success_url(self):

@@ -360,7 +360,6 @@ class ItemEstadoUpdateView(BSModalUpdateView):
     model = ItemEstandar
     template_name = 'usuarios/cambiar_estado_item.html'
     form_class = EstadoItemForm
-    success_message = 'Success: Book was updated.'
     success_url = "/planear/planear/"
 
     def form_valid(self, form, **kwargs):
@@ -387,7 +386,6 @@ class EvidenciaPlanearCreateView(BSModalCreateView):
     model = ItemEstandar
     template_name = 'usuarios/crear_evidencia.html'
     form_class = EvidenciaModelForm
-    success_message = 'Success: Book was created.'
     success_url = reverse_lazy('planear')
 
     def get_success_url(self):

@@ -32,7 +32,6 @@ class PermisosPlanearCreateView(BSModalCreateView):
     model = ItemEstandar
     template_name = 'usuarios/modal_permisos.html'
     form_class = AccesoUsuarioForm
-    success_message = 'Success: Book was updated.'
     success_url = "/accesos_planear/"
 
     def form_valid(self, form, **kwargs):
@@ -50,7 +49,6 @@ class PermisosHacerCreateView(BSModalCreateView):
     model = ItemEstandar
     template_name = 'usuarios/modal_permisos.html'
     form_class = AccesoUsuarioForm
-    success_message = 'Success: Book was updated.'
     success_url = "/accesos_hacer/"
 
     def form_valid(self, form, **kwargs):
@@ -68,7 +66,6 @@ class PermisosVerificarCreateView(BSModalCreateView):
     model = ItemEstandar
     template_name = 'usuarios/modal_permisos.html'
     form_class = AccesoUsuarioForm
-    success_message = 'Success: Book was updated.'
     success_url = "/accesos_verificar/"
 
     def form_valid(self, form, **kwargs):
@@ -86,7 +83,6 @@ class PermisosActuarCreateView(BSModalCreateView):
     model = ItemEstandar
     template_name = 'usuarios/modal_permisos.html'
     form_class = AccesoUsuarioForm
-    success_message = 'Success: Book was updated.'
     success_url = "/accesos_actuar/"
 
     def form_valid(self, form, **kwargs):

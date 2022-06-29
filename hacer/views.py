@@ -241,7 +241,6 @@ class ItemEstadoHacerUpdateView(BSModalUpdateView):
     model = ItemEstandar
     template_name = 'usuarios/cambiar_estado_item.html'
     form_class = EstadoItemForm
-    success_message = 'Success: Book was updated.'
     success_url = "/hacer/hacer"
 
     def form_valid(self, form, **kwargs):

@@ -17,13 +17,12 @@
               
           </div>
           <div class="card-header border-0">
-              <a class="eliminar-evidencia btn btn-danger text-light" data-form-url="{% url 'eliminar_evidencia' i.pk %}" >Eliminar</a>
-              <h5 class="card-title">Nombre del recurso</h5>
+              <h5 class="card-title text-dark">Nombre del recurso</h5>
               <p>{{ i.nombre_evidencia }}</p>
               <p>{{ i.fk_item_estandar }}</p>
               <p>Ver</p>
               <hr>
-              <a href="{{ i.formato.url }}"> {{ i.formato.url }} </a>
+              <a class="btn btn-primary" href="{{ i.formato.url }}" target="_blank" rel="noopener noreferrer"> Descargar </a>
           </div>
       </div>
     </div>
