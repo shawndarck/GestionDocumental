@@ -27,7 +27,7 @@
                 <a class="btn btn-primary" href=" 
                     {% if user.es_administrador %}
                         {% url item.fk_sub_estandar.fk_estandar.fk_ciclo.descripcion|lower %}
-                    {% elif user.es_usuario %}
+                    {% elif user.es_usuario or user.es_gestor %}
                         {% if item.fk_sub_estandar.fk_estandar.fk_ciclo.descripcion == 'Planear' %}
                             {% url 'planear_usuario' %}
                         {% elif item.fk_sub_estandar.fk_estandar.fk_ciclo.descripcion == 'Hacer' %}

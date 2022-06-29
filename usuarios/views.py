@@ -54,7 +54,7 @@ from bootstrap_modal_forms.generic import (
 class RegistrarAdministrador(BSModalCreateView):
     template_name = 'usuarios/crear_administrador.html'
     form_class = AdminForm
-    success_message = 'Success: Usuario creado.'
+    success_message = 'Administrador creado.'
     success_url = reverse_lazy('gestion_usuarios')
     
     def post(self, request, *args, **kwargs):
@@ -89,9 +89,8 @@ class RegistrarAdministrador(BSModalCreateView):
 class RegistrarUsuario(BSModalCreateView):
     template_name = 'usuarios/crear_usuario.html'
     form_class = UsuarioForm
-    success_message = 'Success: Usuario creado.'
+    success_message = 'Usuario creado.'
     success_url = reverse_lazy('gestion_usuarios')
-
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
@@ -103,6 +102,41 @@ class RegistrarUsuario(BSModalCreateView):
                 nuevo_usuario = Usuario(
                     username=form.cleaned_data.get('username'),
                     es_usuario=True
+                )
+                nuevo_usuario.set_password(password)
+                nuevo_usuario.save()
+                # Envía mail
+                send_mail(
+                    subject=username,
+                    message='Has sido registrado en el sistema de gestión documental SST, tu clave es: ' + password,
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=[username],
+                )
+                messages.success(request, "Usuario creado correctamente, clave enviada al correo")
+                return HttpResponseRedirect(reverse_lazy('gestion_usuarios'))
+            else:
+                messages.success(request, "Usuario duplicado o dominio de cinte incorrecto @grupocinte.com")
+                return HttpResponseRedirect(reverse_lazy('gestion_usuarios'))
+        else:
+            return HttpResponseRedirect(reverse_lazy('gestion_usuarios'))
+
+
+class RegistrarGestor(BSModalCreateView):
+    template_name = 'usuarios/crear_gestor.html'
+    form_class = UsuarioForm
+    success_message = 'Gestor creado.'
+    success_url = reverse_lazy('gestion_usuarios')
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = Usuario.objects.make_random_password()
+            # Valida correo cinte
+            if "@grupocinte.com" in username:
+                nuevo_usuario = Usuario(
+                    username=form.cleaned_data.get('username'),
+                    es_gestor=True
                 )
                 nuevo_usuario.set_password(password)
                 nuevo_usuario.save()
@@ -141,7 +175,7 @@ class GestionUsuarios(generic.ListView, LoginRequiredMixin):
 
     def get_context_data(self, **kwargs):
         # Prerrequisito
-        context = super(GestionUsuarios, self).get_context_data(**kwargs)        
+        context = super(GestionUsuarios, self).get_context_data(**kwargs)
         # Contextos individuales (Objeto)
         context['usuarios'] = Usuario.objects.all()
         return context

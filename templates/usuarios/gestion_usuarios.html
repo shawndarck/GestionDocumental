@@ -22,18 +22,19 @@
         <h3 class="text-white mb-1 ms-4">Gestión de usuarios</h3>
         <button id="create-user" class="btn btn-primary" type="button" name="button">
           <span class="fa fa-plus mr-2"></span>Registrar usuario
-        </button> 
+        </button>
         <button id="create-admin" class="btn btn-primary" type="button" name="button">
           <span class="fa fa-plus mr-2"></span>Registrar Administrador
-        </button>  
+        </button>
+        <button id="create-gestor" class="btn btn-primary" type="button" name="button">
+          <span class="fa fa-plus mr-2"></span>Registrar Gestor
+        </button>
       </div>
       <div class="table-responsive">
         <table id="tbl-planear" class="table align-items-center table-light table-flush">
 
             <thead class="">
               <tr class="cabezera-estandar">
-                <th scope="col">Usuario
-                </th>
                 <th scope="col">Correo</th>
                 <th scope="col">Rol</th>
                 <th scope="col"></th>
@@ -49,13 +50,12 @@
                       {{ item.username }}
                   </td>
                   <td scope="row">
-                      {{ item.email }}
-                  </td>
-                  <td scope="row">
                     {% if item.es_administrador %}
                       <span>Administrador</span>
                     {% elif item.es_usuario %}
                       <span>Usuario</span>
+                    {% elif item.es_gestor %}
+                      <span>Gestor</span>
                     {% else %}
                       <span>Sin rol</span>
                     {% endif %}
@@ -108,11 +108,14 @@
         });
       }
     CrearUsuarioSyncModalForm();
-    
+
     $("#create-admin").modalForm({
         formURL: "{% url 'registrar_administrador' %}"
     });
-  
+
+    $("#create-gestor").modalForm({
+      formURL: "{% url 'registrar_gestor' %}"
+    });
 
   });
 
