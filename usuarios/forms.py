@@ -31,7 +31,7 @@ class UsuarioForm(BSModalModelForm):
 
     class Meta:
         model = Usuario
-        fields = ['username']
+        fields = ['username', 'first_name', 'last_name']
 
 
 class AdminForm(BSModalModelForm):
@@ -41,7 +41,16 @@ class AdminForm(BSModalModelForm):
 
     class Meta:
         model = Usuario
-        fields = ['username']
+        fields = ['username', 'first_name', 'last_name']
+
+
+class CambiarNombreForm(BSModalModelForm):
+
+    class Meta:
+        model = Usuario
+        fields = ['first_name', 'last_name']
+
+
 
 class CambiarParsswordForm(BSModalModelForm):
 

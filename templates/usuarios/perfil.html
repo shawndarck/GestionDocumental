@@ -24,8 +24,10 @@
             <h2 class="card-title text-dark">Perfil</h2>
             <br>
             <h6 class="card-subtitle mb-2 text-muted">Información personal</h6>
-            <p class="card-text">Nombre: {{user.username}}</p>
-            <p class="card-text">Correo cinte: {{user.email}}</p>
+            <p class="card-text">Nombres: {{user.first_name}}</p>
+            <p class="card-text">Apellidos: {{user.last_name}}</p>
+            <p class="card-text">Correo cinte: {{user.username}}</p>
+            <a class="nombres btn btn-primary" data-form-url="{% url 'cambiar_nombres' user.pk %}">Cambiar nombres</a>
             <a class="clave btn btn-primary" data-form-url="{% url 'cambiar_clave' user.pk %}">Cambiar clave</a>
           </div>
         </div>
@@ -46,6 +48,13 @@
         });
       }
       claveModalForm();
+
+      function nombresModalForm() {
+        $(".nombres").each(function () {
+            $(this).modalForm({formURL: $(this).data("form-url")});
+        });
+      }
+      nombresModalForm();
     });
   </script>
 {% endblock %}

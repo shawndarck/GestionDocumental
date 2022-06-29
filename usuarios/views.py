@@ -38,6 +38,7 @@ from .forms import (
     AdminForm,
     CambiarParsswordForm,
     LoginForm,
+    CambiarNombreForm,
 )
 
 from bootstrap_modal_forms.generic import BSModalCreateView
@@ -217,6 +218,14 @@ class PasswordUpdateView(BSModalUpdateView):
         else:
             form = self.form_class(request.POST)
             return render(request, self.template_name, {'form': form})
+
+
+class CambiarNombreUpdateView(BSModalUpdateView):
+    model = Usuario
+    template_name = 'usuarios/actualizar_nombres.html'
+    form_class = CambiarNombreForm
+    success_message = 'Nombres cambiados.'
+    success_url = reverse_lazy('perfil')
 
 
 def login(request):

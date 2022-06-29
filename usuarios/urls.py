@@ -22,6 +22,7 @@ urlpatterns = [
     path('verification/', include('verify_email.urls')),
     path('perfil/', login_required(views.PerfilDetailView.as_view()), name='perfil'),
     path('cambiar_clave/<int:pk>', login_required(views.PasswordUpdateView.as_view()), name='cambiar_clave'),
+    path('cambiar_nombres/<int:pk>', login_required(views.CambiarNombreUpdateView.as_view()), name='cambiar_nombres'),
     # path('verification/', include('verify_email')),
 ]
 
