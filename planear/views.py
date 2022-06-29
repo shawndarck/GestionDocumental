@@ -407,6 +407,12 @@ class EvidenciaPlanearDeleteView(BSModalDeleteView):
     success_message = 'Success: evidencia borrada.'
     success_url = reverse_lazy('planear')
 
+    def get_success_url(self):
+        if self.request.user.es_administrador:
+            return reverse_lazy('planear')
+        elif self.request.user.es_gestor:
+            return reverse_lazy('planear_usuario')
+
 
 
 def calificar_planear(request):

@@ -268,3 +268,9 @@ class EvidenciaHacerDeleteView(BSModalDeleteView):
     template_name = 'usuarios/eliminar_evidencia.html'
     success_message = 'Success: evidencia borrada.'
     success_url = reverse_lazy('hacer')
+
+    def get_success_url(self):
+        if self.request.user.es_administrador:
+            return reverse_lazy('hacer')
+        elif self.request.user.es_gestor:
+            return reverse_lazy('hacer_usuario')
