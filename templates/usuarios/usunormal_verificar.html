@@ -50,9 +50,21 @@
                   <td scope="row">
                     {{ item.descripcion }}
                   </td>
-                  <td>
-                    <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
-                  </td>
+                  {% if user.es_gestor %}
+                    <td>
+                      <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia_verificar' item.pk %}" >Cargar evidencias</a>
+                    </td>
+                  {% endif %}
+                  {% if user.es_usuario %}
+                    <td>
+                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
+                    </td>
+                  {% endif %}
+                  {% if user.es_gestor %}
+                    <td>
+                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_verificar' item.pk %}" >Ver evidencias</a>
+                    </td>
+                  {% endif %}
                 </tr>
               {% endfor %}
                  

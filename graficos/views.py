@@ -258,7 +258,7 @@ def bar_chart_phva(request):
     labels = []
     data = []
 
-    queryset = Ciclo.objects.order_by('-id')[:4]
+    queryset = Ciclo.objects.all().order_by('id')
     for ciclo in queryset:
         labels.append(ciclo.descripcion)
         data.append(ciclo.calificacion_obtenida)

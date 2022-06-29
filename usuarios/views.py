@@ -218,6 +218,9 @@ def login(request):
             elif user.es_administrador == True:
                 Group.objects.get(name='perfiladministrador').user_set.add(user)
                 return redirect('/torta_administrador/')
+            elif user.es_gestor == True:
+                Group.objects.get(name='perfilgestor').user_set.add(user)
+                return redirect('/torta_gestor/')
             else:
                 context = {'error': messages.success(request, "Usuario desactivado! contacte con un administrador")}  # Agregar mensaje de error
                 return render(request, 'usuarios/login.html', {'context': context})

@@ -28,6 +28,12 @@ class EvidenciaHacerCreateView(BSModalCreateView):
     success_message = 'Success: Book was created.'
     success_url = reverse_lazy('hacer')
 
+    def get_success_url(self):
+        if self.request.user.es_administrador:
+            return reverse_lazy('hacer')
+        elif self.request.user.es_gestor:
+            return reverse_lazy('hacer_usuario')
+
     def form_valid(self, form):
         form.instance.fk_item_estandar_id = self.kwargs.get('pk')
         return super(EvidenciaHacerCreateView, self).form_valid(form)
@@ -39,6 +45,12 @@ class EvidenciaVerificarCreateView(BSModalCreateView):
     success_message = 'Success: Book was created.'
     success_url = reverse_lazy('verificar')
 
+    def get_success_url(self):
+        if self.request.user.es_administrador:
+            return reverse_lazy('verificar')
+        elif self.request.user.es_gestor:
+            return reverse_lazy('verificar_usuario')
+
     def form_valid(self, form):
         form.instance.fk_item_estandar_id = self.kwargs.get('pk')
         return super(EvidenciaVerificarCreateView, self).form_valid(form)
@@ -49,6 +61,12 @@ class EvidenciaActuarCreateView(BSModalCreateView):
     form_class = EvidenciaModelForm
     success_message = 'Success: Book was created.'
     success_url = reverse_lazy('actuar')
+
+    def get_success_url(self):
+        if self.request.user.es_administrador:
+            return reverse_lazy('actuar')
+        elif self.request.user.es_gestor:
+            return reverse_lazy('actuar_usuario')
 
     def form_valid(self, form):
         form.instance.fk_item_estandar_id = self.kwargs.get('pk')

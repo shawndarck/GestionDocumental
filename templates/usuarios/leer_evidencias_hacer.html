@@ -19,7 +19,8 @@
           <div class="card-header border-0">
             {% if user.es_administrador %}
             <a class="eliminar-evidencia btn btn-danger text-dark" data-form-url="{% url 'eliminar_evidencia_hacer' i.pk %}" >Eliminar</a>
-            {% else %}
+            {% elif user.es_gestor %}
+            <a class="eliminar-evidencia btn btn-danger text-dark" data-form-url="{% url 'eliminar_evidencia_actuar' i.pk %}" >Eliminar</a>
             {% endif %}
               <p>{{ i.nombre_evidencia }}</p>
               <p>{{ i.fk_item_estandar }}</p>

@@ -23,7 +23,6 @@
           <div class="progress ms-4 me-4">
             <div class="progress-bar bg-primary" placeholder="hola mundo" role="progressbar" style="width: {{ ciclo.porcentaje_obtenido }}%" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
           </div>
-          
         </div>
         <div class="table-responsive">
           <table id="tbl-planear" class="table align-items-center table-light table-flush">
@@ -51,9 +50,21 @@
                     <td scope="row">
                         {{ item.descripcion }}
                     </td>
-                    <td>
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia_planear' item.pk %}" >Cargar evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_usuario %}
+                      <td>
                         <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
-                    </td>
+                      </td>
+                    {% endif %}
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_planear' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
                   </tr>
                 {% endfor %}
                   
@@ -74,9 +85,21 @@
                     <td scope="row">
                       {{ item.descripcion }}
                     </td>
-                    <td>
-                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
-                    </td>
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia_planear' item.pk %}" >Cargar evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_usuario %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_planear' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
                   </tr>
                 {% endfor %}
                   
@@ -105,9 +128,21 @@
                     <td scope="row">
                       {{ item.descripcion }}
                     </td>
-                    <td>
-                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
-                    </td>
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia_planear' item.pk %}" >Cargar evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_usuario %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_planear' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
                   </tr>
                 {% endfor %}
                   
@@ -127,9 +162,21 @@
                     <td scope="row">
                       {{ item.descripcion }}
                     </td>
-                    <td>
-                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
-                    </td>
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia_planear' item.pk %}" >Cargar evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_usuario %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_planear' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
                   </tr>
                 {% endfor %}
                   
@@ -149,9 +196,21 @@
                     <td scope="row">
                       {{ item.descripcion }}
                     </td>
-                    <td>
-                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
-                    </td>
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia_planear' item.pk %}" >Cargar evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_usuario %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_planear' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
                   </tr>
                 {% endfor %}
                   
@@ -171,9 +230,21 @@
                     <td scope="row">
                       {{ item.descripcion }}
                     </td>
-                    <td>
-                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias' item.pk %}" >Ver evidencias</a>
-                    </td>
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia_planear' item.pk %}" >Cargar evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_usuario %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_planear' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
                   </tr>
                 {% endfor %}
                   
@@ -193,9 +264,21 @@
                     <td scope="row">
                       {{ item.descripcion }}
                     </td>
-                    <td>
-                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
-                    </td>
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia_planear' item.pk %}" >Cargar evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_usuario %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_planear' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
                   </tr>
                 {% endfor %}
                   
@@ -215,9 +298,21 @@
                     <td scope="row">
                       {{ item.descripcion }}
                     </td>
-                    <td>
-                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
-                    </td>
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia_planear' item.pk %}" >Cargar evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_usuario %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_planear' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
                   </tr>
                 {% endfor %}
                   
@@ -237,9 +332,21 @@
                     <td scope="row">
                       {{ item.descripcion }}
                     </td>
-                    <td>
-                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
-                    </td>
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia_planear' item.pk %}" >Cargar evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_usuario %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_planear' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
                   </tr>
                 {% endfor %}
                   
@@ -259,9 +366,21 @@
                     <td scope="row">
                       {{ item.descripcion }}
                     </td>
-                    <td>
-                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
-                    </td>
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia_planear' item.pk %}" >Cargar evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_usuario %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_planear' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
                   </tr>
                 {% endfor %}
                   
@@ -281,9 +400,21 @@
                     <td scope="row">
                       {{ item.descripcion }}
                     </td>
-                    <td>
-                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
-                    </td>
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia_planear' item.pk %}" >Cargar evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_usuario %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_planear' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
                   </tr>
                 {% endfor %}
                   
@@ -303,38 +434,62 @@
                     <td scope="row">
                       {{ item.descripcion }}
                     </td>
-                    <td>
-                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
-                    </td>
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia_planear' item.pk %}" >Cargar evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_usuario %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_planear' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
                   </tr>
                 {% endfor %}
-                  
+
               </tbody>
               <thead class="">
                 <tr class="cabezera-sub-estandar">
                   <th scope="col text-dark">{{ sub_estandar13 }}
-                  </th>                                  
+                  </th>
                   <th scope="col">({{ sub_estandar13.calificacion_obtenida }})%</th>
                 </tr>
               </thead>
-              
+
               <tbody>
-                
+
                 {% for item in item_estandar13 %}
                 <tr>
                     <td scope="row">
                       {{ item.descripcion }}
                     </td>
-                    <td>
-                      <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
-                    </td>
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="create btn btn-warning text-dark" data-id="{% url 'registrar_evidencia_planear' item.pk %}" >Cargar evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_usuario %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_usuario' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
+                    {% if user.es_gestor %}
+                      <td>
+                        <a class="leer-evidencias btn btn-primary" data-form-url="{% url 'leer_evidencias_planear' item.pk %}" >Ver evidencias</a>
+                      </td>
+                    {% endif %}
                   </tr>
                 {% endfor %}
-                  
+
               </tbody>
 
           </table>
-          
+
         </div>
       </div>
     </div>

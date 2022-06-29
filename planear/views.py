@@ -390,6 +390,12 @@ class EvidenciaPlanearCreateView(BSModalCreateView):
     success_message = 'Success: Book was created.'
     success_url = reverse_lazy('planear')
 
+    def get_success_url(self):
+        if self.request.user.es_administrador:
+            return reverse_lazy('planear')
+        elif self.request.user.es_gestor:
+            return reverse_lazy('planear_usuario')
+
     def form_valid(self, form):
         form.instance.fk_item_estandar_id = self.kwargs.get('pk')
         return super(EvidenciaPlanearCreateView, self).form_valid(form)
